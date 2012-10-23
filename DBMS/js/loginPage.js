@@ -1,7 +1,7 @@
 $("document").ready(function(){
 
-	// $("#usernameAlertView").hide();
-	// $("#passwordAlertView").hide();
+	 $("#usernameAlertView").hide();
+	 $("#passwordAlertView").hide();
 
 
 	$("#loginButton").click(function(event){
