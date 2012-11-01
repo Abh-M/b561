@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login</title>
+    <title>Categories</title>
     <!-- Bootstrap -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -30,14 +30,12 @@
 		      </a>
 		      <a class="brand" href="#">Course Discussion System</a>
 		      <div class="nav-collapse">
-				<!-- <ul class="nav">
-				  <li class="active">
-				    <a href="#">Home</a>
-				  </li>
-				  <li><a href="#">TEST</a></li>
-				  <li><a href="#">TEST</a></li>
-				</ul> -->
+				<ul class="nav"><li></li></ul>
 		      </div>
+			<form class="navbar-search pull-right">
+			  <input type="text" class="search-query" placeholder="Search">
+			</form>
+			
 		    </div>
 		  </div>
 	</div>
@@ -45,12 +43,12 @@
 	
 	<div class="container-fluid">
 	  <div class="row-fluid" id="row1"class="margin: 0px;">
-			<div class="span2" id="sidebar">
+			<div class="span2 well" id="sidebar">
 		      <!--Sidebar content-->
 		    </div>
 		    <div class="span8" id="contentPane">
 		      <!--Body content-->
-				<table class="table">
+				<table class="table table-striped">
 					<caption>Categories</caption>
 					<thead>
 						
@@ -63,7 +61,7 @@
 						
 				</table>
 		    </div>
-			<div class="span2" id="rightPane"></div>
+			<div class="span2 well" id="rightPane"></div>
 	  </div>
 	</div>
 	

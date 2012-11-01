@@ -1,6 +1,6 @@
 #contentPane
 {
-/*	height: 500px;*/
+	overflow : scroll;
 /*	background-color: yellow;*/
 	margin-left: 20px;
 	padding: 0;
@@ -9,14 +9,14 @@
 #sidebar{
 	position: static;
 	height: 500px;
-	background-color: red;
+/*	background-color: red;*/
 }
 
 
 #rightPane
 {
 	position: static;
-	background-color: black;
+/*	background-color: black;*/
 	height: 500px;
 	
 }
