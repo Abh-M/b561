@@ -8,19 +8,21 @@ $("document").ready(function(){
 		console.log("login button clicked");
 		var email = $("#inputEmail").val();
 		var pass = $("#inputPassword").val();
-		console.log("username :"+email);
-		console.log("password :"+pass);
+		console.log("username :"+email + email.length);
+		console.log("password :"+pass  + pass.length);
 		
-		if(email!=null)
-		{
-			//show alert
-			$("#usernameAlertView").hide();
-		}
+		if(email.length<1)
+		  $("#usernameAlertView").show();
 		else
-		{
-			//hide alert
-			$("#usernameAlertView").show();
-		}
+		 $("#usernameAlertView").hide();
+		
+		
+		if(pass.length<1)
+		  $("#passwordAlertView").show();
+		else 
+		 $("#passwordAlertView").hide();
+		
+		
 		event.preventDefault();
 	});
 	
