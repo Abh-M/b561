@@ -54,6 +54,7 @@
 						
 					</thead>
 					<tbody>
+					
 						<?php 
 							include "dbconnect.php";
 							$tableName = "category"; 
@@ -62,9 +63,11 @@
 							$num = mysql_numrows ($result);
 							for ($i = 0; $i < $num; $i++) 
 							{ 
+								$categoryid=mysql_result ($result, $i, "categoryid"); 
 								$categoryName = mysql_result ($result, $i, "Category"); 
 								echo "<tr class=\"tableRow\" id=\"ref\">
-								<td>$categoryName</td>
+								
+								<td><a href="."reply.php?categoryid=$categoryid".">".$categoryName."</a></td>
 								</tr>";
 							}
 						?>
