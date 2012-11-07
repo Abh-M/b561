@@ -1,5 +1,5 @@
 <?php 
-$dbHost = "silo.cs.indiana.edu"; 
+$dbHost = "silo.cs.indiana.edu:3306"; 
 $dbUserName = "b561f12_27"; 
 $dbPass = "b561f12_27"; 
 $dbName = "b561f12_27"; 
