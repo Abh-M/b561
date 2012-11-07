@@ -94,7 +94,7 @@ header('Location: categories.php');
 		</div>
 	    <div class="span6 well">
 	      <!--Body content-->
-		<p><img src="img/DiscussionForum.jpg"<p>
+		<p><img src="img/DiscussionForum.jpg"/><p>
 	    </div>
 	  </div>
 	</div>

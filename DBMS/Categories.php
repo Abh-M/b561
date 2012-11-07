@@ -39,7 +39,7 @@
 		    </div>
 		  </div>
 	</div>
-	
+
 	
 	<div class="container-fluid">
 	  <div class="row-fluid" id="row1"class="margin: 0px;">
@@ -54,9 +54,20 @@
 						
 					</thead>
 					<tbody>
-						<tr class="tableRow" id="ref">
-							<td>Category</td>
-						</tr>
+						<?php 
+							include "dbconnect.php";
+	$tableName = "category"; 
+	$query = "select * from $tableName"; 
+	$result = mysql_query ($query);
+	$num = mysql_numrows ($result);
+	for ($i = 0; $i < $num; $i++) 
+	{ 
+		$categoryName = mysql_result ($result, $i, "Category"); 
+		echo "<tr class=\"tableRow\" id=\"ref\">
+				<td>$categoryName</td>
+			</tr>";
+	} 
+	?>
 					</tbody>
 						
 				</table>
