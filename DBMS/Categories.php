@@ -56,18 +56,18 @@
 					<tbody>
 						<?php 
 							include "dbconnect.php";
-	$tableName = "category"; 
-	$query = "select * from $tableName"; 
-	$result = mysql_query ($query);
-	$num = mysql_numrows ($result);
-	for ($i = 0; $i < $num; $i++) 
-	{ 
-		$categoryName = mysql_result ($result, $i, "Category"); 
-		echo "<tr class=\"tableRow\" id=\"ref\">
-				<td>$categoryName</td>
-			</tr>";
-	} 
-	?>
+							$tableName = "category"; 
+							$query = "select * from $tableName"; 
+							$result = mysql_query ($query);
+							$num = mysql_numrows ($result);
+							for ($i = 0; $i < $num; $i++) 
+							{ 
+								$categoryName = mysql_result ($result, $i, "Category"); 
+								echo "<tr class=\"tableRow\" id=\"ref\">
+								<td>$categoryName</td>
+								</tr>";
+							}
+						?>
 					</tbody>
 						
 				</table>
