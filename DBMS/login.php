@@ -59,7 +59,7 @@ header('Location: categories.php');
 			  <div class="control-group">
 			    <label class="control-label" for="username">username</label>
 			    <div class="controls">
-			      <input type="text" id="username" placeholder="username">
+			      <input type="text" id="username" name="username" placeholder="username">
 			    </div>
 			  </div>
 			
@@ -72,7 +72,7 @@ header('Location: categories.php');
 			  <div class="control-group">
     			<label class="control-label" for="password">Password</label>
 			    <div class="controls">
-			      <input type="password" id="password" placeholder="password">
+			      <input type="password" id="password" name="password" placeholder="password">
 			    </div>
 			  </div>
               
