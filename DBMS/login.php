@@ -1,3 +1,14 @@
+<?php
+
+// Inialize session
+session_start();
+
+// Check, if user is already login, then jump to secured page
+if (isset($_SESSION['username'])) {
+header('Location: categories.php');
+}
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -42,13 +53,13 @@
 	<div class="container-fluid">
 	  <div class="row-fluid">
 	    <div class="span6 well">
-			<form class="form-horizontal">
+			<form class="form-horizontal" method="POST" action="loginvalidation.php">
 			  <legend><i class="icon-user" style="vertical-align: middle"></i>&nbsp;Log In</legend>
 			
 			  <div class="control-group">
-			    <label class="control-label" for="inputEmail">Email</label>
+			    <label class="control-label" for="username">username</label>
 			    <div class="controls">
-			      <input type="text" id="inputEmail" placeholder="Email">
+			      <input type="text" id="username" placeholder="username">
 			    </div>
 			  </div>
 			
@@ -59,9 +70,9 @@
 				</div>
 
 			  <div class="control-group">
-    			<label class="control-label" for="inputPassword">Password</label>
+    			<label class="control-label" for="password">Password</label>
 			    <div class="controls">
-			      <input type="password" id="inputPassword" placeholder="Password">
+			      <input type="password" id="password" placeholder="password">
 			    </div>
 			  </div>
               
