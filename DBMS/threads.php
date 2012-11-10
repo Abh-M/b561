@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Categories</title>
+	<title>Threads</title>
 	<!-- Bootstrap -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -57,7 +57,7 @@
 				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 
@@ -116,7 +116,7 @@
 					<!--Body content-->
 					<table class="table">
 						<caption><ul class="breadcrumb pull-left">
-							<li><a href="#">Categories</a> <span class="divider">/</span></li>
+							<li><a href="#">Category</a> <span class="divider">/</span><a href="#">Thread</a></li>
 						</ul></caption>
 						<thead>
 						</thead>
@@ -126,11 +126,11 @@
 									<table class="cellSkeleton">
 										<tbody>
 											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="threads.php">&lt;Category Name&gt;</a></td>
+												<td class="skeletonCol catName"><a href="#">&lt;Thread Name&gt;</a></td>
 												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
 											</tr>
 											<tr class="rowSkeleton">
-												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Threads&gt; -->50 threads</td>
+												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Posts&gt; -->50 Posts</td>
 												<td class="skeletonCol catModified"><!-- &lt;Last Modified&gt; -->Last Modified: </td>											
 											</tr>
 										</tbody>
@@ -147,21 +147,21 @@
 		</div>
 
 
-		<!-- Modal view for creating new category -->
+		<!-- Modal view for creating new thread -->
 
 		<div id="myModal" class="modal" style="display: none; ">
 			<div class="modal-header">
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
-				<h3>Create new category</h3>
+				<h3>Create new thread</h3>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="category name"  maxlength="200">
+				<input type="text" placeholder="Thread title"  maxlength="200">
 				<br/>
-				<textarea rows="5" placeholder="description"></textarea>
+				<textarea rows="5" placeholder="Post"></textarea>
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
+				<a href="#" class="btn btn-primary">Save Changes</a>
 			</div>
 		</div>
 
