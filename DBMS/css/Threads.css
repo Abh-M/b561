@@ -1,0 +1,35 @@
+#content_container
+{
+	margin-top: 60px;
+}
+
+#contentPane
+{
+	overflow : scroll;
+	/*	background-color: yellow;*/
+	margin-left: 20px;
+	padding: 0;
+	/*	box-shadow: inner 0 0 10px #888;*/
+
+}
+
+#sidebar{
+/*	position: fixed;*/
+height: 500px;
+/*	background-color: red;*/
+}
+
+
+#rightPane
+{
+	position: static;
+/*		background-color: black;*/
+	height: 500px;
+
+}
+
+.tableRow
+{
+	height: 20px;
+	background-color: blue;
+}

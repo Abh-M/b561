@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Categories</title>
+	<title>Threads</title>
 	<!-- Bootstrap -->
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -9,20 +9,18 @@
 	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-	// <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 
 
-	<script src="js/Categories.js"></script>
+//	<script src="js/Threads.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
-	
 
-
-	<link href="css/Categories.css" rel="stylesheet">
+	<link href="css/Threads.css" rel="stylesheet">
 
 
 	<script type="text/javascript">  
@@ -34,32 +32,16 @@
 
 	</head>
 	<body>
-		<?php 
-	// include "dbconnect.php";
-	// $tableName = "category"; 
-	// $query = "select * from $tableName"; 
-	// $result = mysql_query ($query);
-	// $num = mysql_numrows ($result);
-	// for ($i = 0; $i < $num; $i++) 
-	// { 
-		// 	$categoryid=mysql_result ($result, $i, "categoryid"); 
-		// 	$categoryName = mysql_result ($result, $i, "Category"); 
-		// 	echo "<tr class=\"tableRow\" id=\"ref\">
-		// 	
-		// 	<td><a href="."reply.php?categoryid=$categoryid".">".$categoryName."</a></td>
-		// 	</tr>";
-		// }
-		?>
 
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0px 10px;">
 				<a class="brand" href="#">Course Disscussion System</a>
-				<ul class="nav">
+				<!-- <ul class="nav">
 					<li class="divider-vertical"></li>				
 					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
-				</ul>
+				</ul> -->
 
 
 
@@ -112,30 +94,25 @@
 					<!-- Side bar div  -->
 				</div>
 
-				<div  class="span7" id="contentPane">
+				<div class="span7" id="contentPane">
 					<!--Body content-->
-					<table class="table">
+					<table class="table" id="">
 						<caption><ul class="breadcrumb pull-left">
 							<li><a href="#">Categories</a> <span class="divider">/</span></li>
+							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
-						<thead>
-						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">
-								<td>
-									<table class="cellSkeleton">
-										<tbody>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="threads.php">&lt;Category Name&gt;</a></td>
-												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
-											</tr>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Threads&gt; -->50 threads</td>
-												<td class="skeletonCol catModified"><!-- &lt;Last Modified&gt; -->Last Modified: </td>											
-											</tr>
-										</tbody>
-									</table>
-								</td>
+								<table class="inner_table">
+									<tbody>
+										<tr class="thread_rating_row">
+											<td><i class="icon-star-empty"></i></td>
+										</tr>
+										<tr class="thread_content_row">
+											<td class="thread_content_col"><td>
+										</tr>
+									</tbody>
+								</table>
 							</tr>
 						</tbody>
 					</table>
