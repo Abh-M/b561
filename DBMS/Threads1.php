@@ -48,6 +48,11 @@
 			$(this).children().toggleClass('icon-star icon-star-empty');
 		});
 		
+		$(".delete_button_cell").click(function(){
+//			$(this).parent(".tableRow").hide();			
+						$(this).parentsUntil(".tableRow").hide();			
+		});
+		
 	});
 	</script>
 
@@ -59,11 +64,11 @@
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0px 10px;">
 				<a class="brand" href="#">Course Disscussion System</a>
-				<!-- <ul class="nav">
+				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
-				</ul> -->
+				</ul>
 
 
 
@@ -142,7 +147,7 @@
 											<td class="created_col">
 												<p>Date Created:</p>
 											</td>
-											<td class="delete_button_cell" ><a href="#"><i class="icon-remove"></i></td>
+											<td class="delete_button_cell" ><a href="#eded"><i class="icon-remove"></i></td>
 										</tr>
 											
 										<tr class="thread_content_row">
@@ -175,11 +180,11 @@
 		<div id="myModal" class="modal" style="display: none; ">
 			<div class="modal-header">
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
-				<h3>Create new category</h3>
+				<h3>New Post</h3>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="category name"  maxlength="200">
-				<br/>
+				<!-- <input type="text" placeholder="category name"  maxlength="200">
+				<br/> -->
 				<textarea rows="5" placeholder="description"></textarea>
 			</div>
 			<div class="modal-footer">
