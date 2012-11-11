@@ -23,11 +23,33 @@
 	<link href="css/Threads.css" rel="stylesheet">
 
 
-	<script type="text/javascript">  
-	$(document).ready(function () {  
+	<script type = "text/javascript">  
+	$(document).ready(function () 
+	{  
+
+		$(".delete_button_cell").children().hide();
+		$(".inner_table").mouseenter
+		(
+			function()
+			{
+				$(this).find(".delete_button_cell").children().show();
+			}
+		);
+
+		$(".inner_table").mouseleave(
+		function(){
+		$(this).find(".delete_button_cell").children().hide();
+		});
+
 		$('.dropdown-toggle').dropdown(); 
-		$('[rel=tooltip]').tooltip(); 
-		});</script>
+		$('[rel   = tooltip]').tooltip(); 
+		
+		$(".star_link").click(function(){
+			$(this).children().toggleClass('icon-star icon-star-empty');
+		});
+		
+	});
+	</script>
 
 
 	</head>
@@ -96,26 +118,50 @@
 
 				<div class="span7" id="contentPane">
 					<!--Body content-->
-					<table class="table" id="">
-						<caption><ul class="breadcrumb pull-left">
+					<table class="table outer_table">
+						<thead><caption><ul class="breadcrumb pull-left">
 							<li><a href="#">Categories</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
+						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">
-								<table class="inner_table">
+								<td><table class="inner_table table">
 									<tbody>
 										<tr class="thread_rating_row">
-											<td><i class="icon-star-empty"></i></td>
+											<td class="rating_col">
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a>
+											</td>
+											<td class="modified_col">
+												<p>Date Modfied:</p>
+											</td>
+											<td class="created_col">
+												<p>Date Created:</p>
+											</td>
+											<td class="delete_button_cell" ><a href="#"><i class="icon-remove"></i></td>
 										</tr>
+											
 										<tr class="thread_content_row">
-											<td class="thread_content_col"><td>
+											<td class="thread_content_col" colspan="4">
+												<div class="thread_content_div">
+														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
+												</div>
+											</td>
 										</tr>
 									</tbody>
-								</table>
+								</table></td>
 							</tr>
 						</tbody>
-					</table>
+						</table>
+						
+						
+						<div  class="new_post_div">
+							
+						</div>
 				</div>
 
 

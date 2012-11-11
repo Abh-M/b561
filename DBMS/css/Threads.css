@@ -6,30 +6,60 @@
 #contentPane
 {
 	overflow : scroll;
-	/*	background-color: yellow;*/
 	margin-left: 20px;
 	padding: 0;
-	/*	box-shadow: inner 0 0 10px #888;*/
 
 }
 
 #sidebar{
-/*	position: fixed;*/
 height: 500px;
-/*	background-color: red;*/
 }
 
 
 #rightPane
 {
 	position: static;
-/*		background-color: black;*/
 	height: 500px;
 
 }
 
-.tableRow
+td 
 {
-	height: 20px;
-	background-color: blue;
+	border: 0px !important;
+}
+
+
+
+.rating_col
+{
+	width: 10%s;
+}
+
+.inner_table
+{
+	margin-bottom: 0px;
+	border: 1px solid lightgray !important;
+	border-radius: 5px;
+
+}
+
+.created_col .modified_col
+{
+	width: 45%;
+}
+.thread_rating_row
+{
+	font-size: 11px;
+}
+
+.thread_content_div
+{
+	font-size: 12px;
+}
+
+.delete_button_cell
+{
+	text-align: right !important;
+	padding: 0px !important;
+	padding-right: 2px !important;
 }
