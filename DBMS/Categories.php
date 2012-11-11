@@ -9,8 +9,10 @@
 	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-	// <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
+	
 
 
 	<script src="js/Categories.js"></script>
@@ -29,6 +31,11 @@
 	$(document).ready(function () {  
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel=tooltip]').tooltip(); 
+		$("#blob").popover({ html : true}); 
+		// $('.nav').on('click', 'a', function() { 
+		// 	      $('.popover').addClass('popover-large');  
+		// 	    });
+		
 		});</script>
 
 
@@ -87,17 +94,10 @@
 				<form class="navbar-search">
 					<div class="input-append">
 						<input class="span3" id="appendedInputButtons" type="text">
-						<a class="btn" href="#" rel="popover" id="searchFilter" data-placement="top" data-content="demo" data-orignal-title="popvoer"><i class="icon-search"></i></a>
-						<div class="popover fade bottom in" id="example">
-							<div class="arrow"></div>
-							<div class="popover-inner">
-								<h3 class="popover-title">Sample Popover</h3>
-								<div class="popover-content">
-									<p>Sample value</p>
-								</div>
-							</div>
-						</div>
-						<button class="btn" type="button">Advanced Options</button>
+						<a class="btn" href="#"><i class="icon-search"></i></a>
+						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+						<!-- <a href="#" id="blob" class="btn" rel="popover inner" data-placement="bottom" data-content="Works" data-original-title="Filters">Advance Search</a> -->
+						
 					</div>
 				</form>
 			</div>
@@ -164,6 +164,51 @@
 				<a href="#" class="btn btn-primary">Save changes</a>
 			</div>
 		</div>
+		
+		
+		
+		<!-- Modal view for search filters -->
+		
+		<div id="filtersModal" class="modal" style="display: none; ">
+			<div class="modal-header">
+				<!-- <button class="close" data-dismiss="modal">×</button> -->
+				<h6>Filters</h6>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+				  
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by keyword</label>
+				    <div class="controls">
+				      <input type="text" id="keyword_filter" placeholder="keyword">
+				    </div>
+				 </div>
+				
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by User</label>
+				    <div class="controls">
+				      <input type="text" id="user_filter" placeholder="user">
+				    </div>
+				 </div>
+
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by Tag</label>
+				    <div class="controls">
+				      <input type="text" id="tag_filter" placeholder="tag">
+				    </div>
+				 </div>
+				
+				
+				
+				</form>
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+				<a href="#" class="btn btn-primary">Search</a>
+			</div>
+		</div>
+
 
 
 	</body>

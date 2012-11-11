@@ -106,7 +106,8 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn" type="button">Advanced Options</button>
+						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+						
 					</div>
 				</form>
 			</div>
@@ -192,6 +193,50 @@
 				<a href="#" class="btn btn-primary">Save changes</a>
 			</div>
 		</div>
+		
+		<!-- Modal view for search filters -->
+		
+		<div id="filtersModal" class="modal" style="display: none; ">
+			<div class="modal-header">
+				<!-- <button class="close" data-dismiss="modal">×</button> -->
+				<h6>Filters</h6>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+				  
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by keyword</label>
+				    <div class="controls">
+				      <input type="text" id="keyword_filter" placeholder="keyword">
+				    </div>
+				 </div>
+				
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by User</label>
+				    <div class="controls">
+				      <input type="text" id="user_filter" placeholder="user">
+				    </div>
+				 </div>
+
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by Tag</label>
+				    <div class="controls">
+				      <input type="text" id="tag_filter" placeholder="tag">
+				    </div>
+				 </div>
+				
+				
+				
+				</form>
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+				<a href="#" class="btn btn-primary">Search</a>
+			</div>
+		</div>
+
+		
 
 
 	</body>
