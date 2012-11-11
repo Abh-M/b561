@@ -108,11 +108,11 @@
 			<div class="row-fluid" id="row1"class="margin: 0px;">
 
 
-				<div style="position:fixed; left:30px; top:70px;" class="span2 well well-small"   id="sidebar">
+				<div class="span2 well well-small"   id="sidebar">
 					<!-- Side bar div  -->
 				</div>
 
-				<div  style="position:relative; left:205px; top:;" class="span7" id="contentPane">
+				<div  class="span7" id="contentPane">
 					<!--Body content-->
 					<table class="table">
 						<caption><ul class="breadcrumb pull-left">
@@ -142,7 +142,7 @@
 				</div>
 
 
-				<div style="position:fixed; left:980px; top:70px;" class="span3 well" id="rightPane"></div>
+				<div class="span3 well" id="rightPane"></div>
 			</div>
 		</div>
 
