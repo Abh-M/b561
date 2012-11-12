@@ -60,7 +60,7 @@
 					<!-- <li class="divider-vertical"></li> -->
 					<li class="divider-vertical"></li>				
 					<li class="dropdown">
-						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><i class="icon-user icon-white"></i></a>
+						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><p id="loggedUser" style="display: inline;">Username</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
 								<a href="#" tabindex="-1">profile</a>
@@ -112,7 +112,7 @@
 									<table class="cellSkeleton">
 										<tbody>
 											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="">&lt;Category Name&gt;</a></td>
+												<td class="skeletonCol catName"><a href="" class="catLink">&lt;Category Name&gt;</a></td>
 												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
 												<td class="skeletonCol catDelButton"><a href="javascript:void(0)" class="delLink"><i class="icon-remove"></i></a></td>
 											</tr>

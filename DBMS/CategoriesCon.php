@@ -80,6 +80,11 @@ function deleteCategory($kCategoryId)
 }
 
 
+function getUserInfo()
+{
+	return json_encode($_SESSION['username']);
+}
+
 $event = $_POST["eventType"];
 $result;
 switch($event)
@@ -104,6 +109,11 @@ switch($event)
 		$result = deleteCategory($catId);
 	}
 	break;
+	
+	case "getUserInfo":
+	{
+		$result = getUserInfo();
+	}
 }
 
 

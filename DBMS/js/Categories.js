@@ -2,6 +2,19 @@ $("document").ready(
 	function()
 	{
 		
+		
+		//Get logged in userinfo
+		$.post("CategoriesCon.php",{eventType: 'getUserInfo'},function(response){
+			var userInfo = jQuery.parseJSON(response);
+			console.log(userInfo);
+			if(userInfo)
+			{
+				//set username
+				$("#loggedUser").html(String(userInfo));
+			}
+		});
+		
+		
 		$(".delLink").css('opacity',0);
 		$(".delLink").removeAttr('href');
 		
@@ -19,6 +32,9 @@ $("document").ready(
 
 			}
 		});
+		
+		
+
 		
 		// Delete category
 		$(".delLink").live('click',function(event){
@@ -154,7 +170,14 @@ $("document").ready(
 		
 		
 		
-			
+	//When user clicks on a category
+	$('.catLink').live('click',function(event){
+		event.preventDefault();
+		//get the category id, for the link which is click
+		var catid  = $(this).parent().attr('categoryId');
+		console.log("Clicked category : "+catid);
+		window.location = 'Threads1.php?catId='+catid;
+	});	
 		
 
 	}
