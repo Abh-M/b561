@@ -162,21 +162,21 @@
 		</div>
 
 
-		<!-- Modal view for creating new category -->
+		<!-- Modal view for creating new thread -->
 
 		<div id="myModal" class="modal" style="display: none; ">
 			<div class="modal-header">
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
-				<h3>New Post</h3>
+				<h6>New Thread</h6>
 			</div>
 			<div class="modal-body">
-				<!-- <input type="text" placeholder="category name"  maxlength="200">
-				<br/> -->
-				<textarea rows="5" placeholder="description"></textarea>
+				<input type="text" placeholder="thread title" id="newThreadTitle" maxlength="200">
+				<br/>
+				<textarea rows="5" placeholder="thread description" id="newThreadDesc"></textarea>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
+				<a href="#" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
+				<a href="#" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
 			</div>
 		</div>
 		

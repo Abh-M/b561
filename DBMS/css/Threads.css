@@ -55,6 +55,7 @@ td
 
 .thread_content_div
 {
+	white-space: pre-wrap;
 	font-size: 12px;
 }
 
