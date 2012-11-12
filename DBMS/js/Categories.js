@@ -81,9 +81,9 @@ $("document").ready(
 		
 		//onload get all categories
 		$.post("CategoriesCon.php", { eventType: "getAllCategories" },
-		   function(data) {
-		     //console.log(data);
-			 var categories = jQuery.parseJSON(data);
+		function(data) {
+			//console.log(data);
+			var categories = jQuery.parseJSON(data);
 			//console.log(categories);
 			for(var index in categories)
 			{
@@ -93,19 +93,19 @@ $("document").ready(
 				console.log(cat.categoryid);
 				console.log(cat.creator);
 				
-					var cell = $("#ref").clone();
-					var cc = cell[0];
-					$(cc).removeAttr('id');
-					console.log($(cc).find(".catName").children().html());
-					$(cc).find(".catName").children().html(cat.Category);
-					$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
-					$(cc).find(".delLink").attr('href','#');
-					$(cc).insertAfter('#ref');
+				var cell = $("#ref").clone();
+				var cc = cell[0];
+				$(cc).removeAttr('id');
+				console.log($(cc).find(".catName").children().html());
+				$(cc).find(".catName").children().html(cat.Category);
+				$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
+				$(cc).find(".delLink").attr('href','#');
+				$(cc).insertAfter('#ref');
 				
 				
 			}
 			$("#ref").hide();
-		   });
+		});
 		
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel=tooltip]').tooltip(); 
@@ -119,10 +119,10 @@ $("document").ready(
 		$("#logoutLink").click(function(event){
 			console.log("Done");
 			$.ajax({
-			  type: "POST",
-			  url: "logout.php",
+				type: "POST",
+				url: "logout.php",
 			}).done(function(data){
-			  window.location = "index.php";
+				window.location = "index.php";
 			});
 		});
 		
@@ -170,14 +170,14 @@ $("document").ready(
 		
 		
 		
-	//When user clicks on a category
-	$('.catLink').live('click',function(event){
-		event.preventDefault();
-		//get the category id, for the link which is click
-		var catid  = $(this).parent().attr('categoryId');
-		console.log("Clicked category : "+catid);
-		window.location = 'Threads1.php?catId='+catid;
-	});	
+		//When user clicks on a category
+		$('.catLink').live('click',function(event){
+			event.preventDefault();
+			//get the category id, for the link which is click
+			var catid  = $(this).parent().attr('categoryId');
+			console.log("Clicked category : "+catid);
+			window.location = 'Threads1.php?catId='+catid;
+		});	
 		
 
 	}

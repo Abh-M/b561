@@ -1,29 +1,102 @@
 $("document").ready(
 	function()
 	{
-		// $("#example1").popover();  
-
-		var cell = $("#ref").clone();
-		var cc = cell[0];
-		console.log(cell[0]);
-
-
-		for(var i=0;i<20;i++)
-		{
-			cell = $("#ref").clone();
-			cc = cell[0];
-			$(cc).insertAfter('#ref');
+		//$(".delete_button_cell").children().hide();
 		
-		}
+		
+		// $(".inner_table").mouseenter
+		// (
+		// 	function()
+		// 	{
+		// 		$(this).find(".delete_button_cell").children().show();
+		// 	}
+		// );
+		// 
+		// 
+		// $(".inner_table").mouseleave(
+		// 	function()
+		// 	{
+		// 		$(this).find(".delete_button_cell").children().hide();
+		// 	}
+		// );
 
+		$('.dropdown-toggle').dropdown(); 
+		$('[rel   = tooltip]').tooltip(); 
+
+		$(".star_link").click(function(){
+			$(this).children().toggleClass('icon-star icon-star-empty');
+		});
+
+		$(".delete_button_cell").click(function(){
+			//			$(this).parent(".tableRow").hide();			
+			$(this).parentsUntil(".tableRow").hide();			
+		});
+
+
+		// var cell = $("#ref").clone();
+		// var cc = cell[0];
+		// console.log(cell[0]);
+		// 
+		// 
 		// for(var i=0;i<20;i++)
-		// 	$(cell).insertAfter('#ref');
+		// {
+		// 	cell = $("#ref").clone();
+		// 	cc = cell[0];
+		// 	$(cc).insertAfter('#ref');
+		// 
+		// }
+
 
 		$("#searchFilter").click(function(event){
 			console.log("Opening search filter");
 			$('#example').popover();
 		});
+		
+		
+		
+		//get get url components
+		var params = location.search;
+		console.log(params);
+		var components = String(params).split("=");
+		var param_name = components[0].slice(1);
+		var param_val = components[1];
+		console.log(param_val+" <> "+param_name);
+		
+		//get Parent category info
+		 $.post("ThreadsCon.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		 function(response){
+			var json = jQuery.parseJSON(response);
+			console.log(json);
+			$("#CategoryName").html(String(json.Category));
+			$("#CategoryName").attr("catId",String(json.categoryid));
+		});
+		
+		
+		//get threads in the category
+		$.post('ThreadsCon.php',{requestType: 'getThreadsForCategory',catId: String(param_val)},function(response){
+			var list = jQuery.parseJSON(response);
+			console.log(list);
+			for(var i=0; i<list.length; i++)
+			{
+				var thread = list[i];
+				
+				var cell = $("#ref").clone();
+				var cc = cell[0];
+				var thread_Col = $(cell).find('.thread_title_div');
+				console.log(thread_Col);
+				var thread_desc = $(cell).find('.thread_content_div');
+				console.log(thread_desc);
+				
+				$(cell).find('.thread_title_div').html(thread.title);
+				$(cell).find('.thread_content_div').html(thread.description);
+				$(cell).insertAfter("#ref");
+				
+				
+			}
+			$("#ref").hide();
+		});
+		
 
 
-	}
-);
+		}
+	);

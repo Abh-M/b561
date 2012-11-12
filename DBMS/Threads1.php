@@ -27,31 +27,6 @@
 	$(document).ready(function () 
 	{  
 
-		$(".delete_button_cell").children().hide();
-		$(".inner_table").mouseenter
-		(
-			function()
-			{
-				$(this).find(".delete_button_cell").children().show();
-			}
-		);
-
-		$(".inner_table").mouseleave(
-		function(){
-		$(this).find(".delete_button_cell").children().hide();
-		});
-
-		$('.dropdown-toggle').dropdown(); 
-		$('[rel   = tooltip]').tooltip(); 
-		
-		$(".star_link").click(function(){
-			$(this).children().toggleClass('icon-star icon-star-empty');
-		});
-		
-		$(".delete_button_cell").click(function(){
-//			$(this).parent(".tableRow").hide();			
-						$(this).parentsUntil(".tableRow").hide();			
-		});
 		
 	});
 	</script>
@@ -126,7 +101,7 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="#">Categories</a> <span class="divider">/</span></li>
+							<li><a href="#" id="CategoryName">Categories</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
 						</thead>
@@ -150,6 +125,16 @@
 											</td>
 											<td class="delete_button_cell" ><a href="#eded"><i class="icon-remove"></i></td>
 										</tr>
+										
+										
+										<tr class="thread_title_row">
+											<td class="thread_title_col" colspan="4">
+												<div class="thread_title_div">
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
+												</div>
+											</td>
+										</tr>
+										
 											
 										<tr class="thread_content_row">
 											<td class="thread_content_col" colspan="4">
@@ -158,6 +143,7 @@
 												</div>
 											</td>
 										</tr>
+										
 									</tbody>
 								</table></td>
 							</tr>
