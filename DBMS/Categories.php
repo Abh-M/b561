@@ -114,6 +114,7 @@
 											<tr class="rowSkeleton">
 												<td class="skeletonCol catName"><a href="">&lt;Category Name&gt;</a></td>
 												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
+												<td class="skeletonCol catDelButton"><a href="javascript:void(0)" class="delLink"><i class="icon-remove"></i></a></td>
 											</tr>
 											<tr class="rowSkeleton">
 												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Threads&gt; -->50 threads</td>

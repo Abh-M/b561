@@ -68,6 +68,17 @@ function createNewCategory($catName,$ownerId)
 
 }
 
+function deleteCategory($kCategoryId)
+{
+	 $result = json_encode(false);
+	 $query = "DELETE FROM category WHERE categoryid = ".$kCategoryId;
+	 $result = mysql_query($query);
+	 if($result==true)
+	 	$result = getAllCategories();
+		
+	return $result;
+}
+
 
 $event = $_POST["eventType"];
 $result;
@@ -84,6 +95,13 @@ switch($event)
 		 $userid = $_SESSION['userid'];
 		 $result = createNewCategory($catName,$userid);
 		
+	}
+	break;
+	
+	case "deleteCategory":
+	{
+		$catId = $_POST['categoryId'];
+		$result = deleteCategory($catId);
 	}
 	break;
 }
