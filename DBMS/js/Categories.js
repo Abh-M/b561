@@ -2,6 +2,24 @@ $("document").ready(
 	function()
 	{
 		
+		$(".delLink").css('opacity',0);
+		$(".delLink").removeAttr('href');
+		
+		$('.cellSkeleton').live('mouseover mouseout', function(event) {
+			if (event.type == 'mouseover') 
+			{
+				$(this).find('.delLink').css('opacity',1);
+				$(this).find('.delLink').attr('href',"");
+				
+			} 
+			else 
+			{
+				$(this).find(".delLink").css('opacity',0);
+				$(this).find(".delLink").removeAttr('href');
+
+			}
+		});
+		
 		// Delete category
 		$(".delLink").live('click',function(event){
 			event.preventDefault();
