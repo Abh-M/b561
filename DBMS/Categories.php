@@ -25,20 +25,6 @@
 
 
 	<link href="css/Categories.css" rel="stylesheet">
-
-
-	<script type="text/javascript">  
-	$(document).ready(function () {  
-		$('.dropdown-toggle').dropdown(); 
-		$('[rel=tooltip]').tooltip(); 
-		$("#blob").popover({ html : true}); 
-		// $('.nav').on('click', 'a', function() { 
-		// 	      $('.popover').addClass('popover-large');  
-		// 	    });
-		
-		});</script>
-
-
 	</head>
 	<body>
 		<?php 
@@ -80,7 +66,7 @@
 								<a href="#" tabindex="-1">profile</a>
 							</li>
 							<li>
-								<a href="#" tabindex="-1">logout</a>
+								<a href="#" tabindex="-1" id="logoutLink">logout</a>
 							</li>
 
 						</ul>
@@ -126,7 +112,7 @@
 									<table class="cellSkeleton">
 										<tbody>
 											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="threads.php">&lt;Category Name&gt;</a></td>
+												<td class="skeletonCol catName"><a href="">&lt;Category Name&gt;</a></td>
 												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
 											</tr>
 											<tr class="rowSkeleton">
@@ -155,13 +141,13 @@
 				<h3>Create new category</h3>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="category name"  maxlength="200">
+				<input type="text" placeholder="category name"  maxlength="200" id="catName">
 				<br/>
 				<textarea rows="5" placeholder="description"></textarea>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save changes</a>
+				<a href="#" class="btn" data-dismiss="modal" id="cancelNewCat">Close</a>
+				<a href="#" class="btn btn-primary" id="newCatSave">Save changes</a>
 			</div>
 		</div>
 		

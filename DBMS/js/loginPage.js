@@ -6,8 +6,8 @@ $("document").ready(function(){
 
 	$("#loginButton").click(function(event){
 		console.log("login button clicked");
-		var email = $("#inputEmail").val();
-		var pass = $("#inputPassword").val();
+		var email = $("#username").val();
+		var pass = $("#password").val();
 		console.log("username :"+email + email.length);
 		console.log("password :"+pass  + pass.length);
 		
