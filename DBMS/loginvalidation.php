@@ -20,7 +20,7 @@ if (mysql_num_rows($login) == 1) {
 }
 else {
 	// Jump to login page
-	 header('Location: index.php/?userid=1');
+	 header('Location: index.php');
 
 }
 
