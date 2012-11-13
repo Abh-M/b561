@@ -11,19 +11,44 @@ $("document").ready(function(){
 		console.log("username :"+email + email.length);
 		console.log("password :"+pass  + pass.length);
 		
+		
+		var isUsernameValid = false;
+		var isPasswordValid = false;
+		
 		if(email.length<1)
-		  $("#usernameAlertView").show();
+		{
+			$("#usernameAlertView").show();
+		}  
 		else
-		 $("#usernameAlertView").hide();
+		{
+			$("#usernameAlertView").hide();
+			isUsernameValid = true;
+		}
+		 
 		
 		
 		if(pass.length<1)
-		  $("#passwordAlertView").show();
+		{
+			$("#passwordAlertView").show();
+			
+		}  
 		else 
-		 $("#passwordAlertView").hide();
+		{
+			$("#passwordAlertView").hide();
+			isPasswordValid = true;
+			
+		}
 		
 		
-		event.preventDefault();
+		if(!isPasswordValid || !isUsernameValid)
+		{
+			event.preventDefault();
+			return false;
+		}
+
+		 
+		
+		
 	});
 	
 	$("#forgotPasswordButton").click(function(){
