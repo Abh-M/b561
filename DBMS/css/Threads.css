@@ -39,7 +39,7 @@ td
 {
 	margin-bottom: 0px;
 /*	border: 1px solid lightgray !important;*/
-	box-shadow:inset  0 0 2	px gray;
+	box-shadow:inset  0 0 3px black;
 	border-radius: 3px;
 
 }
@@ -70,4 +70,15 @@ td
 {
 		box-shadow:  0 0 3px black;
 
+}
+
+
+.thread_title_row
+{
+	border-top: thin solid lightgray;
+}
+
+.thread_content_row
+{
+	border-top: thin solid lightgray;
 }

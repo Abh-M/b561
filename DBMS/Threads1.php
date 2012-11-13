@@ -123,15 +123,15 @@
 											<td class="created_col">
 												<p>Date Created:</p>
 											</td>
-											<td class="delete_button_cell" ><a href="#eded"><i class="icon-remove"></i></td>
+											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></td>
 										</tr>
 										
 										
 										<tr class="thread_title_row">
 											<td class="thread_title_col" colspan="4">
-												<div class="thread_title_div">
+												<h5><div class="thread_title_div">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
-												</div>
+												</div></h5>
 											</td>
 										</tr>
 										

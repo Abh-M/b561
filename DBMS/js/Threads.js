@@ -3,6 +3,30 @@ $("document").ready(
 	{
 		//$(".delete_button_cell").children().hide();
 		
+		$(".deleteLink").removeAttr('href');
+		$(".deleteLink").css('opacity',0);
+		
+		
+		
+		$('.inner_table').live('mouseover mouseout', function(event) {
+			if (event.type == 'mouseover') 
+			{
+				$(this).find(".deleteLink").attr('href',"");
+				$(this).find(".deleteLink").css('opacity',1);
+				
+			} 
+			else 
+			{
+				$(".deleteLink").removeAttr('href');
+				$(".deleteLink").css('opacity',0);
+
+			}
+		});
+		
+		
+		
+		
+		
 		
 		// $(".inner_table").mouseenter
 		// (
@@ -152,6 +176,53 @@ $("document").ready(
 			
 			
 			$("#newThreadCloseButton").click();
+			
+		});
+		
+		
+		
+		//delete threads
+		$(".deleteLink").live('click',function(event){
+			event.preventDefault();
+			
+			//get the thread id and category id of the thread
+			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
+			var catId = $("#CategoryName").attr('catId');
+			
+			
+			$.post('ThreadsCon.php',{requestType: 'deleteThreadInCategory',catId: String(catId) ,threadId: String(threadId)},function(response){
+				
+				//remove old list
+				$("#ref").show();
+				$("#ref").siblings().detach();
+				
+				var list = jQuery.parseJSON(response);
+				console.log(list);
+				for(var i=0; i<list.length; i++)
+				{
+					var thread = list[i];
+				
+					var cell = $("#ref").clone();
+					var cc = cell[0];
+					$(cell).removeAttr('id');
+					$(cell).attr('threadid',String(thread.threadid));
+				
+					var thread_Col = $(cell).find('.thread_title_div');
+					console.log(thread_Col);
+					var thread_desc = $(cell).find('.thread_content_div');
+					console.log(thread_desc);
+				
+					$(cell).find('.thread_title_div').html(thread.title);
+					$(cell).find('.thread_content_div').html(thread.description);
+					$(cell).insertAfter("#ref");
+				
+				
+				}
+				$("#ref").hide();
+				
+				
+				
+			});
 			
 		});
 		
