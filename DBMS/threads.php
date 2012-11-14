@@ -9,47 +9,31 @@
 	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-	// <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 
 
-	<script src="js/Categories.js"></script>
+//	<script src="js/Threads.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
+	<link href="css/Threads.css" rel="stylesheet">
 
 
-	<link href="css/Categories.css" rel="stylesheet">
+	<script type = "text/javascript">  
+	$(document).ready(function () 
+	{  
 
-
-	<script type="text/javascript">  
-	$(document).ready(function () {  
-		$('.dropdown-toggle').dropdown(); 
-		$('[rel=tooltip]').tooltip(); 
-		});</script>
+		
+	});
+	</script>
 
 
 	</head>
 	<body>
-		<?php 
-	// include "dbconnect.php";
-	// $tableName = "category"; 
-	// $query = "select * from $tableName"; 
-	// $result = mysql_query ($query);
-	// $num = mysql_numrows ($result);
-	// for ($i = 0; $i < $num; $i++) 
-	// { 
-		// 	$categoryid=mysql_result ($result, $i, "categoryid"); 
-		// 	$categoryName = mysql_result ($result, $i, "Category"); 
-		// 	echo "<tr class=\"tableRow\" id=\"ref\">
-		// 	
-		// 	<td><a href="."reply.php?categoryid=$categoryid".">".$categoryName."</a></td>
-		// 	</tr>";
-		// }
-		?>
 
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -57,7 +41,7 @@
 				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 
@@ -97,7 +81,8 @@
 								</div>
 							</div>
 						</div>
-						<button class="btn" type="button">Advanced Options</button>
+						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+						
 					</div>
 				</form>
 			</div>
@@ -112,33 +97,63 @@
 					<!-- Side bar div  -->
 				</div>
 
-				<div  class="span7" id="contentPane">
+				<div class="span7" id="contentPane">
 					<!--Body content-->
-					<table class="table">
-						<caption><ul class="breadcrumb pull-left">
-							<li><a href="#">Category</a> <span class="divider">/</span><a href="#">Thread</a></li>
+					<table class="table outer_table">
+						<thead><caption><ul class="breadcrumb pull-left">
+							<li><a href="#" id="CategoryName">Categories</a> <span class="divider">/</span></li>
+							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
-						<thead>
 						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">
-								<td>
-									<table class="cellSkeleton">
-										<tbody>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="#">&lt;Thread Name&gt;</a></td>
-												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
-											</tr>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Posts&gt; -->50 Posts</td>
-												<td class="skeletonCol catModified"><!-- &lt;Last Modified&gt; -->Last Modified: </td>											
-											</tr>
-										</tbody>
-									</table>
-								</td>
+								<td><table class="inner_table table">
+									<tbody>
+										<tr class="thread_rating_row">
+											<td class="rating_col">
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a>
+												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a>
+											</td>
+											<td class="modified_col">
+												<p>Date Modfied:</p>
+											</td>
+											<td class="created_col">
+												<p>Date Created:</p>
+											</td>
+											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></td>
+										</tr>
+										
+										
+										<tr class="thread_title_row">
+											<td class="thread_title_col" colspan="4">
+												<h5><div class="thread_title_div"><a href="" class="threadLink">
+													Thread Title</a>
+												</div></h5>
+											</td>
+										</tr>
+										
+											
+										<tr class="thread_content_row">
+											<td class="thread_content_col" colspan="4">
+												<div class="thread_content_div">
+														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
+												</div>
+											</td>
+										</tr>
+										
+									</tbody>
+								</table></td>
 							</tr>
 						</tbody>
-					</table>
+						</table>
+						
+						
+						<div  class="new_post_div">
+							
+						</div>
 				</div>
 
 
@@ -152,18 +167,62 @@
 		<div id="myModal" class="modal" style="display: none; ">
 			<div class="modal-header">
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
-				<h3>Create new thread</h3>
+				<h6>New Thread</h6>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="Thread title"  maxlength="200">
+				<input type="text" placeholder="thread title" id="newThreadTitle" maxlength="200">
 				<br/>
-				<textarea rows="5" placeholder="Post"></textarea>
+				<textarea rows="5" placeholder="thread description" id="newThreadDesc"></textarea>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Close</a>
-				<a href="#" class="btn btn-primary">Save Changes</a>
+				<a href="#" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
+				<a href="#" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
 			</div>
 		</div>
+		
+		<!-- Modal view for search filters -->
+		
+		<div id="filtersModal" class="modal" style="display: none; ">
+			<div class="modal-header">
+				<!-- <button class="close" data-dismiss="modal">×</button> -->
+				<h6>Filters</h6>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+				  
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by keyword</label>
+				    <div class="controls">
+				      <input type="text" id="keyword_filter" placeholder="keyword">
+				    </div>
+				 </div>
+				
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by User</label>
+				    <div class="controls">
+				      <input type="text" id="user_filter" placeholder="user">
+				    </div>
+				 </div>
+
+				<div class="control-group">
+				    <label class="control-label" for="inputEmail">Search by Tag</label>
+				    <div class="controls">
+				      <input type="text" id="tag_filter" placeholder="tag">
+				    </div>
+				 </div>
+				
+				
+				
+				</form>
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+				<a href="#" class="btn btn-primary">Search</a>
+			</div>
+		</div>
+
+		
 
 
 	</body>
