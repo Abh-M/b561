@@ -13,14 +13,14 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 
 
-//	<script src="js/Threads.js"></script>
+//	<script src="js/threads.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="css/Threads.css" rel="stylesheet">
+	<link href="css/threads.css" rel="stylesheet">
 
 
 	<script type = "text/javascript">  
@@ -54,10 +54,10 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">profile</a>
+								<a href="#" tabindex="-1">Profile</a>
 							</li>
 							<li>
-								<a href="#" tabindex="-1">logout</a>
+								<a href="#" tabindex="-1">Logout</a>
 							</li>
 
 						</ul>

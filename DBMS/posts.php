@@ -20,7 +20,7 @@
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
-	<link href="css/Posts.css" rel="stylesheet">
+	<link href="css/posts.css" rel="stylesheet">
 
 
 	<script type = "text/javascript">  
@@ -38,7 +38,7 @@
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0px 10px;">
-				<a class="brand" href="#">Course Disscussion System Post</a>
+				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
 					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
@@ -101,7 +101,7 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="#" id="CategoryName">Categories</a> <span class="divider">/</span></li>
+							<li><a href="#" id="CategoryName">Posts</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
 						</thead>

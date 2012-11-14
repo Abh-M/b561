@@ -15,7 +15,7 @@
 	
 
 
-	<script src="js/Categories.js"></script>
+	<script src="js/categories.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -24,7 +24,7 @@
 	
 
 
-	<link href="css/Categories.css" rel="stylesheet">
+	<link href="css/categories.css" rel="stylesheet">
 	</head>
 	<body>
 		<?php 
@@ -63,10 +63,10 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><p id="loggedUser" style="display: inline;">Username</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">profile</a>
+								<a href="#" tabindex="-1">Profile</a>
 							</li>
 							<li>
-								<a href="#" tabindex="-1" id="logoutLink">logout</a>
+								<a href="#" tabindex="-1" id="logoutLink">Logout</a>
 							</li>
 
 						</ul>
