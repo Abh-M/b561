@@ -2,36 +2,7 @@
 
 session_start();
 
-$dbHost = "silo.cs.indiana.edu:3306"; 
-$dbUserName = "b561f12_27"; 
-$dbPass = "b561f12_27"; 
-$dbName = "b561f12_27"; 
-
-$dbConnection = mysql_connect ($dbHost, $dbUserName, $dbPass);
-
-
-if($dbConnection!=NULL)
-{
-	//echo "<br/>Connected to database";
-	
-}
-else
-{
-	die("Error connection :".mysql_error());
-}
-$selResult = mysql_select_db ($dbName);
-
-
-if($selResult!=NULL)
-{
-	//echo "<br/>Database selected ";
-}
-else
-{
-	die("Error selection : ".mysql_error());
-}	
-
-
+include "dbconnect.php";
 
 function getAllCategories()
 {
@@ -116,20 +87,6 @@ switch($event)
 	}
 }
 
-
-
-
-
-
 echo $result;
-
-// $jsonString = getAllCategories();
-// echo $jsonString";
-
-
-//Get all categories
-
-
-
 
 ?>
