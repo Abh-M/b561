@@ -16,7 +16,7 @@ if (mysql_num_rows($login) == 1) {
 	$_SESSION['username'] = $_POST['username'];
 	$_SESSION['userid'] = $userid;
 	
-	header('Location: Categories.php');
+	header('Location: categories.php');
 }
 else {
 	// Jump to login page

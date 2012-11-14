@@ -53,7 +53,7 @@ $("document").ready(function(){
 	
 	$("#forgotPasswordButton").click(function(){
 
-		console.log("forgot password clicked")
+		console.log("forgot password clicked");
 	});
 	
 

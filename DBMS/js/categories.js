@@ -4,7 +4,7 @@ $("document").ready(
 		
 		
 		//Get logged in userinfo
-		$.post("CategoriesCon.php",{eventType: 'getUserInfo'},function(response){
+		$.post("categoriesRepository.php",{eventType: 'getUserInfo'},function(response){
 			var userInfo = jQuery.parseJSON(response);
 			console.log(userInfo);
 			if(userInfo)
@@ -43,7 +43,7 @@ $("document").ready(
 			var catId = $(this).parent().siblings('td[categoryid]').attr('categoryid');
 			console.log(catId);
 			
-			$.post("CategoriesCon.php",{eventType: "deleteCategory", categoryId: catId},function(response){
+			$.post("categoriesRepository.php",{eventType: "deleteCategory", categoryId: catId},function(response){
 				
 				
 				$("#ref").show();
@@ -80,7 +80,7 @@ $("document").ready(
 		
 		
 		//onload get all categories
-		$.post("CategoriesCon.php", { eventType: "getAllCategories" },
+		$.post("categoriesRepository.php", { eventType: "getAllCategories" },
 		function(data) {
 			//console.log(data);
 			var categories = jQuery.parseJSON(data);
@@ -138,7 +138,7 @@ $("document").ready(
 		$("#newCatSave").click(function(){
 			var catName = $("#catName").val();
 			
-			$.post("CategoriesCon.php",{eventType: 'createNewCategory', kName: String(catName)},function(response){
+			$.post("categoriesRepository.php",{eventType: 'createNewCategory', kName: String(catName)},function(response){
 				$("#ref").show();
 				$("#ref").siblings().detach();
 				var categories = jQuery.parseJSON(response);
@@ -176,7 +176,7 @@ $("document").ready(
 			//get the category id, for the link which is click
 			var catid  = $(this).parent().attr('categoryId');
 			console.log("Clicked category : "+catid);
-			window.location = 'Threads1.php?catId='+catid;
+			window.location = 'threads.php?catId='+catid;
 		});	
 		
 

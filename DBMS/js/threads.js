@@ -26,8 +26,6 @@ $("document").ready(
 		
 		
 		
-		
-		
 		// $(".inner_table").mouseenter
 		// (
 		// 	function()
@@ -87,7 +85,7 @@ $("document").ready(
 		console.log(param_val+" <> "+param_name);
 		
 		//get Parent category info
-		 $.post("ThreadsCon.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		 $.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
 		 function(response){
 			var json = jQuery.parseJSON(response);
 			console.log(json);
@@ -97,7 +95,7 @@ $("document").ready(
 		
 		
 		//get threads in the category
-		$.post('ThreadsCon.php',{requestType: 'getThreadsForCategory',catId: String(param_val)},function(response){
+		$.post('threadsRepository.php',{requestType: 'getThreadsForCategory',catId: String(param_val)},function(response){
 			var list = jQuery.parseJSON(response);
 			console.log(list);
 			for(var i=0; i<list.length; i++)
@@ -141,7 +139,7 @@ $("document").ready(
 			console.log("Creating new thread title "+ title + " desc: "+ desc + "for cat "+catId);
 			
 			//create new thread and get updated list of threads
-			$.post("ThreadsCon.php",{requestType: 'createNewThreadForCategory', catId: String(catId), title: String(title), desc: String(desc)},
+			$.post("threadsRepository.php",{requestType: 'createNewThreadForCategory', catId: String(catId), title: String(title), desc: String(desc)},
 			function(response){
 				
 				//remove old list
@@ -191,7 +189,7 @@ $("document").ready(
 			var catId = $("#CategoryName").attr('catId');
 			
 			
-			$.post('ThreadsCon.php',{requestType: 'deleteThreadInCategory',catId: String(catId) ,threadId: String(threadId)},function(response){
+			$.post('threadsRepository.php',{requestType: 'deleteThreadInCategory',catId: String(catId) ,threadId: String(threadId)},function(response){
 				
 				//remove old list
 				$("#ref").show();

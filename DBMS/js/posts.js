@@ -87,7 +87,7 @@ $("document").ready(
 		console.log(param_val+" <> "+param_name);
 		
 		//get Parent category info
-		 $.post("PostsCon.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		 $.post("postsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
 		 function(response){
 			var json = jQuery.parseJSON(response);
 			console.log(json);
@@ -97,7 +97,7 @@ $("document").ready(
 		
 		
 		//get posts in the category
-		$.post('PostsCon.php',{requestType: 'getPostsForThread',catId: String(param_val)},function(response){
+		$.post('postsRepository.php',{requestType: 'getPostsForThread',catId: String(param_val)},function(response){
 			var list = jQuery.parseJSON(response);
 			console.log(list);
 			for(var i=0; i<list.length; i++)
@@ -140,7 +140,7 @@ $("document").ready(
 			console.log("Creating new post title "+ title + " desc: "+ desc + "for cat "+catId);
 			
 			//create new post and get updated list of posts
-			$.post("PostsCon.php",{requestType: 'createNewPostForCategory', catId: String(catId), title: String(title), desc: String(desc)},
+			$.post("postsRepository.php",{requestType: 'createNewPostForCategory', catId: String(catId), title: String(title), desc: String(desc)},
 			function(response){
 				
 				//remove old list
@@ -190,7 +190,7 @@ $("document").ready(
 			var catId = $("#CategoryName").attr('catId');
 			
 			
-			$.post('PostsCon.php',{requestType: 'deletePostInCategory',catId: String(catId) ,postId: String(postId)},function(response){
+			$.post('postsRepository.php',{requestType: 'deletePostInCategory',catId: String(catId) ,postId: String(postId)},function(response){
 				
 				//remove old list
 				$("#ref").show();
