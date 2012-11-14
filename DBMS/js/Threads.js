@@ -114,7 +114,8 @@ $("document").ready(
 				var thread_desc = $(cell).find('.thread_content_div');
 				console.log(thread_desc);
 				
-				$(cell).find('.thread_title_div').html(thread.title);
+				$(cell).find('.thread_title_div').children().html(thread.title);
+				$(cell).find('.thread_title_div').attr('threadId',String(thread.threadid));
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).insertAfter("#ref");
 				
@@ -226,7 +227,14 @@ $("document").ready(
 			
 		});
 		
-		
+		//When user clicks on a particular thread
+		$('.threadLink').live('click',function(event){
+			event.preventDefault();
+			//get the thread id, for the link which is clicked
+			var threadid  = $(this).parent().attr('threadId');
+			console.log("Clicked thread : "+threadid);
+			window.location = 'posts.php?threadId='+threadid;
+		});	
 
 
 		}
