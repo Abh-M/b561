@@ -51,7 +51,7 @@
 					<!-- <li class="divider-vertical"></li> -->
 					<li class="divider-vertical"></li>				
 					<li class="dropdown">
-						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><i class="icon-user icon-white"></i></a>
+						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<p  id="loggedUser">Usernname</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
 								<a href="#" tabindex="-1">Profile</a>
@@ -90,14 +90,13 @@
 
 
 		<div class="container-fluid" id="content_container">
-			<div class="row-fluid" id="row1"class="margin: 0px;">
+			<div class="row-fluid" id="row1">
 
 
-				<div class="span2 well well-small"   id="sidebar">
-					<!-- Side bar div  -->
-				</div>
+				<!-- <div class="span2 well well-small"   id="sidebar">
+				</div> -->
 
-				<div class="span7" id="contentPane">
+				<div class="span9" id="contentPane">
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
@@ -107,32 +106,27 @@
 						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">
-								<td><table class="inner_table table">
+								<td class="col_for_inner_table">
+									<div class="inner_div">
+									<table class="inner_table table">
 									<tbody>
-										<tr class="thread_rating_row">
-											<td class="rating_col">
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a>
-											</td>
-											<td class="modified_col">
-												<p>Date Modfied:</p>
-											</td>
-											<td class="created_col">
-												<p>Date Created:</p>
-											</td>
-											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></td>
-										</tr>
 										
 										
 										<tr class="thread_title_row">
-											<td class="thread_title_col" colspan="4">
-												<h5><div class="thread_title_div"><a href="" class="threadLink">
-													Thread Title</a>
+											<td class="ratings_col1" rowspan="3">
+												<div id="ddiv">
+												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
+												<span class="mybadge" id="votes_val">10</span><br/>
+												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
+												</div>
+											</td>	
+											
+											<td class="thread_title_col" colspan="3">
+												<h5><div class="thread_title_div">
+													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
 												</div></h5>
 											</td>
+											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-trash"></i></td>
 										</tr>
 										
 											
@@ -142,29 +136,40 @@
 														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
 												</div>
 											</td>
+											
+											
+										</tr>
+										
+										<tr class="thread_info_row">
+											<td class="views_col">
+												<p class="views_val">Views:</p>
+											</td>
+											<td class="created_by_col">
+												<p class="created_by_lbl">Created By:&nbsp; <span class="created_by_val label"></span></p>
+											</td>
+											<td class="created_col">
+												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
+											</td>
 										</tr>
 										
 									</tbody>
-								</table></td>
+								</table>
+								</div>
+								</td>
 							</tr>
 						</tbody>
 						</table>
-						
-						
-						<div  class="new_post_div">
-							
-						</div>
 				</div>
 
 
-				<div class="span3 well" id="rightPane"></div>
+				<div class="span3 well well-small" id="rightPane"></div>
 			</div>
 		</div>
 
 
 		<!-- Modal view for creating new thread -->
 
-		<div id="myModal" class="modal" style="display: none; ">
+		<div id="myModal" class="modal" style="display: none;">
 			<div class="modal-header">
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
 				<h6>New Thread</h6>

@@ -25,7 +25,7 @@ function getParentCategoryInfo($kCatId)
 function getThreadsForCategory($kCatId)
 {
 	$result = json_encode(false);
-	$query = "SELECT * from Thread";
+	$query = "SELECT * from Thread WHERE categoryid = ".$kCatId;
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -43,7 +43,9 @@ function getThreadsForCategory($kCatId)
 function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup)
 {
 	$result = json_encode(false);
-	$query  = "INSERT INTO Thread (title,description,categoryid) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId." )";
+	$currDateTime = date('Y-m-d H:i:s');
+	$createrId = $_SESSION['userid'];
+	$query  = "INSERT INTO Thread (title,description,categoryid,datecreated,owner,votes,views) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId.", '".$currDateTime."', ".$createrId.", 0, 0 )";
 	$result = mysql_query($query);
 	if($result==true)
 	{
@@ -63,6 +65,30 @@ function deleteThreadInCategory($kThreadId,$kCatId)
 	$queryResult = mysql_query($query);
 	if($queryResult==true)
 	  $result = getThreadsForCategory($kCatId);
+	return $result;
+}
+
+
+function incrementVoteForThread($kId)
+{
+	$result = json_encode(false);
+	$query = "UPDATE Thread SET votes = votes +1  WHERE threadid = ".$kId;
+	$queryResult = mysql_query($query);
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+	
+	return $result;
+}
+
+
+function decrementVoteForThread($kId)
+{
+	$result = json_encode(false);
+	$query = "UPDATE Thread SET votes = votes - 1  WHERE threadid = ".$kId;
+	$queryResult = mysql_query($query);
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+	
 	return $result;
 }
 
@@ -94,6 +120,17 @@ switch($reqType)
 	$threadId = $_POST['threadId'];
 	$result = deleteThreadInCategory($threadId,$catId);
 	break;
+	
+	case 'incrementVoteForThread':
+	$threadId = $_POST['threadId'];
+	$result = incrementVoteForThread($threadId);
+	break;
+	
+	case 'decrementVoteForThread':
+	$threadId = $_POST['threadId'];
+	$result = decrementVoteForThread($threadId);
+	break;
+	
 		
 }
 

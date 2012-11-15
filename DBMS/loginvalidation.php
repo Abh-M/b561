@@ -15,6 +15,32 @@ if (mysql_num_rows($login) == 1) {
 	$userid = $row["userid"];
 	$_SESSION['username'] = $_POST['username'];
 	$_SESSION['userid'] = $userid;
+	$_SESSION['userType'] = $row['type'];
+	
+	
+	$userInfoMap = array();
+	$userInfoMap['username'] = $_SESSION['username'];
+	$userInfoMap['userid'] = $_SESSION['userid'];
+	$userInfoMap['userType'] = $_SESSION['userType'];
+	
+	 $_SESSION['userInfoMap'] = $userInfoMap;
+	 	
+	
+
+//Update lastlogin
+	$currDateTime = date('Y-m-d H:i:s');
+	$updateQuery = "UPDATE User SET lastlogin = '$currDateTime' WHERE userid = $userid ";
+	$updateResult = mysql_query($updateQuery);
+	if($updateQuery)
+	{
+		//update success
+	}
+	else
+	{
+		//update fiailed
+	}
+
+		
 	
 	header('Location: categories.php');
 }

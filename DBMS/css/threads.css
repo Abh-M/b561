@@ -12,14 +12,15 @@
 }
 
 #sidebar{
-height: 500px;
+	height: 500px;
 }
 
 
 #rightPane
 {
-	position: static;
+	/*	position: static;*/
 	height: 500px;
+	margin-left: 10px;
 
 }
 
@@ -30,25 +31,37 @@ td
 
 
 
-.rating_col
+.views_col
 {
-	width: 10%s;
+
 }
 
 .inner_table
 {
 	margin-bottom: 0px;
-/*	border: 1px solid lightgray !important;*/
-	box-shadow:inset  0 0 3px black;
-	border-radius: 3px;
 
 }
 
-.created_col .modified_col
+/*.date_creted_lbl .created_by_col
 {
-	width: 45%;
+	text-align: right;
 }
-.thread_rating_row
+*/
+.created_col 
+{
+	
+	width: 45%;
+	text-align: right !important;
+}
+
+	.created_by_col
+{
+	
+	width: 45%;
+	text-align: right !important;
+}
+
+.thread_info_row
 {
 	font-size: 11px;
 }
@@ -68,17 +81,86 @@ td
 
 .inner_table:hover
 {
-		box-shadow:  0 0 3px black;
+
+}
+
+
+
+
+.thread_title_row
+{
+}
+
+.thread_content_row
+{
+}
+
+#loggedUser
+{
+	display: inline;
+}
+
+
+#content_container
+{
+	padding-right: 5px;
+	padding-left: 5px;
+}
+
+
+.ratings_col1
+{
+	width: 10px;
+	vertical-align: middle !important;
+}
+.ratings_col
+{
+	width: 10px;
+	vertical-align: middle;
+}
+
+#ddiv
+{
+	text-align: center;
+	vertical-align: middle;
+	
+}
+
+.mybadge
+{
+	padding: 5px;
+	margin-top: 5px !important;
+	font-weight: bold;
+	
+
+}
+
+.inner_div:first-child
+{
+}
+
+.inner_div
+{
+box-shadow: 0 0 5px #888;
+
+
+}
+
+.inner_div:hover
+{
+/*	box-shadow: 0 0 5px #888;*/
+background-color: whiteSmoke;
 
 }
 
 
 .thread_title_row
 {
-	border-top: thin solid lightgray;
+	border-bottom: 1px solid lightgrey !important;
 }
 
-.thread_content_row
+.thread_info_row
 {
-	border-top: thin solid lightgray;
+	border-top: 1px solid lightgrey !important;
+	
 }

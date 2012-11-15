@@ -45,10 +45,6 @@ $("document").ready(
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel   = tooltip]').tooltip(); 
 
-		$(".star_link").click(function(){
-			$(this).children().toggleClass('icon-star icon-star-empty');
-		});
-
 		$(".delete_button_cell").click(function(){
 			//			$(this).parent(".tableRow").hide();			
 			$(this).parentsUntil(".tableRow").hide();			
@@ -108,12 +104,28 @@ $("document").ready(
 				$(cell).attr('threadid',String(thread.threadid));
 				
 				var thread_Col = $(cell).find('.thread_title_div');
-				console.log(thread_Col);
 				var thread_desc = $(cell).find('.thread_content_div');
-				console.log(thread_desc);
 				
-				$(cell).find('.thread_title_div').children().html(thread.title);
-				$(cell).find('.thread_title_div').attr('threadId',String(thread.threadid));
+				$.ajax({
+				  type: 'POST',
+				  url: 'helpers.php',
+				  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
+				  async:false,
+				  success: function(kResponse)
+				  {
+					  var kUser = jQuery.parseJSON(kResponse);
+					  $(cell).find('.created_by_val').html(kUser.username);
+					  console.log('got .. '+thread.title);
+				  }
+				});
+				var createdDate = new Date(thread.datecreated);
+				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+				
+				//var formattedDate = createdDate.format();
+				
+				$(cell).find('.date_creted_val').html(formattedDate);
+				$(cell).find(".mybadge").html(thread.votes);
+				$(cell).find('.thread_title_div').html(thread.title);
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).insertAfter("#ref");
 				
@@ -223,6 +235,55 @@ $("document").ready(
 				
 			});
 			
+		});
+		
+		$(".plus_button").live('click',function(event){
+			//increment vote
+			$(this).removeAttr('href');
+			event.preventDefault();
+			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
+			console.log("Incrementing vote for .."+threadId);
+			var prev_count = parseInt($(this).siblings(".mybadge").html());
+			$(this).siblings(".mybadge").html(String(prev_count+1));
+			//update database
+			$.post('threadsRepository.php',{requestType: 'incrementVoteForThread',threadId: threadId},function(response){
+				console.log("Done");
+				var status = jQuery.parseJSON(response);
+				console.log(status);
+				if(status == true)
+				{
+				}
+				
+			});
+
+			
+			$(this).attr('href','');
+			return false;
+
+		});
+		
+		$(".minus_button").live('click',function(event){
+			//increment vote
+			event.preventDefault();
+			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
+			console.log("Incrementing vote for .."+threadId);
+			var prev_count = parseInt($(this).siblings(".mybadge").html());
+			$(this).siblings(".mybadge").html(String(prev_count-1));
+			//store in the database 
+			$.post('threadsRepository.php',{requestType: 'decrementVoteForThread',threadId: threadId},function(response){
+				console.log("Done");
+				var status = jQuery.parseJSON(response);
+				console.log(status);
+				if(status == true)
+				{
+				}
+				
+			});
+			
+			
+			
+			return false;
+			//deactivate the button
 		});
 		
 		//When user clicks on a particular thread

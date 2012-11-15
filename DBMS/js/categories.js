@@ -4,13 +4,14 @@ $("document").ready(
 		
 		
 		//Get logged in userinfo
-		$.post("categoriesRepository.php",{eventType: 'getUserInfo'},function(response){
+		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+			
 			var userInfo = jQuery.parseJSON(response);
-			console.log(userInfo);
+			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userInfo);
 			if(userInfo)
 			{
 				//set username
-				$("#loggedUser").html(String(userInfo));
+				$("#loggedUser").html(userInfo.username);
 			}
 		});
 		
@@ -116,7 +117,8 @@ $("document").ready(
 		
 		
 		//Logout
-		$("#logoutLink").click(function(event){
+		$("#logoutLink").live('click',function(event){
+
 			console.log("Done");
 			$.ajax({
 				type: "POST",
