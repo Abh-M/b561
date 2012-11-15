@@ -96,7 +96,7 @@ $("document").ready(
 				
 				$(cell).find('.date_creted_val').html(formattedDate);
 				$(cell).find(".mybadge").html(thread.votes);
-				$(cell).find('.thread_title_div').html(thread.title);
+				$(cell).find('.thread_title_div').children().html(thread.title);
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).insertAfter("#ref");
 				
