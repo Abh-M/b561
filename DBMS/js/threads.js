@@ -24,23 +24,6 @@ $("document").ready(
 		});
 		
 		
-		
-		
-		// $(".inner_table").mouseenter
-		// (
-		// 	function()
-		// 	{
-		// 		$(this).find(".delete_button_cell").children().show();
-		// 	}
-		// );
-		// 
-		// 
-		// $(".inner_table").mouseleave(
-		// 	function()
-		// 	{
-		// 		$(this).find(".delete_button_cell").children().hide();
-		// 	}
-		// );
 
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel   = tooltip]').tooltip(); 
@@ -51,18 +34,6 @@ $("document").ready(
 		});
 
 
-		// var cell = $("#ref").clone();
-		// var cc = cell[0];
-		// console.log(cell[0]);
-		// 
-		// 
-		// for(var i=0;i<20;i++)
-		// {
-		// 	cell = $("#ref").clone();
-		// 	cc = cell[0];
-		// 	$(cc).insertAfter('#ref');
-		// 
-		// }
 
 
 		$("#searchFilter").click(function(event){
