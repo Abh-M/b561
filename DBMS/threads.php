@@ -41,7 +41,7 @@
 				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a id="new-thread-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 
@@ -54,10 +54,10 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<p  id="loggedUser">Usernname</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">Profile</a>
+								<a href="#" tabindex="-1">profile</a>
 							</li>
 							<li>
-								<a href="#" tabindex="-1">Logout</a>
+								<a href="#" id="logoutLink">logout</a>
 							</li>
 
 						</ul>
@@ -100,7 +100,7 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="#" id="CategoryName">Categories</a> <span class="divider">/</span></li>
+							<li><a  id="CategoryName">Categories</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
 						</thead>

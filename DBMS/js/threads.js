@@ -1,7 +1,43 @@
 $("document").ready(
 	function()
 	{
-		//$(".delete_button_cell").children().hide();
+		
+		
+		
+		
+		//Get logged in userinfo
+		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+
+			
+			var userInfo = jQuery.parseJSON(response);
+			console.log(userInfo);
+			if(userInfo)
+			{
+				//set username
+				$("#loggedUser").html(userInfo.username);
+				$("#loggedUser").attr('userType',userInfo.userType);
+				$("#loggedUser").attr('userid',userInfo.userid);
+				$("#loggedUser").attr('username',userInfo.username);
+				
+				
+				//depending on usertype show/hide create and delete category button
+				var userType =parseInt(userInfo.userType);
+				if(userType != 0 && userType!= 1)
+				{
+					 $(".deleteLink").hide();
+					 $("#new-thread-link").hide();
+				}
+				else
+				{
+					 $(".deleteLink").show();
+					 $("#new-thread-link").show();
+				}
+				
+			}
+			
+		});
+		
+		
 		
 		$(".deleteLink").removeAttr('href');
 		$(".deleteLink").css('opacity',0);
@@ -141,9 +177,26 @@ $("document").ready(
 					$(cell).attr('threadid',String(thread.threadid));
 				
 					var thread_Col = $(cell).find('.thread_title_div');
-					console.log(thread_Col);
 					var thread_desc = $(cell).find('.thread_content_div');
-					console.log(thread_desc);
+					
+					$.ajax({
+					  type: 'POST',
+					  url: 'helpers.php',
+					  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
+					  async:false,
+					  success: function(kResponse)
+					  {
+						  var kUser = jQuery.parseJSON(kResponse);
+						  $(cell).find('.created_by_val').html(kUser.username);
+						  console.log('got .. '+thread.title);
+					  }
+					});
+					var createdDate = new Date(thread.datecreated);
+					var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+				
+					$(cell).find('.date_creted_val').html(formattedDate);
+					$(cell).find(".mybadge").html(thread.votes);
+					
 				
 					$(cell).find('.thread_title_div').html(thread.title);
 					$(cell).find('.thread_content_div').html(thread.description);
@@ -190,9 +243,28 @@ $("document").ready(
 					$(cell).attr('threadid',String(thread.threadid));
 				
 					var thread_Col = $(cell).find('.thread_title_div');
-					console.log(thread_Col);
 					var thread_desc = $(cell).find('.thread_content_div');
-					console.log(thread_desc);
+					
+					
+					$.ajax({
+					  type: 'POST',
+					  url: 'helpers.php',
+					  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
+					  async:false,
+					  success: function(kResponse)
+					  {
+						  var kUser = jQuery.parseJSON(kResponse);
+						  $(cell).find('.created_by_val').html(kUser.username);
+						  console.log('got .. '+thread.title);
+					  }
+					});
+					var createdDate = new Date(thread.datecreated);
+					var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+					
+					$(cell).find('.date_creted_val').html(formattedDate);
+					$(cell).find(".mybadge").html(thread.votes);
+					
+					
 				
 					$(cell).find('.thread_title_div').html(thread.title);
 					$(cell).find('.thread_content_div').html(thread.description);
@@ -264,7 +336,21 @@ $("document").ready(
 			var threadid  = $(this).parent().attr('threadId');
 			console.log("Clicked thread : "+threadid);
 			window.location = 'posts.php?threadId='+threadid;
-		});	
+		});
+		
+		
+		//Logout
+		$("#logoutLink").live('click',function(event){
+
+			console.log("Done");
+			$.ajax({
+				type: "POST",
+				url: "logout.php",
+			}).done(function(data){
+				window.location = "index.php";
+			});
+		});
+			
 
 
 		}

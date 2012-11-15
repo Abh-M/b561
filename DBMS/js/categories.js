@@ -2,17 +2,36 @@ $("document").ready(
 	function()
 	{
 		
-		
 		//Get logged in userinfo
 		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+
 			
 			var userInfo = jQuery.parseJSON(response);
-			console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+userInfo);
+			console.log(userInfo);
 			if(userInfo)
 			{
 				//set username
 				$("#loggedUser").html(userInfo.username);
+				$("#loggedUser").attr('userType',userInfo.userType);
+				$("#loggedUser").attr('userid',userInfo.userid);
+				$("#loggedUser").attr('username',userInfo.username);
+				
+				
+				//depending on usertype show/hide create and delete category button
+				var userType =parseInt(userInfo.userType);
+				if(userType != 0)
+				{
+					$("#ref").find(".delLink").hide();
+					$("#create-category-link").hide();
+				}
+				else
+				{
+					$("#ref").find(".delLink").show();
+					$("#create-category-link").show();
+				}
+				
 			}
+			
 		});
 		
 		
@@ -141,7 +160,7 @@ $("document").ready(
 			var catName = $("#catName").val();
 			
 			$.post("categoriesRepository.php",{eventType: 'createNewCategory', kName: String(catName)},function(response){
-				$("#ref").show();
+				// $("#ref").show();
 				$("#ref").siblings().detach();
 				var categories = jQuery.parseJSON(response);
 				console.log(categories);
@@ -154,6 +173,7 @@ $("document").ready(
 					console.log(cat.creator);
 				
 					var cell = $("#ref").clone();
+					$(cell).show();
 					var cc = cell[0];
 					console.log(cc);
 					console.log($(cc).find(".catName").children().html());
@@ -163,7 +183,7 @@ $("document").ready(
 				
 				
 				}
-				$("#ref").hide();
+				// $("#ref").hide();
 				
 				
 			});
