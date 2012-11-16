@@ -266,6 +266,9 @@ $("document").ready(
 			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
 			var catId = $("#CategoryName").attr('catId');
 			
+			//make this sync
+			
+			
 			
 			$.post('threadsRepository.php',{requestType: 'deleteThreadInCategory',catId: String(catId) ,threadId: String(threadId)},function(response){
 				

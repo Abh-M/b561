@@ -81,11 +81,9 @@ function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags)
 	$query  = "INSERT INTO Thread (title,description,categoryid,datecreated,owner,votes,views) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId.", '".$currDateTime."', ".$createrId.", 0, 0 )";
 	$result = mysql_query($query);
 
-	if($result==true)
-			$result = getThreadsForCategory($kCatId);
 	
 	//set make entries in tags for the new thread
-	if(!empty($kTags))
+	if(!empty($kTags) && $result==true)
 	{
 		$kTags = json_decode($kTags);
 		
@@ -152,6 +150,10 @@ function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags)
 			}
 		}
 	}
+	if($result==true)
+			$result = getThreadsForCategory($kCatId);
+	
+	
 	return $result;
 
 }
@@ -161,7 +163,13 @@ function deleteThreadInCategory($kThreadId,$kCatId)
 {
 	$result= array();
 	$query = "DELETE FROM Thread WHERE threadid = ".$kThreadId;
+	
+	
 	$queryResult = mysql_query($query);
+	
+	//also delete tags
+	$queryDeleteTags = "DELETE FROM tagtothread WHERE threadid = ".$kThreadId;
+	$queryDeleteTagsResult = mysql_query($queryDeleteTags);
 	
 	 if($queryResult)
 	 {
