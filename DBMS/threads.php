@@ -160,7 +160,7 @@
 											<td class="created_col">
 												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
 											</td>
-											<td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td>
+											<!-- <td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td> -->
 											
 										</tr>
 										

@@ -151,7 +151,7 @@ function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags)
 		}
 	}
 	if($result==true)
-			$result = getThreadsForCategory($kCatId);
+	$result = getThreadsForCategory($kCatId);
 	
 	
 	return $result;
@@ -171,15 +171,15 @@ function deleteThreadInCategory($kThreadId,$kCatId)
 	$queryDeleteTags = "DELETE FROM tagtothread WHERE threadid = ".$kThreadId;
 	$queryDeleteTagsResult = mysql_query($queryDeleteTags);
 	
-	 if($queryResult)
-	 {
-		 $result['deleteResult'] = mysql_affected_rows();
-		 $result['threads'] = json_decode(getThreadsForCategory($kCatId));
-	 }
-	 else
-	 {
-	    $result = false; 
-	 }
+	if($queryResult)
+	{
+		$result['deleteResult'] = mysql_affected_rows();
+		$result['threads'] = json_decode(getThreadsForCategory($kCatId));
+	}
+	else
+	{
+		$result = false; 
+	}
 	 
 	return json_encode($result);
 }
@@ -191,7 +191,7 @@ function incrementVoteForThread($kId)
 	$query = "UPDATE Thread SET votes = votes +1  WHERE threadid = ".$kId;
 	$queryResult = mysql_query($query);
 	if($queryResult !=NULL || $queryResult == true)
-		$result = json_encode(true);
+	$result = json_encode(true);
 	
 	return $result;
 }
@@ -203,7 +203,7 @@ function decrementVoteForThread($kId)
 	$query = "UPDATE Thread SET votes = votes - 1  WHERE threadid = ".$kId;
 	$queryResult = mysql_query($query);
 	if($queryResult !=NULL || $queryResult == true)
-		$result = json_encode(true);
+	$result = json_encode(true);
 	
 	return $result;
 }
@@ -214,8 +214,8 @@ $result = json_encode(false);
 switch($reqType)
 {
 	case "getParentCategoryInfo": 
-	 $catId = $_POST['catId'];
-	 $result  = getParentCategoryInfo($catId);
+	$catId = $_POST['catId'];
+	$result  = getParentCategoryInfo($catId);
 	break;
 	
 	case 'createNewThreadForCategory':
