@@ -51,7 +51,7 @@
 					<!-- <li class="divider-vertical"></li> -->
 					<li class="divider-vertical"></li>				
 					<li class="dropdown">
-						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><i class="icon-user icon-white"></i></a>
+						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<span id="loggedUser">Usernname</span>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
 								<a href="#" tabindex="-1">Profile</a>
@@ -93,15 +93,11 @@
 			<div class="row-fluid" id="row1"class="margin: 0px;">
 
 
-				<div class="span2 well well-small"   id="sidebar">
-					<!-- Side bar div  -->
-				</div>
-
-				<div class="span7" id="contentPane">
+				<div class="span9" id="contentPane">
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="#" id="CategoryName">Posts</a> <span class="divider">/</span></li>
+							<li><a href="" id="ThreadName" class="threadLink">Thread</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
 						</thead>
@@ -117,22 +113,13 @@
 												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a>
 												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a>
 											</td>
-											<td class="modified_col">
-												<p>Date Modfied:</p>
+											<td class="posted_by">
+												<p>Posted By: <span class="posted_by_val"></span></p>
 											</td>
-											<td class="created_col">
-												<p>Date Created:</p>
+											<td class="posted_date">
+												<p>Date Posted: <span class="posted_date_val"></span></p>
 											</td>
-											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></td>
-										</tr>
-										
-										
-										<tr class="post_title_row">
-											<td class="post_title_col" colspan="4">
-												<h5><div class="post_title_div">
-													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
-												</div></h5>
-											</td>
+											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></a></td>
 										</tr>
 										
 											

@@ -1,6 +1,39 @@
 $("document").ready(
 	function()
 	{
+		
+		
+		//Get logged in userinfo
+		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+
+			
+			var userInfo = jQuery.parseJSON(response);
+			console.log(userInfo);
+			if(userInfo)
+			{
+				//set username
+				$("#loggedUser").html(userInfo.username);
+				$("#loggedUser").attr('userType',userInfo.userType);
+				$("#loggedUser").attr('userid',userInfo.userid);
+				$("#loggedUser").attr('username',userInfo.username);
+				
+				
+				//depending on usertype show/hide create and delete category button
+				var userType =parseInt(userInfo.userType);
+				if(userType != 0 && userType!= 1)
+				{
+					 $(".deleteLink").hide();
+					 $("#new-thread-link").hide();
+				}
+				else
+				{
+					 $(".deleteLink").show();
+					 $("#new-thread-link").show();
+				}
+				
+			}
+			
+		});
 		//$(".delete_button_cell").children().hide();
 		
 		$(".deleteLink").removeAttr('href');
@@ -23,26 +56,6 @@ $("document").ready(
 			}
 		});
 		
-		
-		
-		
-		
-		
-		// $(".inner_table").mouseenter
-		// (
-		// 	function()
-		// 	{
-		// 		$(this).find(".delete_button_cell").children().show();
-		// 	}
-		// );
-		// 
-		// 
-		// $(".inner_table").mouseleave(
-		// 	function()
-		// 	{
-		// 		$(this).find(".delete_button_cell").children().hide();
-		// 	}
-		// );
 
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel   = tooltip]').tooltip(); 
@@ -52,24 +65,8 @@ $("document").ready(
 		});
 
 		$(".delete_button_cell").click(function(){
-			//			$(this).parent(".tableRow").hide();			
 			$(this).parentsUntil(".tableRow").hide();			
 		});
-
-
-		// var cell = $("#ref").clone();
-		// var cc = cell[0];
-		// console.log(cell[0]);
-		// 
-		// 
-		// for(var i=0;i<20;i++)
-		// {
-		// 	cell = $("#ref").clone();
-		// 	cc = cell[0];
-		// 	$(cc).insertAfter('#ref');
-		// 
-		// }
-
 
 		$("#searchFilter").click(function(event){
 			console.log("Opening search filter");
@@ -85,41 +82,36 @@ $("document").ready(
 		var param_name = components[0].slice(1);
 		var param_val = components[1];
 		console.log(param_val+" <> "+param_name);
-		
-		//get Parent category info
-		 $.post("postsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		 
+
+		 $.post("postsRepository.php",{requestType: 'getParentThreadInfo', threadId: String(param_val)},
 		 function(response){
-			var json = jQuery.parseJSON(response);
-			console.log(json);
-			$("#CategoryName").html(String(json.Category));
-			$("#CategoryName").attr("catId",String(json.categoryid));
-		});
+				var json = jQuery.parseJSON(response);
+				console.log("thread is "+json);
+				$("#ThreadName").html(String(json.title));
+				$("#ThreadName").attr("threadId",String(json.threadid));
+		 });
 		
 		
-		//get posts in the category
-		$.post('postsRepository.php',{requestType: 'getPostsForThread',catId: String(param_val)},function(response){
+		//get posts for thread
+		$.post('postsRepository.php',{requestType: 'getPostsForThread',threadId: String(param_val)},
+		function(response){
 			var list = jQuery.parseJSON(response);
-			console.log(list);
-			for(var i=0; i<list.length; i++)
-			{
-				var post = list[i];
-				
+			jQuery.each(list, function() {
 				var cell = $("#ref").clone();
-				var cc = cell[0];
 				$(cell).removeAttr('id');
-				$(cell).attr('postid',String(post.postid));
-				
-				var post_Col = $(cell).find('.post_title_div');
-				console.log(post_Col);
-				var post_desc = $(cell).find('.post_content_div');
-				console.log(post_desc);
-				
-				$(cell).find('.post_title_div').html(post.title);
-				$(cell).find('.post_content_div').html(post.description);
+				$(cell).attr('postid',String(this.postid));
+				$(cell).find('.posted_date_val').html(this.dateposted);
+				$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
+				function(response){
+					var user = jQuery.parseJSON(response);
+					console.log(user);
+					$(cell).find('.posted_by_val').html(user.username);
+				});
+				$(cell).find('.post_content_div').html(this.text);
 				$(cell).insertAfter("#ref");
 				
-				
-			}
+			});
 			$("#ref").hide();
 		});
 		
@@ -154,7 +146,6 @@ $("document").ready(
 					var post = list[i];
 				
 					var cell = $("#ref").clone();
-					var cc = cell[0];
 					$(cell).removeAttr('id');
 					$(cell).attr('postid',String(post.postid));
 				
@@ -203,7 +194,6 @@ $("document").ready(
 					var post = list[i];
 				
 					var cell = $("#ref").clone();
-					var cc = cell[0];
 					$(cell).removeAttr('id');
 					$(cell).attr('postid',String(post.postid));
 				
@@ -226,6 +216,13 @@ $("document").ready(
 			
 		});
 
+		$('.threadLink').live('click',function(event){
+			event.preventDefault();
+			//get the thread id, for the link which is clicked
+			var threadid  = $(this).attr('threadId');
+			console.log("Clicked thread : "+threadid);
+			window.location = 'threads.php';
+		});	
 
 		}
 	);
