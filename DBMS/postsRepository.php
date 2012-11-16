@@ -8,18 +8,7 @@ session_start();
 include "dbconnect.php";
 
 // Get info about the category for which the threads are being displayed
-function getParentCategoryInfo($kCatId)
-{
-	$result = json_encode(false);
-	$query = "SELECT * from category where categoryid = ".$kCatId;
-	$queryResult = mysql_query($query);
-	if($queryResult==true)
-	{
-		$row = mysql_fetch_assoc($queryResult);
-		$result = json_encode($row);
-	}
-	return $result;
-}
+
 function getParentThreadInfo($kThreadId)
 {
 	$result = json_encode(false);
@@ -36,15 +25,15 @@ function getParentThreadInfo($kThreadId)
 function getPostsForThread($kThreadId)
 {
 	$result = json_encode(false);
-	$query = "SELECT * from posts";
+	$query = "SELECT * from post where threadid = ".$kThreadId;
 	$queryResult = mysql_query($query);
-	$allThreads = array();
+	$allPosts = array();
 	if($queryResult!=NULL)
 	{
 		while($row = mysql_fetch_assoc($queryResult))
-			array_push($allThreads,$row);
+			array_push($allPosts,$row);
 			
-		$result = json_encode($allThreads);
+		$result = json_encode($allPosts);
 	}
 	return $result;
 	
@@ -82,9 +71,10 @@ $reqType = $_POST['requestType'];
 $result = json_encode(false);
 switch($reqType)
 {
-	case "getParentCategoryInfo": 
-	 $catId = $_POST['catId'];
-	 $result  = getParentCategoryInfo($catId);
+	
+	case "getParentThreadInfo":
+	$threadId = $_POST['threadId'];
+	$result  = getParentThreadInfo($threadId);
 	break;
 	
 	case 'createNewThreadForCategory':
@@ -95,9 +85,9 @@ switch($reqType)
 	$result = createNewThreadForCategory($catId,$title,$desc,$group);
 	break;
 	
-	case 'getThreadsForCategory':
-	$catId = $_POST['catId'];
-	$result = getThreadsForCategory($catId);
+	case 'getPostsForThread':
+	$threadId = $_POST['threadId'];
+	$result = getPostsForThread($threadId);
 	break;
 	
 	case 'deleteThreadInCategory':
