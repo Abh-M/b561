@@ -14,7 +14,7 @@
 
 
 //	<script src="js/threads.js"></script>
-
+	<script src="js/replypost.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -151,6 +151,8 @@
 											<td class="created_col">
 												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
 											</td>
+											<td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td>
+											
 										</tr>
 										
 									</tbody>
@@ -185,6 +187,25 @@
 				<a href="#" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
 			</div>
 		</div>
+		
+		<!-- Modal view for replying to posts -->
+
+		<div id="replyPostModal" class="modal" style="display: none; ">
+			<div class="modal-header">
+				<!-- <button class="close" data-dismiss="modal">×</button> -->
+				<h6>Reply</h6>
+			</div>
+			<div class="modal-body">
+				<textarea rows="5" cols="400" placeholder="Post" id="ParentPostContent" ></textarea>
+				<br/>
+				<textarea rows="5" cols="400" placeholder="Your Message" id="ReplyPostContent" data-spy="scroll"></textarea>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal" id="replyPostCloseButton">Close</a>
+				<a href="#" class="btn btn-primary" id="replyPostSaveButton">Reply</a>
+			</div>
+		</div>
+		
 		
 		<!-- Modal view for search filters -->
 		
