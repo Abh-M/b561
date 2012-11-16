@@ -86,10 +86,19 @@
 					</div>
 				</form>
 			</div>
+			<div class="alert alert-error" id="errorAlert" style="display: none">
+			</div>
+			<div class="alert" id="infoAlert" style="display: none;">
+			</div>
+			<div class="alert alert-info" id="successAlert" style="display: none;">
+			  
+			</div>
 		</div>
 
 
+
 		<div class="container-fluid" id="content_container">
+			
 			<div class="row-fluid" id="row1">
 
 
@@ -113,7 +122,7 @@
 										
 										
 										<tr class="thread_title_row">
-											<td class="ratings_col1" rowspan="3">
+											<td class="ratings_col1" rowspan="4">
 												<div id="ddiv">
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val">10</span><br/>
@@ -153,6 +162,10 @@
 											</td>
 										</tr>
 										
+										<tr class="tagsRow">
+											<td colspan="4" class="tagsCol"><div class="tagContainer"><span class="label label-info tag" id="reftag">Sample Tag</span></div></td>
+										</tr>
+										
 									</tbody>
 								</table>
 								</div>
@@ -179,6 +192,8 @@
 				<input type="text" placeholder="thread title" id="newThreadTitle" maxlength="200">
 				<br/>
 				<textarea rows="5" placeholder="thread description" id="newThreadDesc"></textarea>
+				<br/>
+				<input type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
@@ -228,7 +243,6 @@
 			</div>
 		</div>
 
-		
 
 
 	</body>

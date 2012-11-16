@@ -3,7 +3,7 @@ $("document").ready(
 	{
 		
 		
-		
+
 		
 		//Get logged in userinfo
 		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
@@ -100,11 +100,11 @@ $("document").ready(
 		//get threads in the category
 		$.post('threadsRepository.php',{requestType: 'getThreadsForCategory',catId: String(param_val)},function(response){
 			var list = jQuery.parseJSON(response);
+			
 			console.log(list);
 			for(var i=0; i<list.length; i++)
 			{
 				var thread = list[i];
-				
 				var cell = $("#ref").clone();
 				var cc = cell[0];
 				$(cell).removeAttr('id');
@@ -113,32 +113,49 @@ $("document").ready(
 				var thread_Col = $(cell).find('.thread_title_div');
 				var thread_desc = $(cell).find('.thread_content_div');
 				
-				$.ajax({
-				  type: 'POST',
-				  url: 'helpers.php',
-				  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
-				  async:false,
-				  success: function(kResponse)
-				  {
-					  var kUser = jQuery.parseJSON(kResponse);
-					  $(cell).find('.created_by_val').html(kUser.username);
-					  console.log('got .. '+thread.title);
-				  }
-				});
+					  
 				var createdDate = new Date(thread.datecreated);
 				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
 				
 				//var formattedDate = createdDate.format();
 				
+				$(cell).find('.created_by_val').html(thread.owner.username);
 				$(cell).find('.date_creted_val').html(formattedDate);
 				$(cell).find(".mybadge").html(thread.votes);
 				$(cell).find('.thread_title_div').children().html(thread.title);
 				$(cell).find('.thread_content_div').html(thread.description);
+				
+				
+				
+				if(thread.tags.length>0)
+				{
+					for(var j=0 ; j<thread.tags.length; j++)
+					{
+						var tag  =thread.tags[j];
+						v = $(cell).find("#reftag").clone();
+						$(cell).find("#reftag").hide();
+						$(v).removeAttr('id');
+						$(v).show();
+						$(v).html(tag);
+						$(cell).find('.tagContainer').append(v);
+					}
+						
+						
+				}
+				else
+				{
+					$(cell).find('.tagsRow').hide();
+				}
+				
+				
 				$(cell).insertAfter("#ref");
 				
 				
+				
 			}
+			$("#reftag").hide();
 			$("#ref").hide();
+			
 		});
 		
 		
@@ -154,21 +171,33 @@ $("document").ready(
 			var title = $("#newThreadTitle").val();
 			var desc = $("#newThreadDesc").val();
 			var catId = $("#CategoryName").attr('catId');
+			var tagsList = $('#tagsList').val();
+			var allTags =tagsList.split(','); 
+			var jsonTags = JSON.stringify(allTags);
+			console.log(jsonTags);
+			
 			
 			console.log("Creating new thread title "+ title + " desc: "+ desc + "for cat "+catId);
 			
 			//create new thread and get updated list of threads
-			$.post("threadsRepository.php",{requestType: 'createNewThreadForCategory', catId: String(catId), title: String(title), desc: String(desc)},
+			$.post("threadsRepository.php",{requestType: 'createNewThreadForCategory',tags: jsonTags, catId: String(catId), title: String(title), desc: String(desc)},
 			function(response){
 				
-				//remove old list
-				$("#ref").show();
 				$("#ref").siblings().detach();
 				
 				var list = jQuery.parseJSON(response);
 				console.log(list);
 				for(var i=0; i<list.length; i++)
 				{
+					$(".alert").hide();
+					$("#successAlert").html("<i class=' icon-ok'></i> Thread inserted");
+					$("#successAlert").fadeIn('fast');
+					$("#successAlert").fadeOut(5000);
+					//$("#ref").show();
+					
+					
+					
+					
 					var thread = list[i];
 				
 					var cell = $("#ref").clone();
@@ -179,20 +208,11 @@ $("document").ready(
 					var thread_Col = $(cell).find('.thread_title_div');
 					var thread_desc = $(cell).find('.thread_content_div');
 					
-					$.ajax({
-					  type: 'POST',
-					  url: 'helpers.php',
-					  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
-					  async:false,
-					  success: function(kResponse)
-					  {
-						  var kUser = jQuery.parseJSON(kResponse);
-						  $(cell).find('.created_by_val').html(kUser.username);
-						  console.log('got .. '+thread.title);
-					  }
-					});
+					$(cell).find('.created_by_val').html(thread.owner.username);
+					
 					var createdDate = new Date(thread.datecreated);
 					var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+					
 				
 					$(cell).find('.date_creted_val').html(formattedDate);
 					$(cell).find(".mybadge").html(thread.votes);
@@ -200,7 +220,29 @@ $("document").ready(
 				
 					$(cell).find('.thread_title_div').html(thread.title);
 					$(cell).find('.thread_content_div').html(thread.description);
+					$(cell).show();
 					$(cell).insertAfter("#ref");
+					
+					if(thread.tags.length>0)
+					{
+						for(var j=0 ; j<thread.tags.length; j++)
+						{
+							var tag  =thread.tags[j];
+							v = $(cell).find("#reftag").clone();
+							$(cell).find("#reftag").hide();
+							$(v).removeAttr('id');
+							$(v).show();
+							$(v).html(tag);
+							$(cell).find('.tagContainer').append(v);
+						}
+						
+						
+					}
+					else
+					{
+						$(cell).find('.tagsRow').hide();
+					}
+					
 				
 				
 				}
@@ -227,52 +269,122 @@ $("document").ready(
 			
 			$.post('threadsRepository.php',{requestType: 'deleteThreadInCategory',catId: String(catId) ,threadId: String(threadId)},function(response){
 				
-				//remove old list
-				$("#ref").show();
-				$("#ref").siblings().detach();
 				
-				var list = jQuery.parseJSON(response);
-				console.log(list);
-				for(var i=0; i<list.length; i++)
+				var result = jQuery.parseJSON(response);
+				
+				if(result == false)
 				{
-					var thread = list[i];
-				
-					var cell = $("#ref").clone();
-					var cc = cell[0];
-					$(cell).removeAttr('id');
-					$(cell).attr('threadid',String(thread.threadid));
-				
-					var thread_Col = $(cell).find('.thread_title_div');
-					var thread_desc = $(cell).find('.thread_content_div');
+					$(".alert").hide();
+					$("#errorAlert").html("<i class=' icon-warning-sign'></i> Error in deletion");
+					$("#errorAlert").fadeIn('fast');
+					$("#errorAlert").fadeOut(5000);
 					
-					
-					$.ajax({
-					  type: 'POST',
-					  url: 'helpers.php',
-					  data: {requestType: 'getUserInfoFromUserId', userId: thread.owner},
-					  async:false,
-					  success: function(kResponse)
-					  {
-						  var kUser = jQuery.parseJSON(kResponse);
-						  $(cell).find('.created_by_val').html(kUser.username);
-						  console.log('got .. '+thread.title);
-					  }
-					});
-					var createdDate = new Date(thread.datecreated);
-					var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
-					
-					$(cell).find('.date_creted_val').html(formattedDate);
-					$(cell).find(".mybadge").html(thread.votes);
-					
-					
-				
-					$(cell).find('.thread_title_div').html(thread.title);
-					$(cell).find('.thread_content_div').html(thread.description);
-					$(cell).insertAfter("#ref");
-				
-				
 				}
-				$("#ref").hide();
+				else
+				{
+					var deleteResult = result.deleteResult;
+					var list = result.threads;
+				
+					if(deleteResult == 0)
+					{
+						//delete failed
+						$(".alert").hide();
+						$("#errorAlert").html("<i class=' icon-warning-sign'></i> Error in deletion");
+						$("#errorAlert").fadeIn('fast');
+						$("#errorAlert").fadeOut(5000);
+					
+					
+					}
+				
+					if(deleteResult>0 && list.length == 0)
+					{
+					
+						//delete successful and all rows deleted
+						$(".alert").hide();
+						$("#infoAlert").html("<i class=' icon-warning-sign'></i> All threads deleted");
+						$("#infoAlert").fadeIn('fast');
+						$("#infoAlert").fadeOut(5000);
+						$("#ref").siblings().detach();
+					
+					
+					
+					}
+				
+				
+					if(list.length > 0 && deleteResult>0)
+					{
+						$(".alert").hide();
+						$("#successAlert").html("<i class=' icon-ok'></i> Thread deleted");
+						$("#successAlert").fadeIn('fast');
+						$("#successAlert").fadeOut(5000);
+					
+					
+						//remove old list
+						//$("#ref").show();
+						$("#ref").siblings().detach();
+					
+						console.log(list);
+						for(var i=0; i<list.length; i++)
+						{
+							var thread = list[i];
+				
+							var cell = $("#ref").clone();
+							var cc = cell[0];
+							$(cell).removeAttr('id');
+							$(cell).attr('threadid',String(thread.threadid));
+				
+							var thread_Col = $(cell).find('.thread_title_div');
+							var thread_desc = $(cell).find('.thread_content_div');
+					
+					
+							$(cell).find('.created_by_val').html(thread.owner.username);
+
+							var createdDate = new Date(thread.datecreated);
+							var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+					
+							$(cell).find('.date_creted_val').html(formattedDate);
+							$(cell).find(".mybadge").html(thread.votes);
+					
+					
+				
+							$(cell).find('.thread_title_div').html(thread.title);
+							$(cell).find('.thread_content_div').html(thread.description);
+							$(cell).show();
+							$(cell).insertAfter("#ref");
+					
+					
+							if(thread.tags.length>0)
+							{
+								for(var j=0 ; j<thread.tags.length; j++)
+								{
+									var tag  =thread.tags[j];
+									v = $(cell).find("#reftag").clone();
+									$(cell).find("#reftag").hide();
+									$(v).removeAttr('id');
+									$(v).show();
+									$(v).html(tag);
+									$(cell).find('.tagContainer').append(v);
+								}
+						
+						
+							}
+							else
+							{
+								$(cell).find('.tagsRow').hide();
+							}
+					
+					
+					
+				
+				
+						}
+						$("#ref").hide();
+					
+					}
+					
+					
+				}
+				
 				
 				
 				
