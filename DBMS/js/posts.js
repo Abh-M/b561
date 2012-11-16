@@ -1,6 +1,39 @@
 $("document").ready(
 	function()
 	{
+		
+		
+		//Get logged in userinfo
+		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+
+			
+			var userInfo = jQuery.parseJSON(response);
+			console.log(userInfo);
+			if(userInfo)
+			{
+				//set username
+				$("#loggedUser").html(userInfo.username);
+				$("#loggedUser").attr('userType',userInfo.userType);
+				$("#loggedUser").attr('userid',userInfo.userid);
+				$("#loggedUser").attr('username',userInfo.username);
+				
+				
+				//depending on usertype show/hide create and delete category button
+				var userType =parseInt(userInfo.userType);
+				if(userType != 0 && userType!= 1)
+				{
+					 $(".deleteLink").hide();
+					 $("#new-thread-link").hide();
+				}
+				else
+				{
+					 $(".deleteLink").show();
+					 $("#new-thread-link").show();
+				}
+				
+			}
+			
+		});
 		//$(".delete_button_cell").children().hide();
 		
 		$(".deleteLink").removeAttr('href');

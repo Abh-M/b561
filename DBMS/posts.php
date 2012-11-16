@@ -51,7 +51,7 @@
 					<!-- <li class="divider-vertical"></li> -->
 					<li class="divider-vertical"></li>				
 					<li class="dropdown">
-						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><i class="icon-user icon-white"></i></a>
+						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<span id="loggedUser">Usernname</span>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
 								<a href="#" tabindex="-1">Profile</a>

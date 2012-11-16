@@ -54,10 +54,10 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<p  id="loggedUser">Usernname</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">profile</a>
+								<a href="#" tabindex="-1">Profile</a>
 							</li>
 							<li>
-								<a href="#" id="logoutLink">logout</a>
+								<a href="#" id="logoutLink">Logout</a>
 							</li>
 
 						</ul>
