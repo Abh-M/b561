@@ -14,7 +14,7 @@
 
 
 //	<script src="js/threads.js"></script>
-
+	<script src="js/replypost.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -41,7 +41,7 @@
 				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a id="new-thread-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 
@@ -54,10 +54,10 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<p  id="loggedUser">Usernname</p>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">Profile</a>
+								<a href="#" tabindex="-1">profile</a>
 							</li>
 							<li>
-								<a href="#" tabindex="-1">Logout</a>
+								<a href="#" id="logoutLink">logout</a>
 							</li>
 
 						</ul>
@@ -100,7 +100,7 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="#" id="CategoryName">Categories</a> <span class="divider">/</span></li>
+							<li><a  id="CategoryName">Categories</a> <span class="divider">/</span></li>
 							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
 						</ul></caption>
 						</thead>
@@ -151,6 +151,8 @@
 											<td class="created_col">
 												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
 											</td>
+											<td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td>
+											
 										</tr>
 										
 									</tbody>
@@ -185,6 +187,25 @@
 				<a href="#" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
 			</div>
 		</div>
+		
+		<!-- Modal view for replying to posts -->
+
+		<div id="replyPostModal" class="modal" style="display: none; ">
+			<div class="modal-header">
+				<!-- <button class="close" data-dismiss="modal">×</button> -->
+				<h6>Reply</h6>
+			</div>
+			<div class="modal-body">
+				<textarea rows="5" cols="400" placeholder="Post" id="ParentPostContent" ></textarea>
+				<br/>
+				<textarea rows="5" cols="400" placeholder="Your Message" id="ReplyPostContent" data-spy="scroll"></textarea>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal" id="replyPostCloseButton">Close</a>
+				<a href="#" class="btn btn-primary" id="replyPostSaveButton">Reply</a>
+			</div>
+		</div>
+		
 		
 		<!-- Modal view for search filters -->
 		

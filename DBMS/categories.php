@@ -50,7 +50,7 @@
 				<a class="brand" href="#">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a  rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a id="create-category-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 
