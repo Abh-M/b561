@@ -87,6 +87,24 @@
 					</div>
 				</form>
 			</div>
+			
+			<div class="row-fluid" id="row1"class="margin: 0px;">
+				<div class="span2 ">
+				</div>
+				<div  class="span7">
+					<strong>
+						<div class="alert alert-error" id="errorAlert" style="display: none">
+						</div>
+						<div class="alert" id="infoAlert" style="display: none;">
+						</div>
+						<div class="alert alert-info" id="successAlert" style="display: none;">
+						</div>
+					</strong>
+				</div>
+				<div class="span3">
+				</div>
+			</div>
+			
 		</div>
 
 
@@ -110,16 +128,26 @@
 							<tr class="tableRow" id="ref">
 								<td>
 									<table class="cellSkeleton">
+										<!-- <thead><th/><th/><th/><th/></thead> -->
+										<col width="24.5%">
+										<col width="24.5%">
+										<col width="24.5%">
+										<col width="24.5%">
+										<col width="10%">
+																																								
 										<tbody>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catName"><a href="" class="catLink">&lt;Category Name&gt;</a></td>
-												<td class="skeletonCol catCreated"><!-- &lt;Date Created&gt; -->Date created: </td>
-												<td class="skeletonCol catDelButton"><a href="javascript:void(0)" class="delLink"><i class="icon-remove"></i></a></td>
+											<tr class="catDesc">
+												<td class="skeletonCol catName" colspan="4"><a href="" class="catLink">&lt;Category Name&gt;</a></td>
+												<td class="skeletonCol catDelButton" colspan="1"><a href="javascript:void(0)" class="delLink"><i class="icon-trash"></i></a></td>
 											</tr>
-											<tr class="rowSkeleton">
-												<td class="skeletonCol catThreadsCount"><!-- &lt;Total Threads&gt; -->50 threads</td>
-												<td class="skeletonCol catModified"><!-- &lt;Last Modified&gt; -->Last Modified: </td>											
+											<tr class="catInfo">
+												<td class="skeletonCol catThreadsCount">50 threads</td>
+												<td class="skeletonCol createdBy">created by:&nbsp;<span class="createdBySpan"></span></td>											
+												<td/>
+												<td/>
+												<td/>
 											</tr>
+
 										</tbody>
 									</table>
 								</td>
@@ -129,7 +157,7 @@
 				</div>
 
 
-				<div class="span3 well" id="rightPane"></div>
+				<div class="span3 well well-small" id="rightPane"></div>
 			</div>
 		</div>
 

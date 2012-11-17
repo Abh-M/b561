@@ -78,15 +78,22 @@
 				</form>
 			</div>
 			
-			
-			<strong>
-			<div class="alert alert-error" id="errorAlert" style="display: none">
+			<div class="container-fluid" style="padding-left: 5px !important; padding-right: 5px !important;">
+				<div class="row-fluid">
+					<div class="span10" style="margin-left: 20px !important;">
+						<strong>
+							<div class="alert alert-error" id="errorAlert" style="display: none">
+							</div>
+							<div class="alert" id="infoAlert" style="display: none;">
+							</div>
+							<div class="alert alert-info" id="successAlert" style="display: none;">
+							</div>
+						</strong>
+				
+					</div>
+					<div class="span2"></div>
+				</div>
 			</div>
-			<div class="alert" id="infoAlert" style="display: none;">
-			</div>
-			<div class="alert alert-info" id="successAlert" style="display: none;">
-			</div>
-			</strong>
 			
 
 

@@ -4,11 +4,35 @@ session_start();
 
 include "dbconnect.php";
 
+
+
+
+/*Remove this replace this with cURL as this func is there in helpers.php*/ 
+function getUserInfoFromUserId($userid)
+{
+	$result = json_encode(false);
+	
+	$query = "SELECT * FROM User WHERE userid = ".$userid;
+	
+	$queryResult = mysql_query($query);
+	
+	if($queryResult != NULL || $queryResult == true )
+	{
+		//as only one user will be returned
+		$result = json_encode(mysql_fetch_assoc($queryResult));
+	}
+	
+	return $result;
+}
+
+
 function getAllCategories()
 {
+
 	$allCat = array();
 	$jsonString = json_encode("failure");
 	$allCategoriesQuery  = "SELECT * FROM category";
+	$numOfThreads = 0;
 	$result = mysql_query($allCategoriesQuery);
 	if($result==NULL)
 	{
@@ -18,10 +42,29 @@ function getAllCategories()
 	{
 		//Fetch all queries and encode in to jsos
 		while($row = mysql_fetch_assoc($result))
+		{
+			
+			//get number of threads in this category
+			$numberOfThreadsQuery  = "SELECT COUNT(*) AS num FROM Thread WHERE categoryid = ".$row['categoryid'];
+			$numOfThreadsResult = mysql_query($numberOfThreadsQuery);
+
+			if(mysql_num_rows($numOfThreadsResult)==1)
+			{
+				$numOfThreads = mysql_fetch_assoc($numOfThreadsResult)['num'];
+			}
+			
+			
+			//get the creator name from creator id
+			$userInfo = getUserInfoFromUserId($row['creator']);
+
+			$row['num'] = $numOfThreads;
+			$row['creator'] = json_decode($userInfo);
 			array_push($allCat,$row);
+		}	
 		$jsonString = json_encode($allCat);
-	}
+		
 	
+	}
 	return $jsonString;
 	
 	
@@ -41,13 +84,14 @@ function createNewCategory($catName,$ownerId)
 
 function deleteCategory($kCategoryId)
 {
-	 $result = json_encode(false);
+	 $result = array();
 	 $query = "DELETE FROM category WHERE categoryid = ".$kCategoryId;
-	 $result = mysql_query($query);
-	 if($result==true)
-	 	$result = getAllCategories();
-		
-	return $result;
+	 $queryRessult = mysql_query($query);
+	 
+	 $result['deleteResult']=mysql_affected_rows();
+	 $result['list'] = json_decode(getAllCategories());
+	
+	 return json_encode($result);
 }
 
 

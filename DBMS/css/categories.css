@@ -1,37 +1,29 @@
 #content_container
 {
 	margin-top: 60px;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+	
 }
 
 #contentPane
 {
-	overflow : scroll;
-	/*	background-color: yellow;*/
-	margin-left: 20px;
+	overflow : hidden !important;
 	padding: 0;
-	/*	box-shadow: inner 0 0 10px #888;*/
 
 }
 
 #sidebar{
-/*	position: fixed;*/
 height: 500px;
-/*	background-color: red;*/
 }
 
 
 #rightPane
 {
-	position: static;
-	/*	background-color: black;*/
 	height: 500px;
 
 }
 
-#categoryCell
-{
-	background-color: yellow;
-}
 
 .cellSkeleton
 {
@@ -43,34 +35,28 @@ height: 500px;
 	box-shadow: 0 0 3px black;
 }
 
-.rowSkeleton
-{
-	border: 0 !important;
-}
-
-.skeletonCol
-{
-	border: 0 !important;
-}
-
-.catName
-{
-	width: 80%;
-}
-
-.catCreated
-{
-	width: 20%;
-	font-size: 12px;
-}
-
-.catModified
-{
-	width: 20%;
-	font-size: 12px;
 
 
-}
+
 
 tr td 
 { border: 0px !important;}
+
+.createdBySpan
+{
+	padding: 5px !important;
+	font-weight: bold;
+	
+}
+
+
+.catInfo
+{
+	font-size: 11px;
+}
+
+.alert
+{
+	font-weight: bold;
+	text-align: center;
+}

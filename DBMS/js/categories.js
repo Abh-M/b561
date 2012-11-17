@@ -2,6 +2,7 @@ $("document").ready(
 	function()
 	{
 		
+		 $("#ref").hide();
 		//Get logged in userinfo
 		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
 
@@ -63,68 +64,69 @@ $("document").ready(
 			var catId = $(this).parent().siblings('td[categoryid]').attr('categoryid');
 			console.log(catId);
 			
-			$.post("categoriesRepository.php",{eventType: "deleteCategory", categoryId: catId},function(response){
-				
-				
-				$("#ref").show();
+			$.ajax({
+				type: "POST",
+				url: "categoriesRepository.php",
+				async: false,
+				data: {eventType: "deleteCategory", categoryId: catId},
+			}).done(function(response){
 				$("#ref").siblings().detach();
-				var categories = jQuery.parseJSON(response);
+				var result = jQuery.parseJSON(response);
+				var delRsesult = result.deleteResult;
+				var categories = result.list;
 				console.log(categories);
-				for(var index in categories)
+				
+				if(delRsesult<1)
 				{
-					console.log(cat);
-					var cat = categories[index];
-					console.log(cat.Category);
-					console.log(cat.categoryid);
-					console.log(cat.creator);
-				
-					var cell = $("#ref").clone();
-					var cc = cell[0];
-					console.log(cc);
-					console.log($(cc).find(".catName").children().html());
-					$(cc).find(".catName").children().html(cat.Category);
-					$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
-					$(cc).insertAfter('#ref');
-				
-				
+					//delete failed
+					$(".alert").hide();
+					$("#errorAlert").html("<i class=' icon-ok'></i> &nbsp; Error in deletion");
+					$("#errorAlert").fadeIn('fast');
+					$("#errorAlert").fadeOut(4000);
+					
 				}
-				$("#ref").hide();
+				else
+				{
+					if(categories==null || categories.length<1)
+					{
+						//all categories deleted
+						$(".alert").hide();
+						$("#infoAlert").html("<i class=' icon-ok'></i> &nbsp; All categories added");
+						$("#infoAlert").fadeIn('fast');
+						$("#infoAlert").fadeOut(4000);
+						
+					}
+					else if(categories.length>0)
+					{
+						//some cateogries are there
+						$(".alert").hide();
+						$("#successAlert").html("<i class=' icon-ok'></i> &nbsp; Category deleted");
+						$("#successAlert").fadeIn('fast');
+						$("#successAlert").fadeOut(4000);
+						
+						
+					}
+				}
 				
-				
-				
+				if(categories!=null && categories.length>0)
+				{
+					$("#ref").siblings().detach();
+					
+					layoutRows(categories);
+				}
 			});
-			
-			
-			
 		});
 		
 		
 		//onload get all categories
-		$.post("categoriesRepository.php", { eventType: "getAllCategories" },
-		function(data) {
-			//console.log(data);
+		$.ajax({
+			type: "POST",
+			url: "categoriesRepository.php",
+			async: false,
+			data: { eventType: "getAllCategories" },
+		}).done(function(data){
 			var categories = jQuery.parseJSON(data);
-			//console.log(categories);
-			for(var index in categories)
-			{
-				console.log(cat);
-				var cat = categories[index];
-				console.log(cat.Category);
-				console.log(cat.categoryid);
-				console.log(cat.creator);
-				
-				var cell = $("#ref").clone();
-				var cc = cell[0];
-				$(cc).removeAttr('id');
-				console.log($(cc).find(".catName").children().html());
-				$(cc).find(".catName").children().html(cat.Category);
-				$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
-				$(cc).find(".delLink").attr('href','#');
-				$(cc).insertAfter('#ref');
-				
-				
-			}
-			$("#ref").hide();
+			layoutRows(categories);
 		});
 		
 		$('.dropdown-toggle').dropdown(); 
@@ -158,36 +160,25 @@ $("document").ready(
 		// Create new category
 		$("#newCatSave").click(function(){
 			var catName = $("#catName").val();
+			$("#cancelNewCat").click();
 			
-			$.post("categoriesRepository.php",{eventType: 'createNewCategory', kName: String(catName)},function(response){
+			$.ajax({
+				type: "POST",
+				url: "categoriesRepository.php",
+				async: false,
+				data: {eventType: 'createNewCategory',kName: String(catName)},
+			}).done(function(response){
 				// $("#ref").show();
 				$("#ref").siblings().detach();
+				$(".alert").hide();
+				$("#successAlert").html("<i class=' icon-ok'></i> &nbsp; Category added");
+				$("#successAlert").fadeIn('fast');
+				$("#successAlert").fadeOut(4000);
 				var categories = jQuery.parseJSON(response);
 				console.log(categories);
-				for(var index in categories)
-				{
-					console.log(cat);
-					var cat = categories[index];
-					console.log(cat.Category);
-					console.log(cat.categoryid);
-					console.log(cat.creator);
-				
-					var cell = $("#ref").clone();
-					$(cell).show();
-					var cc = cell[0];
-					console.log(cc);
-					console.log($(cc).find(".catName").children().html());
-					$(cc).find(".catName").children().html(cat.Category);
-					$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
-					$(cc).insertAfter('#ref');
-				
-				
-				}
-				// $("#ref").hide();
-				
+				layoutRows(categories);
 				
 			});
-			$("#cancelNewCat").click();
 		});
 		
 		
@@ -199,7 +190,39 @@ $("document").ready(
 			var catid  = $(this).parent().attr('categoryId');
 			console.log("Clicked category : "+catid);
 			window.location = 'threads.php?catId='+catid;
-		});	
+		});
+		
+		
+		
+		function layoutRows(categories)	
+		{
+			
+			for(var index in categories)
+			{
+				console.log(cat);
+				var cat = categories[index];
+				console.log(cat.Category);
+				console.log(cat.categoryid);
+				console.log(cat.creator);
+				
+				var cell = $("#ref").clone();
+				var cc = cell[0];
+				$(cc).removeAttr('id');
+				console.log($(cc).find(".catName").children().html());
+				$(cc).find(".catName").children().html(cat.Category);
+				$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
+				$(cc).find(".delLink").attr('href','');
+				$(cc).find('.catThreadsCount').html(cat.num+(parseInt(cat.num>1)?" threads":" thread"));
+				$(cc).find('.createdBySpan').html(cat.creator.username);
+				$(cc).show();
+				$(cc).insertAfter('#ref');
+				
+				
+			}
+			 // $("#ref").hide();
+			
+			
+		}
 		
 
 	}
