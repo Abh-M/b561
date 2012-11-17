@@ -182,12 +182,11 @@ td
 
 .thread_title_row
 {
-/*	border-bottom: 1px solid lightgrey !important;*/
 }
 
 .thread_info_row
 {
-	border-top: 1px solid lightgrey !important;
+/*	border-top: 1px solid lightgrey !important;*/
 	font-size: 11px;
 	color: gray;
 	padding: 0px !important;
@@ -197,26 +196,29 @@ td
 
 td.views_col, td.created_by_col, td.created_col, p
 {
-	padding: 1px;
+/*	padding: 1px;*/
 	margin: 0;
 }
 
 .tagsRow
 {
-	border-top: 1px solid lightgrey !important;
+/*	border-top: 1px solid lightgrey !important;*/
 }
 
 
 .tag
 {
-	margin-left: 5px;
+	margin-left: 1px !important;
 }
 
 
 
 .alert
 {
+	font-weight: bold;
 	text-align: center !important;
+	background-color: #ffebe8 !important;
+	color: #3b5998;
 }
 
 .created_by_lbl, .date_creted_lbl
@@ -226,7 +228,7 @@ td.views_col, td.created_by_col, td.created_col, p
 
 .thread_title_col
 {
-	border-bottom: 1px solid gray !important;
+/*	border-bottom: 1px solid lightgray !important;*/
 }
 
 
