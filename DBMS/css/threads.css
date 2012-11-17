@@ -1,3 +1,31 @@
+#ref
+{
+	display: none;
+}
+
+
+#contentPane
+{
+	/*To hide scroll bars in mozilla*/
+	overflow: hidden !important; 
+}
+
+td
+{
+	word-wrap: break-word !important;
+	
+}
+
+ span
+{
+	white-space: pre-wrap !important;
+}
+
+table
+{
+	table-layout:fixed;
+}
+
 #content_container
 {
 	margin-top: 60px;
@@ -12,15 +40,14 @@
 }
 
 #sidebar{
-	height: 500px;
 }
 
 
 #rightPane
 {
-	/*	position: static;*/
 	height: 500px;
 	margin-left: 10px;
+	right: 10px;
 
 }
 
@@ -42,11 +69,6 @@ td
 
 }
 
-/*.date_creted_lbl .created_by_col
-{
-	text-align: right;
-}
-*/
 .created_col 
 {
 	
@@ -54,7 +76,7 @@ td
 	text-align: right !important;
 }
 
-	.created_by_col
+.created_by_col
 {
 	
 	width: 45%;
@@ -76,6 +98,7 @@ td
 	text-align: right !important;
 	padding: 0px !important;
 	padding-right: 2px !important;
+	width: 2%;
 }
 
 .inner_table:hover
@@ -109,15 +132,15 @@ td
 
 .ratings_col1
 {
-	width: 10px;
-	vertical-align: middle !important;
+	width: 5%;
+	vertical-align: top !important;
 }
-.ratings_col
+/*.ratings_col
 {
-	width: 10px;
-	vertical-align: middle;
+	width: 20%;
+	vertical-align: top;
 }
-
+*/
 #ddiv
 {
 	text-align: center;
@@ -190,3 +213,9 @@ td.views_col, td.created_by_col, td.created_col, p
 {
 	text-align: center !important;
 }
+
+.created_by_lbl, .date_creted_lbl
+{
+	text-align: left;
+}
+

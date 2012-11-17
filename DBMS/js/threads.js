@@ -105,64 +105,9 @@ $("document").ready(
 			data: {requestType: 'getThreadsForCategory',catId: String(param_val)},
 		}).done(function(response){
 		
-		// $.post('threadsRepository.php',{requestType: 'getThreadsForCategory',catId: String(param_val)},function(response){
 			var list = jQuery.parseJSON(response);
-			
 			console.log(list);
-			for(var i=0; i<list.length; i++)
-			{
-				var thread = list[i];
-				var cell = $("#ref").clone();
-				var cc = cell[0];
-				$(cell).removeAttr('id');
-				$(cell).attr('threadid',String(thread.threadid));
-				
-				var thread_Col = $(cell).find('.thread_title_div');
-				var thread_desc = $(cell).find('.thread_content_div');
-				
-					  
-				var createdDate = new Date(thread.datecreated);
-				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
-				
-				//var formattedDate = createdDate.format();
-				
-				$(cell).find('.created_by_val').html(thread.owner.username);
-				$(cell).find('.date_creted_val').html(formattedDate);
-				$(cell).find(".mybadge").html(thread.votes);
-				$(cell).find('.thread_title_div').children().html(thread.title);
-				$(cc).find(".thread_title_div").attr('threadId',String(thread.threadid));
-				$(cell).find('.thread_content_div').html(thread.description);
-				
-				
-				
-				if(thread.tags.length>0)
-				{
-					for(var j=0 ; j<thread.tags.length; j++)
-					{
-						var tag  =thread.tags[j];
-						v = $(cell).find("#reftag").clone();
-						$(cell).find("#reftag").hide();
-						$(v).removeAttr('id');
-						$(v).show();
-						$(v).html(tag);
-						$(cell).find('.tagContainer').append(v);
-					}
-						
-						
-				}
-				else
-				{
-					$(cell).find('.tagsRow').hide();
-				}
-				
-				
-				$(cell).insertAfter("#ref");
-				
-				
-				
-			}
-			$("#reftag").hide();
-			$("#ref").hide();
+			layoutRows(list);
 			
 		});
 		
@@ -172,6 +117,8 @@ $("document").ready(
 		/*---------------------------------------Create new thread---------------------------*/
 		
 		$("#newThreadSaveButton").click(function(event){
+			event.preventDefault();
+			
 			var title = $("#newThreadTitle").val();
 			var desc = $("#newThreadDesc").val();
 			var catId = $("#CategoryName").attr('catId');
@@ -181,13 +128,6 @@ $("document").ready(
 			console.log(jsonTags);
 			console.log("Creating new thread title "+ title + " desc: "+ desc + "for cat "+catId);
 			
-			
-			
-			//make a syncrohous req to insert new thread and get update list of threads*/
-			//TODO
-			/*
-			get threads in order of created Date
-			*/
 			$.ajax({
 				type: "POST",
 				url: "threadsRepository.php",
@@ -196,15 +136,10 @@ $("document").ready(
 			}).done(function(response)
 			{
 			
-			
-			
 				/* remove all old threads*/
 				$("#ref").siblings().detach();
-				
 				var list = jQuery.parseJSON(response);
 				console.log(list);
-				
-				
 				/* show alert on top of the page*/
 				if(list.length && list.length>0)
 				{
@@ -214,62 +149,8 @@ $("document").ready(
 					$("#successAlert").fadeOut(5000);
 					
 				}
-				
-				for(var i=0; i<list.length; i++)
-				{
-					var thread = list[i];
-				
-					var cell = $("#ref").clone();
-					var cc = cell[0];
-					$(cell).removeAttr('id');
-					$(cell).attr('threadid',String(thread.threadid));
-				
-					var thread_Col = $(cell).find('.thread_title_div');
-					var thread_desc = $(cell).find('.thread_content_div');
-					
-					$(cell).find('.created_by_val').html(thread.owner.username);
-					
-					var createdDate = new Date(thread.datecreated);
-					var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
-					
-				
-					$(cell).find('.date_creted_val').html(formattedDate);
-					$(cell).find(".mybadge").html(thread.votes);
-					
-				
-					$(cell).find('.thread_title_div').html(thread.title);
-					$(cell).find('.thread_content_div').html(thread.description);
-					$(cell).show();
-					$(cell).insertAfter("#ref");
-					
-					if(thread.tags.length>0)
-					{
-						for(var j=0 ; j<thread.tags.length; j++)
-						{
-							var tag  =thread.tags[j];
-							v = $(cell).find("#reftag").clone();
-							$(cell).find("#reftag").hide();
-							$(v).removeAttr('id');
-							$(v).show();
-							$(v).html(tag);
-							$(cell).find('.tagContainer').append(v);
-						}
-						
-						
-					}
-					else
-					{
-						$(cell).find('.tagsRow').hide();
-					}
-					
-				
-				
-				}
-				$("#ref").hide();
+				layoutRows(list);
 				$("#newThreadCloseButton").click();
-				
-				
-				
 			});
 		});
 		
@@ -293,124 +174,52 @@ $("document").ready(
 				
 				
 				var result = jQuery.parseJSON(response);
-												
-				if(result == false)
+				var deleteResult = result.deleteResult;
+				var list = result.threads;
+				//error in deletion
+				//list size
+				if(deleteResult < 1)
 				{
+					//deletion failed
 					$(".alert").hide();
 					$("#errorAlert").html("<i class=' icon-warning-sign'></i> Error in deletion");
 					$("#errorAlert").fadeIn('fast');
-					$("#errorAlert").fadeOut(5000);
-													
+					$("#errorAlert").fadeOut(3000);
+					
 				}
-				else
+				else if(deleteResult > 0)
 				{
-					var deleteResult = result.deleteResult;
-					var list = result.threads;
-												
-					if(deleteResult == 0)
+					//delete success 
+					if(list.length > 0)
 					{
-						//delete failed
+						//all threads not deleted
 						$(".alert").hide();
-						$("#errorAlert").html("<i class=' icon-warning-sign'></i> Error in deletion");
-						$("#errorAlert").fadeIn('fast');
-						$("#errorAlert").fadeOut(5000);
-													
-													
+						$("#successAlert").html("<i class=' icon-ok'></i> Thread deleted");
+						$("#successAlert").fadeIn('fast');
+						$("#successAlert").fadeOut(5000);
+						
 					}
-												
-					if(deleteResult>0 && list.length == 0)
+					else
 					{
-													
-						//delete successful and all rows deleted
+						//all threads deleted
 						$(".alert").hide();
 						$("#infoAlert").html("<i class=' icon-warning-sign'></i> All threads deleted");
 						$("#infoAlert").fadeIn('fast');
 						$("#infoAlert").fadeOut(5000);
 						$("#ref").siblings().detach();
-													
-													
-													
+						
 					}
-												
-												
-					if(list.length > 0 && deleteResult>0)
-					{
-						$(".alert").hide();
-						$("#successAlert").html("<i class=' icon-ok'></i> Thread deleted");
-						$("#successAlert").fadeIn('fast');
-						$("#successAlert").fadeOut(5000);
-													
-													
-						//remove old list
-						//$("#ref").show();
-						$("#ref").siblings().detach();
-													
-						console.log(list);
-						for(var i=0; i<list.length; i++)
-						{
-							var thread = list[i];
-												
-							var cell = $("#ref").clone();
-							var cc = cell[0];
-							$(cell).removeAttr('id');
-							$(cell).attr('threadid',String(thread.threadid));
-												
-							var thread_Col = $(cell).find('.thread_title_div');
-							var thread_desc = $(cell).find('.thread_content_div');
-													
-													
-							$(cell).find('.created_by_val').html(thread.owner.username);
-								
-							var createdDate = new Date(thread.datecreated);
-							var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
-													
-							$(cell).find('.date_creted_val').html(formattedDate);
-							$(cell).find(".mybadge").html(thread.votes);
-													
-													
-												
-							$(cell).find('.thread_title_div').html(thread.title);
-							$(cell).find('.thread_content_div').html(thread.description);
-							$(cell).show();
-							$(cell).insertAfter("#ref");
-													
-													
-							if(thread.tags.length>0)
-							{
-								for(var j=0 ; j<thread.tags.length; j++)
-								{
-									var tag  =thread.tags[j];
-									v = $(cell).find("#reftag").clone();
-									$(cell).find("#reftag").hide();
-									$(v).removeAttr('id');
-									$(v).show();
-									$(v).html(tag);
-									$(cell).find('.tagContainer').append(v);
-								}
-														
-														
-							}
-							else
-							{
-								$(cell).find('.tagsRow').hide();
-							}
-													
-													
-													
-												
-												
-						}
-						$("#ref").hide();
-													
-					}
-													
-													
+					
+					
 				}
-								
 				
+				if(list.length>0)
+				{
+					$("#ref").siblings().detach();
+					console.log(list);
+					layoutRows(list);
+				}
 			});
-			
-			
 		});
 		
 		
@@ -477,6 +286,12 @@ $("document").ready(
 			//get the thread id, for the link which is clicked
 			var threadid  = $(this).parent().attr('threadId');
 			console.log("Clicked thread : "+threadid);
+			
+			//increase view count for this thred
+			$.post('threadsRepository.php',{requestType: 'incrementViewCountForThread',threadId: threadid},function(response){
+				
+			});
+			
 			window.location = 'posts.php?threadId='+threadid;
 		});
 		
@@ -492,6 +307,50 @@ $("document").ready(
 				window.location = "index.php";
 			});
 		});
+		
+		
+		function layoutRows(list)
+		{
+			
+			for(var i=0; i<list.length; i++)
+			{
+				var thread = list[i];
+				var cell = $("#ref").clone();
+				var cc = cell[0];
+				var createdDate = new Date(thread.datecreated);
+				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
+				
+				$(cell).removeAttr('id');
+				$(cell).attr('threadid',String(thread.threadid));
+				$(cell).find('.created_by_val').html(thread.owner.username);
+				$(cell).find('.date_creted_val').html(formattedDate);
+				$(cell).find(".mybadge").html(thread.votes);
+				$(cell).find('.thread_title_div').children().html(thread.title);
+				$(cell).find(".thread_title_div").attr('threadId',String(thread.threadid));
+				$(cell).find('.thread_content_div').html(thread.description);
+				$(cell).find('.views_val').html(thread.views);
+				$(cell).show();
+				if(thread.tags.length>0)
+				{
+					for(var j=0 ; j<thread.tags.length; j++)
+					{
+						var tag  =thread.tags[j];
+						v = $(cell).find("#reftag").clone();
+						$(cell).find("#reftag").hide();
+						$(v).removeAttr('id');
+						$(v).show();
+						$(v).html(tag);
+						$(cell).find('.tagContainer').append(v);
+					}
+				}
+				else
+				{
+					$(cell).find('.tagsRow').hide();
+				}
+				$(cell).insertAfter("#ref");
+			}
+			$("#reftag").hide();
+		}
 			
 
 

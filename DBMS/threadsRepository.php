@@ -166,20 +166,24 @@ function deleteThreadInCategory($kThreadId,$kCatId)
 	
 	
 	$queryResult = mysql_query($query);
+	$result['deleteResult'] = mysql_affected_rows();
+	$result['threads'] = json_decode(getThreadsForCategory($kCatId));
+	
+	
 	
 	//also delete tags
 	$queryDeleteTags = "DELETE FROM tagtothread WHERE threadid = ".$kThreadId;
 	$queryDeleteTagsResult = mysql_query($queryDeleteTags);
 	
-	if($queryResult)
-	{
-		$result['deleteResult'] = mysql_affected_rows();
-		$result['threads'] = json_decode(getThreadsForCategory($kCatId));
-	}
-	else
-	{
-		$result = false; 
-	}
+	// if($queryResult!=NULL || $queryResult == true)
+	// {
+	// 	$result['deleteResult'] = mysql_affected_rows();
+	// 	$result['threads'] = json_decode(getThreadsForCategory($kCatId));
+	// }
+	// else
+	// {
+	// 	$result = false; 
+	// }
 	 
 	return json_encode($result);
 }
@@ -209,6 +213,19 @@ function decrementVoteForThread($kId)
 }
 
 
+function incrementViewCountForThread($kId)
+{
+	$result = json_encode(false);
+	$query = "UPDATE Thread SET views = views + 1  WHERE threadid = ".$kId;
+	$queryResult = mysql_query($query);
+
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+	
+	return $result;
+	
+}
+
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
 switch($reqType)
@@ -231,7 +248,7 @@ switch($reqType)
 	case 'getThreadsForCategory':
 	$catId = $_POST['catId'];
 	$result = getThreadsForCategory($catId);
-	break;
+	break;	
 	
 	case 'deleteThreadInCategory':
 	$catId = $_POST['catId'];
@@ -247,6 +264,11 @@ switch($reqType)
 	case 'decrementVoteForThread':
 	$threadId = $_POST['threadId'];
 	$result = decrementVoteForThread($threadId);
+	break;
+	
+	case 'incrementViewCountForThread':
+	$threadId = $_POST['threadId'];
+	$result = incrementViewCountForThread($threadId);
 	break;
 	
 		

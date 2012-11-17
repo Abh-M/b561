@@ -11,9 +11,7 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-
-
-//	<script src="js/threads.js"></script>
+	<script src="js/threads.js"></script>
 	<script src="js/replypost.js"></script>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -23,13 +21,6 @@
 	<link href="css/threads.css" rel="stylesheet">
 
 
-	<script type = "text/javascript">  
-	$(document).ready(function () 
-	{  
-
-		
-	});
-	</script>
 
 
 	</head>
@@ -38,7 +29,7 @@
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0px 10px;">
-				<a class="brand" href="#">Course Disscussion System</a>
+				<a class="brand">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
 					<li><a id="new-thread-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
@@ -81,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="search filters" data-placement="bottom" class="btn">Advance Search</i></a>
 						
 					</div>
 				</form>
@@ -96,6 +87,7 @@
 			<div class="alert alert-info" id="successAlert" style="display: none;">
 			</div>
 			</strong>
+			
 
 
 		</div>
@@ -110,7 +102,7 @@
 				<!-- <div class="span2 well well-small"   id="sidebar">
 				</div> -->
 
-				<div class="span9" id="contentPane">
+				<div class="span10" id="contentPane">
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
@@ -157,7 +149,7 @@
 										
 										<tr class="thread_info_row">
 											<td class="views_col">
-												<p class="views_val">Views:</p>
+												<p class="views_val_lbl">Views:&nbsp;<span class="views_val"></span></p>
 											</td>
 											<td class="created_by_col">
 												<p class="created_by_lbl">Created By:&nbsp; <span class="created_by_val label"></span></p>
@@ -166,13 +158,14 @@
 												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
 											</td>
 											<!-- <td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td> -->
-											
 										</tr>
 										
+
 										<tr class="tagsRow">
 											<td colspan="4" class="tagsCol"><div class="tagContainer"><span class="label label-info tag" id="reftag">Sample Tag</span></div></td>
 										</tr>
 										
+
 									</tbody>
 								</table>
 								</div>
@@ -183,7 +176,7 @@
 				</div>
 
 
-				<div class="span3 well well-small" id="rightPane"></div>
+				<div class="span2 well well-small" data-spy="affix"  id="rightPane"></div>
 			</div>
 		</div>
 
@@ -203,8 +196,8 @@
 				<input type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
-				<a href="#" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
+				<a href="" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
+				<a href="" class="btn btn-primary" id="newThreadSaveButton">Create thread</a>
 			</div>
 		</div>
 		
