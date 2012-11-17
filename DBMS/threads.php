@@ -135,10 +135,10 @@
 											</td>	
 											
 											<td class="thread_title_col" colspan="3">
-												<h5><div class="thread_title_div">
+												<div class="thread_title_div">
 												<a href="" class="threadLink">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
-												</a></div></h5>
+												</a></div>
 											</td>
 											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-trash"></i></td>
 										</tr>
