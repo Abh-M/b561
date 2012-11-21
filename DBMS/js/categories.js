@@ -160,13 +160,14 @@ $("document").ready(
 		// Create new category
 		$("#newCatSave").click(function(){
 			var catName = $("#catName").val();
+			var user = $("#loggedUser").attr('userid');
 			$("#cancelNewCat").click();
 			
 			$.ajax({
 				type: "POST",
 				url: "categoriesRepository.php",
 				async: false,
-				data: {eventType: 'createNewCategory',kName: String(catName)},
+				data: {eventType: 'createNewCategory',kName: String(catName), userid:user },
 			}).done(function(response){
 				// $("#ref").show();
 				$("#ref").siblings().detach();

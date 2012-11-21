@@ -78,7 +78,7 @@ function createNewCategory($catName,$ownerId)
 	if($result==true)
 		$result = getAllCategories();
 	
- 	return $result;
+	 return $result;
 
 }
 
@@ -110,11 +110,9 @@ switch($event)
 	
 	case "createNewCategory":
 	{
-		
 		 $catName = $_POST['kName'];
-		 $userid = $_SESSION['userid'];
+		 $userid = $_POST['userid'];
 		 $result = createNewCategory($catName,$userid);
-		
 	}
 	break;
 	
