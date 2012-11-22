@@ -26,17 +26,27 @@ $("document").ready(
 				$("#loggedUser").attr('username',userInfo.username);
 				
 				
-				//depending on usertype show/hide create and delete category button
+				//depending on usertype show/hide create and delete thread button
 				var userType =parseInt(userInfo.userType);
 				if(userType != 0 && userType!= 1)
 				{
-					 $(".deleteLink").hide();
-					 $("#new-thread-link").hide();
+					$(".deleteLink").hide();
+					$("#new-thread-link").hide();
 				}
 				else
 				{
-					 $(".deleteLink").show();
-					 $("#new-thread-link").show();
+					$(".deleteLink").show();
+					$("#new-thread-link").show();
+				}
+				
+				//show notifications to admins only
+				if(userType==0)
+				{
+					$("#new-notifications-button").show();
+				}
+				else
+				{
+					$("#new-notifications-button").hide();
 				}
 				
 			}
@@ -84,6 +94,10 @@ $("document").ready(
 		});
 		
 		
+		/*------------Get groups for current user-------------*/
+		getGroupsForCurrentUser();
+		
+		
 		/*---------------------------------------get url components---------------------------*/
 		var params = location.search;
 		console.log(params);
@@ -94,8 +108,8 @@ $("document").ready(
 		
 		
 		/*---------------------------------------get Parent category info---------------------------*/
-		 $.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
-		 function(response){
+		$.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		function(response){
 			var json = jQuery.parseJSON(response);
 			console.log(json);
 			$("#CategoryName").html(String(json.Category));
@@ -244,9 +258,9 @@ $("document").ready(
 		});
 		
 		
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-
+		//submit request to create new group
 		$("#new-group-link").live('click',function(event){
 			$("#myGroupModalContainer").hide();
 			$("#myGroupModalContainer").show();
@@ -298,6 +312,8 @@ $("document").ready(
 			
 		});
 		
+		
+		//dismiss modal for new group request
 		$("#cancelGrpReq").click(function(event){
 			$("#myGroupModalContainer").hide();
 			$("body").css("overflow","auto");
@@ -306,6 +322,7 @@ $("document").ready(
 		});
 		
 		
+		//submit new group request
 		$("#submitGrpReq").click(function(event){
 			var $seletedRow = $(this).parentsUntil('table').find('.userSelected');
 			var kuserid = $("#loggedUser").attr('userid');
@@ -345,8 +362,8 @@ $("document").ready(
 			var myarray = [];
 			var myJSON = "";
 			$.each($seletedRow,function(index,val){
-			    var item = {"userid": $(val).attr('userid')};
-			    myarray.push(item);
+				var item = {"userid": $(val).attr('userid')};
+				myarray.push(item);
 				
 			});
 			myJSON = JSON.stringify({memberslist: myarray});
@@ -372,6 +389,7 @@ $("document").ready(
 			
 		});
 		
+		//toggle removal and addition of members in a group while creating new request
 		$(".addRemLink").live('click',function(event){
 			event.preventDefault();
 			$(this).parent().parent().attr('userid');
@@ -386,7 +404,7 @@ $("document").ready(
 		
 		
 		
-		
+		//get pending requests for groups and show it in modal
 		$("#new-notifications-button").click(function(event){
 			// console.log($(document).position().left);
 			// $(window).scrollTop();
@@ -420,9 +438,9 @@ $("document").ready(
 
 
 						var members = data[index].members;
-						 $membersCol = $($newRow).find(".membersCol");
-						 $memberRefRow = $($membersCol).find("p");
-						 $($membersCol).find("p").detach();
+						$membersCol = $($newRow).find(".membersCol");
+						$memberRefRow = $($membersCol).find("p");
+						$($membersCol).find("p").detach();
 						for(var j=0 ; j<members.length ; j++)
 						{
 							var member = members[j];
@@ -447,13 +465,15 @@ $("document").ready(
 			$("body").css("overflow","hidden");
 		});
 		
+		
+		//dismiss modal to see pending group request
 		$("#reqModalCancel").click(function(event){
 			$("#requestContainer").hide();
 			$("body").css("overflow","auto");
 			
 		});
 		
-		
+		//approve group request
 		$(".groupApproveButton").live('click',function(event){
 			event.preventDefault();
 			$row = $(this).parentsUntil('tr').parent();
@@ -470,7 +490,8 @@ $("document").ready(
 			}).done(function(response)
 			{
 				$($row).detach();
-				
+				//after request is approved refresh the groups lists
+				getGroupsForCurrentUser();
 			});
 			//$("#reqModalCancel").click();
 					
@@ -479,42 +500,6 @@ $("document").ready(
 		
 		
 		
-		//get all groups for current user
-		$.ajax({
-			type: "POST",
-			url: "GroupsController.php",
-			async: false,
-			data: {requestType: 'getGroupsForUser',userId:String($("#loggedUser").attr('userid'))},
-		}).done(function(response)
-		{
-			if(response)
-			{
-				var data = jQuery.parseJSON(response);
-				if(data!=false)
-				{
-					$("#groupsOption").show();
-					$refOption = $("#groupsOption").find("#refOption");
-					for(var index=0; index < data.length; index++)
-					{
-						var grp = data[index];
-						$newOpt = $($refOption).clone();
-						$($newOpt).removeAttr('id');
-						$($newOpt).html(grp.name);
-						$($newOpt).attr('grpid',grp.id);
-						$($newOpt).attr('creator',grp.creator);
-						$($newOpt).insertAfter($refOption);
-					}
-					console.log(data);
-					
-				}
-				else
-				{
-					//hide the select option
-					$("#groupsOption").hide();
-				}
-			}
-			
-		});
 		
 		
 		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -599,6 +584,8 @@ $("document").ready(
 		});
 		
 		
+		
+		
 		function layoutRows(list)
 		{
 			
@@ -642,8 +629,52 @@ $("document").ready(
 			}
 			$("#reftag").hide();
 		}
-			
+		
+		
+		
+		
+		function getGroupsForCurrentUser()
+		{
+			//get all groups for current user
+			$.ajax({
+				type: "POST",
+				url: "GroupsController.php",
+				async: false,
+				data: {requestType: 'getGroupsForUser',userId:String($("#loggedUser").attr('userid'))},
+			}).done(function(response)
+			{
+				if(response)
+				{
+					var data = jQuery.parseJSON(response);
+					if(data!=false)
+					{
+						$("#groupsOption").show();
+						$refOption = $("#groupsOption").find("#refOption");
+						$($refOption).siblings().detach();
+						for(var index=0; index < data.length; index++)
+						{
+							var grp = data[index];
+							$newOpt = $($refOption).clone();
+							$($newOpt).removeAttr('id');
+							$($newOpt).html(grp.name);
+							$($newOpt).attr('grpid',grp.id);
+							$($newOpt).attr('creator',grp.creator);
+							$($newOpt).insertAfter($refOption);
+						}
+						console.log(data);
+							
+					}
+					else
+					{
+						//hide the select option
+						$("#groupsOption").hide();
+					}
+				}
+					
+			});
+					
+		}	
 
 
-		}
-	);
+	}
+);
