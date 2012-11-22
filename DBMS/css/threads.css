@@ -208,6 +208,8 @@ td.views_col, td.created_by_col, td.created_col, p
 
 .tag
 {
+	font-size: 11px;
+	font-weight: normal !important;
 	margin-left: 1px !important;
 }
 
@@ -237,3 +239,166 @@ td.views_col, td.created_by_col, td.created_col, p
 	font-weight: bold;
 }
 
+#myGroupModal
+{
+	position: relative;
+	background-color: white;
+	padding: 10px;
+	opacity: 1;
+	top: 100px;
+	width: 20%;
+/*	height: 40%;*/
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	
+}
+
+#mfooter
+{
+	text-align: right;
+}
+
+#modalTable
+{
+}
+
+#modalRow
+{
+/*	height: 400px;*/
+}
+
+.bcol
+{
+	width: 5%;
+	padding: 1px;
+}
+
+.uname
+{
+	width: 95%;
+}
+
+
+
+
+.userblk
+{
+	padding: 2px;
+	margin: 1px;
+	background-color: #eceff6;
+}
+
+.userSelected
+{
+	background-color: #eceff6;
+}
+
+.userRemoved
+{
+	
+	background-color: white;
+}
+
+
+
+
+#requestContainer
+{
+/*	border: 1px solid black;
+	z-index: 9999999;
+	width: 100%;
+*/
+position: absolute;
+display: none;
+z-index: 999999 !important;
+background-color:black;
+text-align: center;
+
+height: 100%;
+top: 0px;
+left: 0px;
+width: 100%;
+opacity: 1.0;
+}
+
+
+#requestsModal
+{
+/*	border: 1px solid black;
+	margin-left:auto;
+	margin-right: auto;
+*/
+border: 1px solid black;
+position: relative;
+
+background-color: white;
+display: inline-block;
+margin-top: 50px;
+margin-bottom: 50px;
+width: 60%;
+
+
+}
+
+
+#requestModalHeader
+{
+	padding: 10px;
+	border-bottom: 1px solid lightgray;
+}
+
+
+.reqTable
+{
+	margin: 1%;
+	width: 98%;
+}
+
+
+#requestModalBody
+{
+	
+}
+
+
+#requestModalFooter
+{
+	padding: 10px;
+	border-top: 1px solid lightgray;
+}
+
+
+.reqRow
+{
+	vertical-align: top;
+	text-align: left;
+
+}
+
+.memberNameClass
+{
+	display: block;
+	padding: 5px;
+	margin: 1px;
+	background-color: #eceff6;
+	text-align: left;
+
+
+}
+
+
+.reqHeaders
+{
+	text-align: left;
+}
+
+.rightAlignClass
+{
+	text-align: center !important;
+}
+
+.nameCol, .requesterCol, .membersCol, th
+{
+	padding: 10px;
+}

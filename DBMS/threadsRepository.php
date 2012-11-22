@@ -22,10 +22,14 @@ function getParentCategoryInfo($kCatId)
 }
 
 
-function getThreadsForCategory($kCatId)
+function getThreadsForCategory($kCatId,$kUserId)
 {
 	$result = json_encode(false);
-	$query = "SELECT * from Thread WHERE categoryid = ".$kCatId;
+	$query ;
+	if($kUserId==-1)
+		$query = "SELECT * from Thread WHERE categoryid = ".$kCatId;
+	else
+		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -63,6 +67,20 @@ function getThreadsForCategory($kCatId)
 				$user = mysql_fetch_assoc($ownerSearchQueryResult);
 				$row['owner'] = $user;
 			}
+			
+			//get group name
+			$groupId = $row['groupid'];
+			if($groupId != NULL)
+			{
+				$groupQuery = "SELECT name from groups WHERE id = $groupId";
+				$groupQueryResult = mysql_query($groupQuery);
+				if(mysql_num_rows($groupQueryResult)==1)
+				{
+					$grp = mysql_fetch_assoc($groupQueryResult);
+					$row['groupName']= $grp['name'];
+				}	
+				
+			}
 
 			array_push($allThreads,$row);
 		}
@@ -73,12 +91,18 @@ function getThreadsForCategory($kCatId)
 }
 
 
-function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags)
+function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags,$kGroupId)
 {
 	$result = json_encode(false);
 	$currDateTime = date('Y-m-d H:i:s');
 	$createrId = $_SESSION['userid'];
+	$query;
+	if($kGroupId==-1)
 	$query  = "INSERT INTO Thread (title,description,categoryid,datecreated,owner,votes,views) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId.", '".$currDateTime."', ".$createrId.", 0, 0 )";
+	else
+		$query  = "INSERT INTO Thread (title,description,categoryid,datecreated,owner,votes,views,groupid) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId.", '".$currDateTime."', ".$createrId.", 0, 0, $kGroupId)";
+	 	
+
 	$result = mysql_query($query);
 
 	
@@ -151,7 +175,7 @@ function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags)
 		}
 	}
 	if($result==true)
-	$result = getThreadsForCategory($kCatId);
+	$result = getThreadsForCategory($kCatId,$_SESSION['userid']);
 	
 	
 	return $result;
@@ -167,7 +191,7 @@ function deleteThreadInCategory($kThreadId,$kCatId)
 	
 	$queryResult = mysql_query($query);
 	$result['deleteResult'] = mysql_affected_rows();
-	$result['threads'] = json_decode(getThreadsForCategory($kCatId));
+	$result['threads'] = json_decode(getThreadsForCategory($kCatId,$_SESSION['userid']));
 	
 	
 	
@@ -236,18 +260,19 @@ switch($reqType)
 	break;
 	
 	case 'createNewThreadForCategory':
+	$paramsValid = false;
 	$catId = $_POST['catId'];
 	$title = $_POST['title'];
 	$desc  = $_POST['desc'];
 	$tags = $_POST['tags'];
-	
-	$group = 0;
-	$result = createNewThreadForCategory($catId,$title,$desc,$group,$tags);
+	$group = (isset($_POST['groupid']))?$_POST['groupid']:-1;
+	$result = createNewThreadForCategory($catId,$title,$desc,$group,$tags,$group);
 	break;
 	
 	case 'getThreadsForCategory':
 	$catId = $_POST['catId'];
-	$result = getThreadsForCategory($catId);
+	$userId = (isset($_POST['userId']))?$_POST['userId']:-1;
+	$result = getThreadsForCategory($catId,$_SESSION['userid']);
 	break;	
 	
 	case 'deleteThreadInCategory':

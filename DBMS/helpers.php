@@ -47,8 +47,31 @@ function getLoggedInUserInfo()
 	return json_encode($_SESSION['userInfoMap']);
 }
 
+
+function getAllUsersListForUser($userid)
+{
+	$result = json_encode(false);
+//	$query ="SELECT userid, username FROM User where userid <> ".$userid;
+	$query ="SELECT userid, username FROM User ";
+	$qresult = mysql_query($query);
+	$users = array();
+	if($qresult)
+	{
+		while($row = mysql_fetch_assoc($qresult))
+			array_push($users,$row);
+		
+		$result = json_encode($users);
+	}
+	
+
+	return $result;
+}
+
+
+
 $req = $_POST["requestType"];
 $response = json_encode(false);
+
 
 
 switch($req)
@@ -90,6 +113,12 @@ switch($req)
 	
 	case 'getLoggedInUserInfo':
 	$response = getLoggedInUserInfo();
+	break;
+		
+		
+	case 'getAllUsersListForUser':
+	$userid = $_POST['userid'];
+	$response = getAllUsersListForUser($userid);
 	break;
 	
 }

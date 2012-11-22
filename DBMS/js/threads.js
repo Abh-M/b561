@@ -6,7 +6,13 @@ $("document").ready(
 
 		
 		//Get logged in userinfo
-		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+		$.ajax({
+			type: "POST",
+			url: "helpers.php",
+			async: false,
+			data: {requestType:'getLoggedInUserInfo'},
+		}).done(function(response){
+		
 
 			
 			var userInfo = jQuery.parseJSON(response);
@@ -125,14 +131,29 @@ $("document").ready(
 			var tagsList = $('#tagsList').val();
 			var allTags =tagsList.split(','); 
 			var jsonTags = JSON.stringify(allTags);
+			var grpName = $('#groupsOption option:selected').val(); 
+			var grpId = parseInt($('#groupsOption option:selected').attr('grpid'));
+			var grpcreator = $('#groupsOption option:selected').attr('creator');
 			console.log(jsonTags);
 			console.log("Creating new thread title "+ title + " desc: "+ desc + "for cat "+catId);
+			
+			var postData = new Object();
+			postData.requestType = 'createNewThreadForCategory';
+			postData.tags = jsonTags;
+			postData.catId = String(catId);
+			postData.title = String(title);
+			postData.desc = String(desc);
+			if(grpId!=-1)
+			{
+				postData.groupid = grpId;
+			}
 			
 			$.ajax({
 				type: "POST",
 				url: "threadsRepository.php",
 				async: false,
-				data: {requestType: 'createNewThreadForCategory',tags: jsonTags, catId: String(catId), title: String(title), desc: String(desc)},
+				// data: {requestType: 'createNewThreadForCategory',tags: jsonTags, catId: String(catId), title: String(title), desc: String(desc)},
+				data: postData,				
 			}).done(function(response)
 			{
 			
@@ -223,11 +244,280 @@ $("document").ready(
 		});
 		
 		
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+
+		$("#new-group-link").live('click',function(event){
+			$("#myGroupModalContainer").hide();
+			$("#myGroupModalContainer").show();
+			$("#myGroupModalContainer").css('position','relative');
+			$("#myGroupModalContainer").offset({ top: window.pageYOffset, left: 0 })
+			$("#myGroupModalContainer").height($("body").height());
+			$("#myGroupModalContainer").css('z-index',9999999999999999999999);
+			$("#myGroupModalContainer").css('opacity','1.0');
+			$("#myGroupModalContainer").css('background-color','black');
+			$("#myGroupModalContainer").css('margin-left','auto');
+			$("#myGroupModalContainer").css('margin-right','auto');
+			$("#myGroupModalContainer").css('display','block');
+			$("#myGroupModalContainer").css('text-align','center');
+			
+			$("body").css("overflow","hidden");
+			
+			
+			var kuserid = $("#loggedUser").attr('userid');
+			$.ajax({
+				type: "POST",
+				url: "helpers.php",
+				async: false,
+				data: {requestType: 'getAllUsersListForUser',userid: String(kuserid)},
+			}).done(function(response){
+			
+				var respone = jQuery.parseJSON(response);
+				if(respone!=false)
+				{
+					var users = respone;
+					console.log(users);
+					$("#modalRow").hide();
+					$("#modalRow").siblings().detach();
+					for(var i=0; i<users.length; i++)
+					{
+						$row  = $("#modalRow").clone();
+						$($row).removeAttr('id');
+						$($row).attr('userid',users[i].userid);
+						$($row).find('.uname').html(users[i].username);
+						$($row).insertAfter("#modalRow");
+						$($row).addClass('aabbdd');
+						$($row).show();
+						console.log($row);
+					}
+					
+				}
+			
+			});
+			//get all usernames
+			
+		});
+		
+		$("#cancelGrpReq").click(function(event){
+			$("#myGroupModalContainer").hide();
+			$("body").css("overflow","auto");
+			
+
+		});
+		
+		
+		$("#submitGrpReq").click(function(event){
+			var $seletedRow = $(this).parentsUntil('table').find('.userSelected');
+			var kuserid = $("#loggedUser").attr('userid');
+			var grpName = $("#newgroupTitle").val();
+
+
+			//check if group name is enterd
+			if(typeof grpName === undefined || grpName.length <1)
+			{
+				//alert user and close the pop up
+				//show alert
+				
+				$("#cancelGrpReq").click();
+				$(".alert").hide();
+				$("#errorAlert").html("<i class=' icon-warning-sign'></i> please enter group name");
+				$("#errorAlert").fadeIn('fast');
+				$("#errorAlert").fadeOut(3000);
+				
+				return false;
+			}
+			//check if some users are selected
+			if(typeof $seletedRow === undefined || $seletedRow.length < 1)
+			{
+				//no members are select close the pop up 
+				//show alert
+				$("#cancelGrpReq").click();
+				
+				$(".alert").hide();
+				$("#errorAlert").html("<i class=' icon-warning-sign'></i> please select members for group");
+				$("#errorAlert").fadeIn('fast');
+				$("#errorAlert").fadeOut(3000);
+				
+				return false;
+			}
+
+
+			var myarray = [];
+			var myJSON = "";
+			$.each($seletedRow,function(index,val){
+			    var item = {"userid": $(val).attr('userid')};
+			    myarray.push(item);
+				
+			});
+			myJSON = JSON.stringify({memberslist: myarray});
+			console.log(myJSON)
+			
+			
+			//submit request 
+			
+			$.ajax({
+				type: "POST",
+				url: "GroupsController.php",
+				async: false,
+				data: {requestType: 'newGroupRequest',groupName: grpName, requesterId: String(kuserid), groupMembers: myJSON},
+			}).done(function(response)
+			{
+				$("#cancelGrpReq").click();
+				
+			});
+			
+			//directly create group if user is admin
+			
+			
+			
+		});
+		
+		$(".addRemLink").live('click',function(event){
+			event.preventDefault();
+			$(this).parent().parent().attr('userid');
+			$(this).children().toggleClass('icon-plus icon-minus');
+			$(this).parent().parent().toggleClass('userRemoved userSelected');
+			
+			// $(this).parent().parent().toggleClass
+		});
 		
 		
 		
 		
 		
+		
+		
+		$("#new-notifications-button").click(function(event){
+			// console.log($(document).position().left);
+			// $(window).scrollTop();
+			$.ajax({
+				type: "POST",
+				url: "GroupsController.php",
+				async: false,
+				data: {requestType: 'getGroupResquests'},
+			}).done(function(response)
+			{
+				var data = jQuery.parseJSON(response);
+				if(data!=false && data.length>0)
+				{
+					$("#requestContainer").find("#refReqRow").hide();
+					$("#requestContainer").find("#refReqRow").siblings().detach();
+					$refRow = $("#requestContainer").find("#refReqRow");
+				
+					for(var index=0; index<data.length; index++)
+					{
+						console.log(data[index]);
+						var grpName = data[index].name;
+						var requester = data[index].requester.username;
+					
+						$newRow = $($refRow).clone();
+						$($newRow).show();
+						$($newRow).removeAttr('id');
+						$($newRow).attr('grpname',grpName);
+						$($newRow).attr('creatorid',data[index].requester.userid);
+						$($newRow).find(".nameCol").html(grpName);
+						$($newRow).find(".requesterCol").html(requester);
+
+
+						var members = data[index].members;
+						 $membersCol = $($newRow).find(".membersCol");
+						 $memberRefRow = $($membersCol).find("p");
+						 $($membersCol).find("p").detach();
+						for(var j=0 ; j<members.length ; j++)
+						{
+							var member = members[j];
+							console.log(member.username);
+							$newMemRow = $($memberRefRow).clone();
+							$($newMemRow).removeAttr('id');
+							$($newMemRow).html(member.username);
+							$($membersCol).append($newMemRow);
+						}
+					
+					
+						$($newRow).insertAfter($refRow);
+					}
+				
+				}
+				
+			});
+			
+			
+			$("#requestContainer").show();
+			$("#requestContainer").css('top',window.pageYOffset);
+			$("body").css("overflow","hidden");
+		});
+		
+		$("#reqModalCancel").click(function(event){
+			$("#requestContainer").hide();
+			$("body").css("overflow","auto");
+			
+		});
+		
+		
+		$(".groupApproveButton").live('click',function(event){
+			event.preventDefault();
+			$row = $(this).parentsUntil('tr').parent();
+			var grpname = $(this).parentsUntil('tr').parent().attr('grpname');
+			var creatorid = $(this).parentsUntil('tr').parent().attr('creatorid');
+			console.log(grpname+".........."+creatorid);
+			
+			//approve the request
+			$.ajax({
+				type: "POST",
+				url: "GroupsController.php",
+				async: false,
+				data: {requestType: 'approveGroupRequest',groupName: String(grpname),creatorid :String(creatorid)},
+			}).done(function(response)
+			{
+				$($row).detach();
+				
+			});
+			//$("#reqModalCancel").click();
+					
+		});
+		
+		
+		
+		
+		//get all groups for current user
+		$.ajax({
+			type: "POST",
+			url: "GroupsController.php",
+			async: false,
+			data: {requestType: 'getGroupsForUser',userId:String($("#loggedUser").attr('userid'))},
+		}).done(function(response)
+		{
+			if(response)
+			{
+				var data = jQuery.parseJSON(response);
+				if(data!=false)
+				{
+					$("#groupsOption").show();
+					$refOption = $("#groupsOption").find("#refOption");
+					for(var index=0; index < data.length; index++)
+					{
+						var grp = data[index];
+						$newOpt = $($refOption).clone();
+						$($newOpt).removeAttr('id');
+						$($newOpt).html(grp.name);
+						$($newOpt).attr('grpid',grp.id);
+						$($newOpt).attr('creator',grp.creator);
+						$($newOpt).insertAfter($refOption);
+					}
+					console.log(data);
+					
+				}
+				else
+				{
+					//hide the select option
+					$("#groupsOption").hide();
+				}
+			}
+			
+		});
+		
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
 		/* increment vote for thread*/
 		$(".plus_button").live('click',function(event){
 			//increment vote
@@ -329,6 +619,7 @@ $("document").ready(
 				$(cell).find(".thread_title_div").attr('threadId',String(thread.threadid));
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).find('.views_val').html(thread.views);
+				$(cell).find('.group_val').html((thread.groupid)?thread.groupName:"no group");
 				$(cell).show();
 				if(thread.tags.length>0)
 				{

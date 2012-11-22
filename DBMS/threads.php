@@ -13,6 +13,8 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 	<script src="js/threads.js"></script>
 	<script src="js/replypost.js"></script>
+	
+	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
@@ -34,6 +36,19 @@
 					<li class="divider-vertical"></li>				
 					<li><a id="new-thread-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new thread" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
+					<li><a id="new-group-link" rel="tooltip"  data-original-title="create group" data-placement="bottom"><i class="icon-th icon-white"></i></a></li>
+					<li class="divider-vertical"></li>				
+					<li>
+						<div class="btn btn-link" id="new-notifications-button" rel="tooltip"  data-original-title="notifications" data-placement="bottom">
+							<i class="icon-bullhorn icon-white"></i>
+						</div>
+					</li>
+					
+					
+					<!-- <li><a id="new-notifications-button" rel="tooltip"  data-original-title="notifications" data-placement="bottom"><i class="icon-bullhorn icon-white"></i></a></li> -->
+					<li class="divider-vertical"></li>				
+					
+					
 				</ul>
 
 
@@ -126,7 +141,7 @@
 										
 										
 										<tr class="thread_title_row">
-											<td class="ratings_col1" rowspan="4">
+											<td class="ratings_col1" rowspan="5">
 												<div id="ddiv">
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val">10</span><br/>
@@ -134,7 +149,7 @@
 												</div>
 											</td>	
 											
-											<td class="thread_title_col" colspan="3">
+											<td class="thread_title_col" colspan="4">
 												<div class="thread_title_div">
 												<a href="" class="threadLink">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
@@ -145,7 +160,7 @@
 										
 											
 										<tr class="thread_content_row">
-											<td class="thread_content_col" colspan="4">
+											<td class="thread_content_col" colspan="5">
 												<div class="thread_content_div">
 														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
 												</div>
@@ -159,7 +174,10 @@
 												<p class="views_val_lbl">Views:&nbsp;<span class="views_val"></span></p>
 											</td>
 											<td class="created_by_col">
-												<p class="created_by_lbl">Created By:&nbsp; <span class="created_by_val label"></span></p>
+												<p class="created_by_lbl">Created By:&nbsp; <span class="created_by_val"></span></p>
+											</td>
+											<td class="group_col">
+												<p class="group_lbl">Group: &nbsp; <span class="group_val">-</span></p>
 											</td>
 											<td class="created_col">
 												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
@@ -201,6 +219,10 @@
 				<textarea rows="5" placeholder="thread description" id="newThreadDesc"></textarea>
 				<br/>
 				<input type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
+				<br/>
+			    <select id="groupsOption">
+			      <option id="refOption" grpid='-1'>-- select group--</option>
+			    </select>
 			</div>
 			<div class="modal-footer">
 				<a href="" class="btn" data-dismiss="modal" id="newThreadCloseButton">Close</a>
@@ -257,10 +279,7 @@
 				      <input type="text" id="tag_filter" placeholder="tag">
 				    </div>
 				 </div>
-				
-				
-				
-				</form>
+			 </form>
 				
 			</div>
 			<div class="modal-footer">
@@ -268,6 +287,73 @@
 				<a href="#" class="btn btn-primary">Search</a>
 			</div>
 		</div>
+		
+		
+		
+		
+		
+		<!-- Modal view for creating new group -->
+		
+		<div id="myGroupModalContainer" style="display: none;" >
+			<div id="myGroupModal">
+				<div id="mheader">
+					<h6>New Group Request</h6>
+					<input type="text" placeholder="group name" id="newgroupTitle" maxlength="200">
+				</div>
+				
+				<table id="modalTable" width="100%">
+					<!-- <th>Select group members</th> -->
+					<tr id="modalRow" class="userRemoved">
+						<td class="uname">
+							Sample name
+						</td>
+						<td class="bcol">
+							<a href="" class="addRemLink"><i class="icon-plus"></i></a>
+						</td>
+					</tr>
+				</table>
+				<div id="mfooter">
+					<div class="btn" id="cancelGrpReq">cancel</div>
+					<div class="btn" id="submitGrpReq">submit request</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<!-- Modal view for group request -->
+		<div id="requestContainer">
+			<div id="requestsModal">
+				<div id="requestModalHeader">
+					<div style="display: inline-block;">Group Requests</div>
+				</div>
+				
+				<div id="requestModalBody">
+					<table class="reqTable">
+						<tr class="reqHeaders">
+						<th>Group Name</th>
+						<th>Requester</th>
+						<th>Members</th>
+						<th class="rightAlignClass">Action</th>
+						</tr>
+						<tr class="reqRow" id="refReqRow">
+							<td class="nameCol">Group Name</td>
+							<td class="requesterCol">Requester Name</td>
+							<td class="membersCol">
+								<p id="refMemberName" class="memberNameClass">Name1</p>
+							</td>
+							<td class="controlsCol rightAlignClass"><!-- <div class="btn btn-link groupApproveButton">Approve</div> -->
+								<a class="btn btn-link groupApproveButton" href="" >Approve</a>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="requestModalFooter" style="text-align: right;">
+					<div class="btn btn-link" id="reqModalCancel">close</div>
+				</div>
+			</div>
+		</div>
+		
+		
 
 
 
