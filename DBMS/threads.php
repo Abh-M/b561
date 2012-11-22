@@ -342,7 +342,8 @@
 								<p id="refMemberName" class="memberNameClass">Name1</p>
 							</td>
 							<td class="controlsCol rightAlignClass"><!-- <div class="btn btn-link groupApproveButton">Approve</div> -->
-								<a class="btn btn-link groupApproveButton" href="" >Approve</a>
+								<a class="btn btn-link groupApproveButton" href="" ><i class="icon-ok-sign"></i></a>
+								<a class="btn btn-link groupRejectButton" href="" ><i class="icon-remove-sign"></i></a>
 							</td>
 						</tr>
 					</table>
