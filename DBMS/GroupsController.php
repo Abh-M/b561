@@ -180,6 +180,27 @@ function getGroupsForUser($kUserId)
 }
 
 
+function rejectGroupRequest($kGrpName)
+{
+	$result = array();
+	$result['deleteResult']=false;
+	
+	$deleteQuery = "DELETE FROM group_request WHERE group_name = '$kGrpName'";
+
+	$queryResult = mysql_query($deleteQuery);
+	if(mysql_affected_rows()>0)
+	{
+		//delete success
+		$result['deleteResult'] = true;
+	}
+	
+	//get grouprequests after deletion
+	$result['groupRequets'] = json_decode(getGroupResquests());
+
+	return json_encode($result);
+}
+
+
 $req = $_POST['requestType'];
 $result = json_encode(false);
 
@@ -206,7 +227,9 @@ switch($req)
 	break;
 	
 	
-	case "rejectRequest":
+	case "rejectGroupRequest":
+	$grpName = $_POST['groupName'];
+	$result = rejectGroupRequest($grpName);
 	break;
 	
 	

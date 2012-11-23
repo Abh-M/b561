@@ -497,6 +497,36 @@ $("document").ready(
 					
 		});
 		
+		//reject group request
+		$(".groupRejectButton").live('click',function(event){
+			event.preventDefault();
+			$row = $(this).parentsUntil('tr').parent();
+			var grpname = $(this).parentsUntil('tr').parent().attr('grpname');
+			var creatorid = $(this).parentsUntil('tr').parent().attr('creatorid');
+			console.log(grpname+".........."+creatorid);
+			
+			//approve the request
+			$.ajax({
+				type: "POST",
+				url: "GroupsController.php",
+				async: false,
+				data: {requestType: 'rejectGroupRequest',groupName: String(grpname),creatorid :String(creatorid)},
+			}).done(function(response)
+			{
+				var result = jQuery.parseJSON(response)
+				if(result.deleteResult == true)
+					$($row).detach();
+				else
+				{
+					//show error message
+				}
+				//after request is approved refresh the groups lists
+				getGroupsForCurrentUser();
+			});
+					
+		});
+		
+		
 		
 		
 		
