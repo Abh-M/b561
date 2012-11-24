@@ -414,12 +414,10 @@ $("document").ready(
 				//alert user and close the pop up
 				//show alert
 				
-				$("#cancelGrpReq").click();
-				$(".alert").hide();
-				$("#errorAlert").html("<i class=' icon-warning-sign'></i> please enter group name");
-				$("#errorAlert").fadeIn('fast');
-				$("#errorAlert").fadeOut(3000);
-				
+				$("div.grpReqAlert").hide();
+				$("div.grpReqAlert.error").html("<i class=' icon-warning-sign'></i> please enter group name");
+				$("div.grpReqAlert.error").fadeIn('fast');
+				$("div.grpReqAlert.error").fadeOut(3000);
 				return false;
 			}
 			//check if some users are selected
@@ -427,12 +425,11 @@ $("document").ready(
 			{
 				//no members are select close the pop up 
 				//show alert
-				$("#cancelGrpReq").click();
+				$("div.grpReqAlert").hide();
+				$("div.grpReqAlert.error").html("<i class=' icon-warning-sign'></i> please select members for group");
+				$("div.grpReqAlert.error").fadeIn('fast');
+				$("div.grpReqAlert.error").fadeOut(3000);
 				
-				$(".alert").hide();
-				$("#errorAlert").html("<i class=' icon-warning-sign'></i> please select members for group");
-				$("#errorAlert").fadeIn('fast');
-				$("#errorAlert").fadeOut(3000);
 				
 				return false;
 			}

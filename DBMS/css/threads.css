@@ -245,9 +245,8 @@ td.views_col, td.created_by_col, td.created_col, p
 	background-color: white;
 	padding: 10px;
 	opacity: 1;
-	top: 100px;
-	width: 20%;
-/*	height: 40%;*/
+	top: 60px;
+	width: 60%;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: left;
@@ -257,6 +256,9 @@ td.views_col, td.created_by_col, td.created_col, p
 #mfooter
 {
 	text-align: right;
+	padding: 10px;
+	margin: 10px;
+	border-top: 1px solid lightgray;
 }
 
 #modalTable
@@ -271,12 +273,13 @@ td.views_col, td.created_by_col, td.created_col, p
 .bcol
 {
 	width: 5%;
-	padding: 1px;
+	padding: 10px;
 }
 
 .uname
 {
 	width: 95%;
+	padding: 10px;
 }
 
 
@@ -291,13 +294,18 @@ td.views_col, td.created_by_col, td.created_col, p
 
 .userSelected
 {
-	background-color: #eceff6;
+	background-color: #d4dae8;
+	padding: 3px;
+	margin: 2px;
 }
 
 .userRemoved
 {
 	
-	background-color: white;
+	background-color: #eceff6;
+	padding: 3px;
+	margin: 2px;
+	
 }
 
 
@@ -312,14 +320,13 @@ td.views_col, td.created_by_col, td.created_col, p
 position: absolute;
 display: none;
 z-index: 999999 !important;
-background-color:black;
+background-color: black;
 text-align: center;
 
 height: 100%;
 top: 0px;
 left: 0px;
 width: 100%;
-opacity: 1.0;
 
 
 }
@@ -327,20 +334,15 @@ opacity: 1.0;
 
 #requestsModal
 {
-/*	border: 1px solid black;
-	margin-left:auto;
-	margin-right: auto;
-*/
-border: 1px solid black;
 position: relative;
-
 background-color: white;
 display: inline-block;
 margin-top: 50px;
 margin-bottom: 50px;
 width: 60%;
-
 max-height: 80%;
+opacity: 1.0;
+
 
 
 }
@@ -430,4 +432,69 @@ thead.reqHeaders
 	margin: 5px;
 	background-color: #fff9d7;
 	display: none;
+}
+
+
+
+#grpReqMembersLbl
+{
+	padding: 10px;
+	margin: 10px;
+	text-align: left;
+	background-color: #f7f7f7;
+}
+
+
+#mheader
+{
+	padding: 10px;
+	margin: 10px;
+	border-bottom: 1px solid lightgray;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+#mbody
+{
+	padding: 10px;
+	margin: 10px;
+}
+
+.reqMemberRow
+{
+	margin: 5px;
+	padding: 10px;
+	border: 1px solid white;
+}
+
+
+#newgroupTitle
+{
+	margin: 10px;
+	padding: 5px;
+}
+
+
+.grpReqAlert
+{
+	font-weight: bold;
+	font-size: 14px;
+	background-color: whiteSmoke;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+	display: none;
+}
+
+div.error
+{
+	background-color: #ffebe8;
+	
+}
+
+div.success
+{
+	background-color: #fff9d7;
+
+	
 }

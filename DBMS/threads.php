@@ -302,14 +302,18 @@
 		
 		<div id="myGroupModalContainer" style="display: none;" >
 			<div id="myGroupModal">
+				<div class="grpReqAlert error">This is alerts</div>
+				<div class="grpReqAlert success">This is alerts</div>
 				<div id="mheader">
-					<h6>New Group Request</h6>
-					<input type="text" placeholder="group name" id="newgroupTitle" maxlength="200">
+					New Group Request
 				</div>
+				<input type="text" placeholder="group name" id="newgroupTitle" maxlength="200">
 				
+				<div id="grpReqMembersLbl">Select group members</div>
+				<div id="mbody">
 				<table id="modalTable" width="100%">
 					<!-- <th>Select group members</th> -->
-					<tr id="modalRow" class="userRemoved">
+					<tr id="modalRow" class="userRemoved reqMemberRow">
 						<td class="uname">
 							Sample name
 						</td>
@@ -318,9 +322,10 @@
 						</td>
 					</tr>
 				</table>
+				</div>
 				<div id="mfooter">
-					<div class="btn" id="cancelGrpReq">cancel</div>
-					<div class="btn" id="submitGrpReq">submit request</div>
+					<div class="btn btn-link" id="cancelGrpReq">cancel</div>
+					<div class="btn btn-link" id="submitGrpReq">submit request</div>
 				</div>
 			</div>
 		</div>
