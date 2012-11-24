@@ -141,26 +141,28 @@
 										
 										
 										<tr class="thread_title_row">
-											<td class="ratings_col1" rowspan="5">
+											<td class="ratings_col1" rowspan="6">
 												<div id="ddiv">
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val">10</span><br/>
 												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
+												<br/>
 												</div>
 											</td>	
 											
-											<td class="thread_title_col" colspan="4">
+											<td class="thread_title_col" colspan="5">
 												<div class="thread_title_div">
 												<a href="" class="threadLink">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
 												</a></div>
 											</td>
+											<!-- <td><div class="btn btn-mini btn-link">close</div></td> -->
 											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-trash"></i></td>
 										</tr>
 										
 											
 										<tr class="thread_content_row">
-											<td class="thread_content_col" colspan="5">
+											<td class="thread_content_col" colspan="6">
 												<div class="thread_content_div">
 														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
 												</div>
@@ -170,6 +172,10 @@
 										</tr>
 										
 										<tr class="thread_info_row">
+											<td class="status_col">
+												<p class="status_lbl">Status:&nbsp;<a href="" class="status-link">Closed</a></p>
+											</td>
+											
 											<td class="views_col">
 												<p class="views_val_lbl">Views:&nbsp;<span class="views_val"></span></p>
 											</td>
@@ -180,7 +186,7 @@
 												<p class="group_lbl">Group: &nbsp; <span class="group_val">-</span></p>
 											</td>
 											<td class="created_col">
-												<p class="date_creted_lbl">Date Created:&nbsp; <span class="date_creted_val"></span></p>
+												<p class="date_creted_lbl">Created:&nbsp; <span class="date_creted_val"></span></p>
 											</td>
 											<!-- <td><a href="#replyPostModal" data-toggle="modal" class="btn btn-primary replyButton" >Reply</a></td> -->
 										</tr>
@@ -326,26 +332,40 @@
 				<div id="requestModalHeader">
 					<div style="display: inline-block;">Group Requests</div>
 				</div>
+				<div class="alertPopUp">Alert</div>
+				
+				<!-- <table>
+				<thead class="reqHeaders">
+				<th>Group Name</th>
+				<th>Requester</th>
+				<th>Members</th>
+				<th class="rightAlignClass">Action</th>
+				</thead>
+				</table> -->
 				
 				<div id="requestModalBody">
 					<table class="reqTable">
-						<tr class="reqHeaders">
+						<thead class="reqHeaders">
 						<th>Group Name</th>
 						<th>Requester</th>
 						<th>Members</th>
 						<th class="rightAlignClass">Action</th>
-						</tr>
-						<tr class="reqRow" id="refReqRow">
-							<td class="nameCol">Group Name</td>
-							<td class="requesterCol">Requester Name</td>
-							<td class="membersCol">
-								<p id="refMemberName" class="memberNameClass">Name1</p>
-							</td>
-							<td class="controlsCol rightAlignClass"><!-- <div class="btn btn-link groupApproveButton">Approve</div> -->
-								<a class="btn btn-link groupApproveButton" href="" ><i class="icon-ok-sign"></i></a>
-								<a class="btn btn-link groupRejectButton" href="" ><i class="icon-remove-sign"></i></a>
-							</td>
-						</tr>
+						</thead>
+						
+						<tbody class="reqTableBody">
+								<tr class="reqRow" id="refReqRow">
+									<td class="nameCol">Group Name</td>
+									<td class="requesterCol">Requester Name</td>
+									<td class="membersCol">
+										<p id="refMemberName" class="memberNameClass">Name1</p>
+									</td>
+									<td class="controlsCol rightAlignClass"><!-- <div class="btn btn-link groupApproveButton">Approve</div> -->
+										<a class="btn btn-link groupApproveButton" href="" ><i class="icon-ok-sign"></i></a>
+										<a class="btn btn-link groupRejectButton" href="" ><i class="icon-remove-sign"></i></a>
+									</td>
+								</tr>
+						<tbody>
+												
 					</table>
 				</div>
 				<div id="requestModalFooter" style="text-align: right;">

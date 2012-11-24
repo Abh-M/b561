@@ -250,6 +250,26 @@ function incrementViewCountForThread($kId)
 	
 }
 
+function setThreadStatus($kThreadId, $kStatus)
+{
+	$result= array();
+	$result['updateResult']=false;
+	
+	//check if status is valid
+	if( strcmp($kStatus,'open')!=0 && strcmp($kStatus,'closed')!=0)
+		return json_encode($result);
+
+	$query = "UPDATE Thread SET status = '$kStatus' WHERE threadid = $kThreadId";
+	$queryResult = mysql_query($query);
+    if(mysql_affected_rows()==1)
+	{
+		$result['updateResult'] = true;
+		$result['status'] = $kStatus;
+	}	
+	
+	return json_encode($result);
+}
+
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
 switch($reqType)
@@ -294,6 +314,13 @@ switch($reqType)
 	case 'incrementViewCountForThread':
 	$threadId = $_POST['threadId'];
 	$result = incrementViewCountForThread($threadId);
+	break;
+	
+	
+	case 'setThreadStatus':
+	$threadId = $_POST['threadId'];
+	$status = $_POST['status'];
+	$result = setThreadStatus($threadId,$status);
 	break;
 	
 		

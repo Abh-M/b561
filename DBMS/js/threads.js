@@ -76,6 +76,85 @@ $("document").ready(
 		});
 		
 		
+		
+		
+		$('.status-link').live('mouseover mouseout', function(event) {
+			
+			var orignalText = $(this).html();
+			if (event.type == 'mouseover') 
+			{
+				$(this).css('font-weight','bold');
+				if(orignalText == 'open')
+				{
+						$(this).html('close thread');
+				}
+				else if(orignalText == 'closed')
+				{
+						$(this).html('open thread');					
+				}
+				
+			} 
+			else 
+			{
+				$(this).css('font-weight','normal');
+				if(orignalText == 'close thread')
+				{
+						$(this).html('open');
+				}
+				else if(orignalText == 'open thread')
+				{
+						$(this).html('closed');					
+				}
+
+			}
+		});
+		
+		//set thread as open or closed
+		$('.status-link').live('click', function(event) {
+			event.preventDefault();
+			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
+			var catId = $("#CategoryName").attr('catId');
+			var postData = new Object();
+			postData.threadId = threadId;
+			postData.requestType = 'setThreadStatus';
+			if($(this).html()=='close thread')
+			{
+				//close the thread
+				postData.status='closed';
+				console.log('closing '+threadId);
+			}
+			else if($(this).html()=='open thread')
+			{
+				//open thread
+				postData.status='open';
+				console.log('opening '+threadId);
+			}
+			
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: false,
+				data: postData,
+				context: this,
+			}).done(function(response){
+				var res = jQuery.parseJSON(response);
+				if(res.updateResult == true)
+				{
+					$(this).html(res.status);
+				}
+				else
+				{
+					
+				}
+			});
+		
+			
+			
+			
+			
+			
+		});
+
 
 		$('.dropdown-toggle').dropdown(); 
 		$('[rel   = tooltip]').tooltip(); 
@@ -406,8 +485,6 @@ $("document").ready(
 		
 		//get pending requests for groups and show it in modal
 		$("#new-notifications-button").click(function(event){
-			// console.log($(document).position().left);
-			// $(window).scrollTop();
 			$.ajax({
 				type: "POST",
 				url: "GroupsController.php",
@@ -489,11 +566,10 @@ $("document").ready(
 				data: {requestType: 'approveGroupRequest',groupName: String(grpname),creatorid :String(creatorid)},
 			}).done(function(response)
 			{
-				$($row).detach();
+				$($row).fadeOut();
 				//after request is approved refresh the groups lists
 				getGroupsForCurrentUser();
 			});
-			//$("#reqModalCancel").click();
 					
 		});
 		
@@ -515,7 +591,7 @@ $("document").ready(
 			{
 				var result = jQuery.parseJSON(response)
 				if(result.deleteResult == true)
-					$($row).detach();
+					$($row).fadeOut();
 				else
 				{
 					//show error message
@@ -593,9 +669,16 @@ $("document").ready(
 			console.log("Clicked thread : "+threadid);
 			
 			//increase view count for this thred
-			$.post('threadsRepository.php',{requestType: 'incrementViewCountForThread',threadId: threadid},function(response){
-				
+			
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: false,
+				data: {requestType: 'incrementViewCountForThread',threadId: threadid},				
+			}).done(function(response){
+								console.log(response);
 			});
+			
 			
 			window.location = 'posts.php?threadId='+threadid;
 		});
@@ -637,6 +720,7 @@ $("document").ready(
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).find('.views_val').html(thread.views);
 				$(cell).find('.group_val').html((thread.groupid)?thread.groupName:"no group");
+				$(cell).find('.status-link').html(thread.status);
 				$(cell).show();
 				if(thread.tags.length>0)
 				{
