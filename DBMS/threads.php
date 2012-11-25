@@ -128,8 +128,8 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a  id="CategoryName">Categories</a> <span class="divider">/</span></li>
-							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
+							<li><a href="" class="homeLink">Home</a> <span class="divider">/</span></li>
+							<li class="catLink" id="CategoryName">Category <span class="divider">/</span></li>
 						</ul></caption>
 						</thead>
 						<tbody>
@@ -137,8 +137,7 @@
 								<td class="col_for_inner_table">
 									<div class="inner_div">
 									<table class="inner_table table">
-									<tbody>
-										
+									<tbody>				
 										
 										<tr class="thread_title_row">
 											<td class="ratings_col1" rowspan="6">

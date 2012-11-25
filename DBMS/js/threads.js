@@ -344,7 +344,7 @@ $("document").ready(
 			$("#myGroupModalContainer").hide();
 			$("#myGroupModalContainer").show();
 			$("#myGroupModalContainer").css('position','relative');
-			$("#myGroupModalContainer").offset({ top: window.pageYOffset, left: 0 })
+			$("#myGroupModalContainer").offset({ top: window.pageYOffset, left: 0 });
 			$("#myGroupModalContainer").height($("body").height());
 			$("#myGroupModalContainer").css('z-index',9999999999999999999999);
 			$("#myGroupModalContainer").css('opacity','1.0');
@@ -443,7 +443,7 @@ $("document").ready(
 				
 			});
 			myJSON = JSON.stringify({memberslist: myarray});
-			console.log(myJSON)
+			console.log(myJSON);
 			
 			
 			//submit request 
@@ -586,7 +586,7 @@ $("document").ready(
 				data: {requestType: 'rejectGroupRequest',groupName: String(grpname),creatorid :String(creatorid)},
 			}).done(function(response)
 			{
-				var result = jQuery.parseJSON(response)
+				var result = jQuery.parseJSON(response);
 				if(result.deleteResult == true)
 					$($row).fadeOut();
 				else
@@ -676,9 +676,15 @@ $("document").ready(
 								console.log(response);
 			});
 			
-			
-			window.location = 'posts.php?threadId='+threadid;
-		});		
+			window.location = 'posts.php?threadId='+threadid+'&catId='+param_val;
+		});
+		
+		$('.homeLink').live('click',function(event){
+			event.preventDefault();
+			//get the thread id, for the link which is clicked
+			console.log("Clicked home : ");
+			window.location = 'categories.php';
+		});	
 		
 		
 		function layoutRows(list)
@@ -688,7 +694,6 @@ $("document").ready(
 			{
 				var thread = list[i];
 				var cell = $("#ref").clone();
-				var cc = cell[0];
 				var createdDate = new Date(thread.datecreated);
 				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
 				

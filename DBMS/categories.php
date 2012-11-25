@@ -119,7 +119,7 @@
 					<!--Body content-->
 					<table class="table">
 						<caption><ul class="breadcrumb pull-left">
-							<li><a href="#">Categories</a> <span class="divider">/</span></li>
+							<li>Home <span class="divider">/</span></li>
 						</ul></caption>
 						<thead>
 						</thead>

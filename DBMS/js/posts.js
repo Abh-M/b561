@@ -84,15 +84,30 @@ $("document").ready(
 		var params = location.search;
 		console.log(params);
 		var components = String(params).split("=");
-		var param_name = components[0].slice(1);
-		var param_val = components[1];
-		console.log(param_val+" <> "+param_name);
-		 
+		console.log(components);
+		var param_name1 = components[0].slice(1);
+		var param_val1 = components[1].slice(0,components[1].indexOf('&'));
+		var param_name2 = components[1].slice(components[1].indexOf('&')+1);
+		var param_val2 = components[2];
+		console.log(param_val1+" <> "+param_name1+" <> "+param_val2+" <> "+param_name2);
+		
+		$.ajax({
+			type: "POST",
+			url: "threadsRepository.php",
+			async: false,
+			data: { requestType: "getParentCategoryInfo", catId: String(param_val2) },
+		}).done(function(response){
+				var json = jQuery.parseJSON(response);
+				console.log(json);
+				$("#CategoryName").html(String(json.Category));
+				$("#CategoryName").attr("catId",String(json.categoryid));
+		});
+		
 		$.ajax({
 			type: "POST",
 			url: "postsRepository.php",
 			async: false,
-			data: { requestType: "getParentThreadInfo", threadId: String(param_val) },
+			data: { requestType: "getParentThreadInfo", threadId: String(param_val1) },
 		}).done(function(response){
 				var json = jQuery.parseJSON(response);
 				console.log("thread is "+json);
@@ -106,7 +121,7 @@ $("document").ready(
 			type: "POST",
 			url: "postsRepository.php",
 			async: false,
-			data: { requestType: "getPostsForThread", threadId: String(param_val) },
+			data: { requestType: "getPostsForThread", threadId: String(param_val1) },
 		}).done(function(response){
 			var list = jQuery.parseJSON(response);
 			jQuery.each(list, function() {
@@ -176,14 +191,14 @@ $("document").ready(
 				url: "postsRepository.php",
 				async: false,
 				data: { requestType: "createReplyPost", replyText: String(reply),
-					postId: String(parentPostId), threadId:String(param_val) },
+					postId: String(parentPostId), threadId:String(param_val1) },
 			}).done(function(data){
 					var response = jQuery.parseJSON(data);
 					if(response!=true) {
 						alert("There was an error posting the reply!\nPlease check the console logs for more details");
 					}
 					console.log(response);
-					window.location = 'posts.php?threadId='+param_val;
+					window.location = 'posts.php?threadId='+param_val1;
 				});
 		});
 		
@@ -264,13 +279,20 @@ $("document").ready(
 			
 		});
 
-		$('.threadLink').live('click',function(event){
+		$('.catLink').live('click',function(event){
+			event.preventDefault();
+			//get the cat id, for the link which is clicked
+			var catId  = $(this).attr('catId');
+			console.log("Clicked thread : "+catId);
+			window.location = 'threads.php?catId='+catId;
+		});
+		
+		$('.homeLink').live('click',function(event){
 			event.preventDefault();
 			//get the thread id, for the link which is clicked
-			var threadid  = $(this).attr('threadId');
-			console.log("Clicked thread : "+threadid);
-			window.location = 'threads.php';
-		});	
+			console.log("Clicked home : ");
+			window.location = 'categories.php';
+		});
 
 		}
 	);

@@ -88,8 +88,9 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="" id="ThreadName" class="threadLink">Thread</a> <span class="divider">/</span></li>
-							<!-- <li><a href="#">Threads</a> <span class="divider">/</span></li> -->
+							<li><a href="" class="homeLink">Home</a> <span class="divider">/</span></li>
+							<li><a href="" id="CategoryName" class="catLink">Category</a> <span class="divider">/</span></li>
+							<li class="threadLink" id="ThreadName">Thread <span class="divider">/</span></li>
 						</ul></caption>
 						</thead>
 						<tbody>
