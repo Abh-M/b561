@@ -123,6 +123,7 @@ $("document").ready(
 			$("#ref").hide();
 		});
 		function convertPostToTable(text,counter) {
+			// Based on counter providing a different color for the reply post text.
 			if(counter%2===0)
 				text = text.replace('[Post]', '<table class="well table"><tbody><tr><td>');
 			else
@@ -131,14 +132,6 @@ $("document").ready(
 			text = text.replace('[endPost]', '</td></tr></tbody></table>');
 			if(text.indexOf('[Post]')>-1)
 				text = convertPostToTable(text, counter+1);
-			return text;
-		}
-		
-		function convertTableToPost(text) {
-			text = text.replace('<table', '[Post]');
-			text = text.replace('</table>', '[endPost]');
-			if(text.indexOf('<table')>-1)
-				text = convertTableToPost(text);
 			return text;
 		}
 		
@@ -156,15 +149,15 @@ $("document").ready(
 		
 		$('#replyPostSaveButton').live('click',function(event){
 			event.preventDefault();
-			//get the post id for the post to which you are replying
+			// Read the parent post and add it to the reply to store it in the DB.
+			// This is done to improve performance and to avoid recursive DB calls.
 			var $parentPostRow = $(this).closest('.inner_table');
 			parentPostText = $parentPostRow.find('.post_content_div').val();
 			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
 			parentPostDate = $parentPostRow.find('.posted_date_val').html();
-			if(parentPostText.indexOf('<table') > -1)
-				parentPostText = convertTableToPost(this.text);
 			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :[lineBreak]'+parentPostText+'[endPost]';
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
+			//get the post id for the post to which you are replying
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
 			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String(reply),
 				postId: String(parentPostId), threadId:String(param_val)},

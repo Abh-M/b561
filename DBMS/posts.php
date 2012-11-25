@@ -61,8 +61,8 @@
 
 				<form class="navbar-search">
 					<div class="input-append">
-						<input class="span3" id="appendedInputButtons" type="text">
-						<a class="btn" href="#" rel="popover" id="searchFilter" data-placement="top" data-content="demo" data-orignal-title="popvoer"><i class="icon-search"></i></a>
+						<input class="span3" id="appendedInputButtons" placeholder="Search" type="text">
+						<a class="btn" href="#" rel="popover" id="searchFilter" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
 						<div class="popover fade bottom in" id="example">
 							<div class="arrow"></div>
 							<div class="popover-inner">
@@ -72,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+						<a rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Advanced Search" data-placement="bottom" class="btn">Advance Search</a>
 						
 					</div>
 				</form>
@@ -158,24 +158,6 @@
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal" id="newPostCloseButton">Close</a>
 				<a href="#" class="btn btn-primary" id="newPostSaveButton">Create Post</a>
-			</div>
-		</div>
-		
-		<!-- Modal view for replying to posts -->
-
-		<div id="replyPostModal" class="modal" style="display: none; ">
-			<div class="modal-header">
-				<!-- <button class="close" data-dismiss="modal">×</button> -->
-				<h6>Reply</h6>
-			</div>
-			<div class="modal-body span6">
-				<textarea class="span6" rows="5" cols="400" placeholder="Post" id="ParentPostContent" readonly></textarea>
-				<br/>
-				<textarea class="span6" rows="5" cols="400" placeholder="Your Message" id="ReplyPostContent" data-spy="scroll"></textarea>
-			</div>
-			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal" id="replyPostCloseButton">Close</a>
-				<a href="#" class="btn btn-primary" id="replyPostSaveButton">Reply</a>
 			</div>
 		</div>
 		
