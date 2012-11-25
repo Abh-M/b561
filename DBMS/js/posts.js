@@ -112,25 +112,33 @@ $("document").ready(
 				} else {
 					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
 				}
+				$(cell).find('.post_content_div').attr("value",this.text);
 				if(this.text.indexOf('[Post]') > -1) {
-					var processedText = processInlinePost(this.text,1);
-				} else {
-					processedText = this.text;
+					this.text = convertPostToTable(this.text,1);
 				}
-				$(cell).find('.post_content_div').html(processedText);
+				$(cell).find('.post_content_div').html(this.text);
 				$(cell).insertAfter("#ref");
 				
 			});
 			$("#ref").hide();
 		});
-		function processInlinePost(text,counter) {
+		function convertPostToTable(text,counter) {
 			if(counter%2===0)
 				text = text.replace('[Post]', '<table class="well table"><tbody><tr><td>');
 			else
 				text = text.replace('[Post]', '<table class="alert alert-info table"><tbody><tr><td>');
+			text = text.replace('[lineBreak]', '<br>');
 			text = text.replace('[endPost]', '</td></tr></tbody></table>');
 			if(text.indexOf('[Post]')>-1)
-				text = processInlinePost(text, counter+1);
+				text = convertPostToTable(text, counter+1);
+			return text;
+		}
+		
+		function convertTableToPost(text) {
+			text = text.replace('<table', '[Post]');
+			text = text.replace('</table>', '[endPost]');
+			if(text.indexOf('<table')>-1)
+				text = convertTableToPost(text);
 			return text;
 		}
 		
@@ -150,10 +158,12 @@ $("document").ready(
 			event.preventDefault();
 			//get the post id for the post to which you are replying
 			var $parentPostRow = $(this).closest('.inner_table');
-			parentPostText = $parentPostRow.find('.post_content_div').html();
+			parentPostText = $parentPostRow.find('.post_content_div').val();
 			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
 			parentPostDate = $parentPostRow.find('.posted_date_val').html();
-			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :<br>'+parentPostText+'[endPost]';
+			if(parentPostText.indexOf('<table') > -1)
+				parentPostText = convertTableToPost(this.text);
+			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :[lineBreak]'+parentPostText+'[endPost]';
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
 			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String(reply),
