@@ -31,9 +31,9 @@ $result = json_encode(false);
 switch($reqType)
 {
 	 case "getParentPostContent":
-	 $result  = getParentPostContent();
-	 //$postId = $_POST['postId'];
-	 //$result  = getParentPostContent($postId);
+	 //$result  = getParentPostContent();
+	 $postId = $_POST['postId'];
+	 $result  = getParentPostContent($postId);
 	 break;
 
 

@@ -2,8 +2,6 @@ $("document").ready(
 	function()
 	{
 		
-		
-		
 		//onload get post content
 		
 		$(".replyButton").live('click',function(){
@@ -21,14 +19,10 @@ $("document").ready(
 				}
 			});
 			
-		})
+		});
 		$(".replyButton").click(function(event){
 			console.log($(this));
 		});
 		
-		
-
-		
-
 	}
 );
