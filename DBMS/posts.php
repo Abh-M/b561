@@ -13,7 +13,6 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 
 	<script src="js/posts.js"></script>
-	<script src="js/replypost.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
