@@ -46,7 +46,7 @@
 
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="navbar-inner" style="padding: 0px 10px;">
-				<a class="brand" href="#">Course Disscussion System</a>
+				<a class="brand" href="index.php">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
 					<li><a id="create-category-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
