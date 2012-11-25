@@ -122,7 +122,7 @@
 											</td>
 										</tr>
 										<tr>
-										<td><a href="#replyPostModal" data-toggle="modal" class="btn replyButton" >Reply</a></td>
+											<td><a href="" class="btn replyLink" >Reply</a></td>
 										</tr>
 										
 									</tbody>

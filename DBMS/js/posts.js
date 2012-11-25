@@ -100,14 +100,18 @@ $("document").ready(
 			jQuery.each(list, function() {
 				var cell = $("#ref").clone();
 				$(cell).removeAttr('id');
-				$(cell).attr('postid',String(this.postid));
+				$(cell).attr('postId',String(this.postid));
 				$(cell).find('.posted_date_val').html(this.dateposted);
-				$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
-				function(response){
-					var user = jQuery.parseJSON(response);
-					console.log(user);
-					$(cell).find('.posted_by_val').html(user.username);
-				});
+				if(this.createdby != $("#loggedUser").attr('userid')) {
+					$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
+					function(response){
+						var user = jQuery.parseJSON(response);
+						console.log(user);
+						$(cell).find('.posted_by_val').html(user.username);
+					});
+				} else {
+					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
+				}
 				$(cell).find('.post_content_div').html(this.text);
 				$(cell).insertAfter("#ref");
 				
@@ -116,7 +120,40 @@ $("document").ready(
 		});
 		
 		
+		//When user clicks on a reply to a post
+		$('.replyLink').live('click',function(event){
+			event.preventDefault();
+			$(this).parent().attr('colspan',4);
+			$(this).parent().html("<div class=\"replyToPost well\">" +
+					"<textarea class=\"span10\" rows=\"3\" placeholder=\"Your Reply\" id=\"replyPostContent\" data-spy=\"scroll\"></textarea>" +
+					"<br>" +
+					"<a href=\"\" id=\"replyPostSaveButton\" class=\"btn pull-right\"><i class=\"icon-ok\"></i></a>" +
+					"<a href=\"\" id=\"replyPostCancelButton\" class=\"btn pull-right\"><i class=\"icon-remove\"></i></a>" +
+					"</div>");
+		});
 		
+		$('#replyPostSaveButton').live('click',function(event){
+			event.preventDefault();
+			//get the post id for the post to which you are replying
+			var parentPostId  = $(this).closest('.tableRow').attr('postId');
+			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String($(this).parent().find("#replyPostContent").val()),
+				postId: String(parentPostId), threadId:String(param_val)},
+				function(data) {
+					var response = jQuery.parseJSON(data);
+					if(response!=true)
+					{
+						alert("There was an error posting the reply!\nPlease check the console logs for more details");
+					}
+					console.log(response);
+					window.location = 'posts.php?threadId='+param_val;
+				});
+		});
+		
+		
+		$('#replyPostCancelButton').live('click',function(event){
+			event.preventDefault();
+			$(this).parent().parent().html("<a href=\"\" class=\"btn replyLink\" >Reply</a>");
+		});
 		
 		//Create new post
 		
@@ -147,7 +184,7 @@ $("document").ready(
 				
 					var cell = $("#ref").clone();
 					$(cell).removeAttr('id');
-					$(cell).attr('postid',String(post.postid));
+					$(cell).attr('postId',String(post.postid));
 				
 					var post_Col = $(cell).find('.post_title_div');
 					console.log(post_Col);
@@ -177,7 +214,7 @@ $("document").ready(
 			event.preventDefault();
 			
 			//get the post id and category id of the post
-			var postId = $(this).parentsUntil('.tableRow').parent().attr('postid');
+			var postId = $(this).parentsUntil('.tableRow').parent().attr('postId');
 			var catId = $("#CategoryName").attr('catId');
 			
 			
@@ -195,7 +232,7 @@ $("document").ready(
 				
 					var cell = $("#ref").clone();
 					$(cell).removeAttr('id');
-					$(cell).attr('postid',String(post.postid));
+					$(cell).attr('postId',String(post.postid));
 				
 					var post_Col = $(cell).find('.post_title_div');
 					console.log(post_Col);

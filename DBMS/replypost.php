@@ -4,11 +4,11 @@ session_start();
 
 include "dbconnect.php";
 
-function getParentPostContent()
+function getParentPostContent($postid)
 {
 	$content = "";
 	$jsonString = json_encode("failure");
-	$parentPostContent  = "SELECT text FROM Post where postid=47";
+	$parentPostContent  = "SELECT text FROM Post where postid=".$postid;
 	$result = mysql_query($parentPostContent);
 	if($result==NULL)
 	{
@@ -35,8 +35,6 @@ switch($reqType)
 	 $postId = $_POST['postId'];
 	 $result  = getParentPostContent($postId);
 	 break;
-
-
 
 }
 
