@@ -4,7 +4,10 @@
 session_start();
 
 // Delete certain session
+unset($_SESSION['userInfoMap']);
 unset($_SESSION['username']);
+unset($_SESSION['userid']);
+unset($_SESSION['userType']);
 // Delete all session variables
 // session_destroy();
 

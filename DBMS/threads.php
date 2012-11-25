@@ -11,8 +11,9 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-	<script src="js/threads.js"></script>
 	
+	<script src="js/threads.js"></script>
+	<script src="js/common.js"></script>
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -62,7 +63,7 @@
 								<a href="#" tabindex="-1">Profile</a>
 							</li>
 							<li>
-								<a href="#" id="logoutLink">Logout</a>
+								<a href="#" class="logoutLink">Logout</a>
 							</li>
 
 						</ul>
