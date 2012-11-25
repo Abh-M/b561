@@ -112,13 +112,27 @@ $("document").ready(
 				} else {
 					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
 				}
-				$(cell).find('.post_content_div').html(this.text);
+				if(this.text.indexOf('[Post]') > -1) {
+					var processedText = processInlinePost(this.text,1);
+				} else {
+					processedText = this.text;
+				}
+				$(cell).find('.post_content_div').html(processedText);
 				$(cell).insertAfter("#ref");
 				
 			});
 			$("#ref").hide();
 		});
-		
+		function processInlinePost(text,counter) {
+			if(counter%2===0)
+				text = text.replace('[Post]', '<table class="well table"><tbody><tr><td>');
+			else
+				text = text.replace('[Post]', '<table class="alert alert-info table"><tbody><tr><td>');
+			text = text.replace('[endPost]', '</td></tr></tbody></table>');
+			if(text.indexOf('[Post]')>-1)
+				text = processInlinePost(text, counter+1);
+			return text;
+		}
 		
 		//When user clicks on a reply to a post
 		$('.replyLink').live('click',function(event){
@@ -139,7 +153,7 @@ $("document").ready(
 			parentPostText = $parentPostRow.find('.post_content_div').html();
 			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
 			parentPostDate = $parentPostRow.find('.posted_date_val').html();
-			parentPost = '[Post]'+parentPostByUser+'+'+parentPostDate+'+'+parentPostText+'[endPost]';
+			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :<br>'+parentPostText+'[endPost]';
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
 			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String(reply),
