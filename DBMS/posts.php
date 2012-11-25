@@ -147,17 +147,14 @@
 
 		<div id="myModal" class="modal" style="display: none; ">
 			<div class="modal-header">
-				<!-- <button class="close" data-dismiss="modal">×</button> -->
 				<h6>New Post</h6>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="post title" id="newPostTitle" maxlength="200">
-				<br/>
-				<textarea rows="5" placeholder="post description" id="newPostDesc"></textarea>
+				<textarea rows="5" class="span7" placeholder="Your message goes here" id="newPostDesc"></textarea>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal" id="newPostCloseButton">Close</a>
-				<a href="#" class="btn btn-primary" id="newPostSaveButton">Create Post</a>
+				<a href="" class="btn" data-dismiss="modal" id="newPostCloseButton">Close</a>
+				<a href="" class="btn btn-primary" id="newPostSaveButton">Create Post</a>
 			</div>
 		</div>
 		

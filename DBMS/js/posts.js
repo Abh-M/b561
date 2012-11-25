@@ -4,7 +4,12 @@ $("document").ready(
 		
 		
 		//Get logged in userinfo
-		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
+		$.ajax({
+			type: "POST",
+			url: "helpers.php",
+			async: false,
+			data: {requestType: 'getLoggedInUserInfo'},
+		}).done(function(response){
 
 			
 			var userInfo = jQuery.parseJSON(response);
@@ -83,9 +88,12 @@ $("document").ready(
 		var param_val = components[1];
 		console.log(param_val+" <> "+param_name);
 		 
-
-		 $.post("postsRepository.php",{requestType: 'getParentThreadInfo', threadId: String(param_val)},
-		 function(response){
+		$.ajax({
+			type: "POST",
+			url: "postsRepository.php",
+			async: false,
+			data: { requestType: "getParentThreadInfo", threadId: String(param_val) },
+		}).done(function(response){
 				var json = jQuery.parseJSON(response);
 				console.log("thread is "+json);
 				$("#ThreadName").html(String(json.title));
@@ -94,8 +102,12 @@ $("document").ready(
 		
 		
 		//get posts for thread
-		$.post('postsRepository.php',{requestType: 'getPostsForThread',threadId: String(param_val)},
-		function(response){
+		$.ajax({
+			type: "POST",
+			url: "postsRepository.php",
+			async: false,
+			data: { requestType: "getPostsForThread", threadId: String(param_val) },
+		}).done(function(response){
 			var list = jQuery.parseJSON(response);
 			jQuery.each(list, function() {
 				var cell = $("#ref").clone();
@@ -159,12 +171,15 @@ $("document").ready(
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			//get the post id for the post to which you are replying
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
-			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String(reply),
-				postId: String(parentPostId), threadId:String(param_val)},
-				function(data) {
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: { requestType: "createReplyPost", replyText: String(reply),
+					postId: String(parentPostId), threadId:String(param_val) },
+			}).done(function(data){
 					var response = jQuery.parseJSON(data);
-					if(response!=true)
-					{
+					if(response!=true) {
 						alert("There was an error posting the reply!\nPlease check the console logs for more details");
 					}
 					console.log(response);
@@ -182,51 +197,26 @@ $("document").ready(
 		
 		$("#newPostSaveButton").click(function(event){
 			// get category id
-			// get post title
 			// get post description
 			
-			var title = $("#newPostTitle").val();
 			var desc = $("#newPostDesc").val();
-			var catId = $("#CategoryName").attr('catId');
-			
-			console.log("Creating new post title "+ title + " desc: "+ desc + "for cat "+catId);
-			
+			var threadId = $("#ThreadName").attr('threadId');
 			//create new post and get updated list of posts
-			$.post("postsRepository.php",{requestType: 'createNewPostForCategory', catId: String(catId), title: String(title), desc: String(desc)},
-			function(response){
-				
-				//remove old list
-				$("#ref").show();
-				$("#ref").siblings().detach();
-				
-				var list = jQuery.parseJSON(response);
-				console.log(list);
-				for(var i=0; i<list.length; i++)
-				{
-					var post = list[i];
-				
-					var cell = $("#ref").clone();
-					$(cell).removeAttr('id');
-					$(cell).attr('postId',String(post.postid));
-				
-					var post_Col = $(cell).find('.post_title_div');
-					console.log(post_Col);
-					var post_desc = $(cell).find('.post_content_div');
-					console.log(post_desc);
-				
-					$(cell).find('.post_title_div').html(post.title);
-					$(cell).find('.post_content_div').html(post.description);
-					$(cell).insertAfter("#ref");
-				
-				
+			console.log("Creating new post : "+ desc + "for thread "+threadId);
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: { requestType: "createNewPost", postText: String(desc), threadId:String(threadId) },
+			}).done(function(data){
+				var response = jQuery.parseJSON(data);
+				if(response!=true) {
+					alert("There was an error creating a new post!\nPlease check the console logs for more details");
 				}
-				$("#ref").hide();
-				
-				
+				console.log(response);
+				$("#newPostCloseButton").click();
+				window.location = 'posts.php?threadId='+threadId;
 			});
-			
-			
-			$("#newPostCloseButton").click();
 			
 		});
 		
@@ -238,10 +228,10 @@ $("document").ready(
 			
 			//get the post id and category id of the post
 			var postId = $(this).parentsUntil('.tableRow').parent().attr('postId');
-			var catId = $("#CategoryName").attr('catId');
+			var threadId = $("#ThreadName").attr('threadId');
 			
 			
-			$.post('postsRepository.php',{requestType: 'deletePostInCategory',catId: String(catId) ,postId: String(postId)},function(response){
+			$.post('postsRepository.php',{requestType: 'deletePostInCategory',threadId: String(threadId) ,postId: String(postId)},function(response){
 				
 				//remove old list
 				$("#ref").show();
@@ -269,8 +259,6 @@ $("document").ready(
 				
 				}
 				$("#ref").hide();
-				
-				
 				
 			});
 			

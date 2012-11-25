@@ -39,12 +39,12 @@ function getPostsForThread($kThreadId)
 
 }
 
-function createReplyPost($kreplyText, $kpostId, $kthreadId) {
+function createReplyPost($replyText, $postId, $threadId) {
 	$result = json_encode(false);
 	$currDateTime = date('Y-m-d H:i:s');
 	$createdby = $_SESSION['userid'];
-	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$kreplyText."', '".$currDateTime."',
-			0,".$kpostId.", ".$kthreadId.", ".$createdby." )";
+	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$replyText."', '".$currDateTime."',
+			0,".$postId.", ".$threadId.", ".$createdby." )";
 	$result = mysql_query($query);
 	if($result==true) {
 		$result = json_encode($result);
@@ -52,19 +52,18 @@ function createReplyPost($kreplyText, $kpostId, $kthreadId) {
 	return $result;
 }
 
-function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup)
+function createNewPost($postText,$threadId)
 {
 	$result = json_encode(false);
-	$query  = "INSERT INTO Thread (title,description,categoryid) VALUES ('".$kTitle."', '".$kDesc."', ".$kCatId." )";
+	$currDateTime = date('Y-m-d H:i:s');
+	$createdby = $_SESSION['userid'];
+	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$postText."', '".$currDateTime."',
+			0,null, ".$threadId.", ".$createdby." )";
 	$result = mysql_query($query);
-	if($result==true)
-	{
-		//$result = json_encode($result);
-		$result = getThreadsForCategory($kCatId);
-
+	if($result==true) {
+		$result = json_encode($result);
 	}
 	return $result;
-
 }
 
 
@@ -96,12 +95,10 @@ switch($reqType)
 		$result = createReplyPost($replyText, $postId, $threadId);
 		break;
 
-	case 'createNewThreadForCategory':
-		$catId = $_POST['catId'];
-		$title = $_POST['title'];
-		$desc  = $_POST['desc'];
-		$group = 0;
-		$result = createNewThreadForCategory($catId,$title,$desc,$group);
+	case 'createNewPost':
+		$postText = $_POST['postText'];
+		$threadId = $_POST['threadId'];
+		$result = createNewPost($postText,$threadId);
 		break;
 
 	case 'getPostsForThread':
