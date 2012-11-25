@@ -135,8 +135,14 @@ $("document").ready(
 		$('#replyPostSaveButton').live('click',function(event){
 			event.preventDefault();
 			//get the post id for the post to which you are replying
+			var $parentPostRow = $(this).closest('.inner_table');
+			parentPostText = $parentPostRow.find('.post_content_div').html();
+			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
+			parentPostDate = $parentPostRow.find('.posted_date_val').html();
+			parentPost = '[Post]'+parentPostByUser+'+'+parentPostDate+'+'+parentPostText+'[endPost]';
+			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
-			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String($(this).parent().find("#replyPostContent").val()),
+			$.post("postsRepository.php", { requestType: "createReplyPost", replyText: String(reply),
 				postId: String(parentPostId), threadId:String(param_val)},
 				function(data) {
 					var response = jQuery.parseJSON(data);
