@@ -198,7 +198,7 @@ $("document").ready(
 						alert("There was an error posting the reply!\nPlease check the console logs for more details");
 					}
 					console.log(response);
-					window.location = 'posts.php?threadId='+param_val1;
+					window.location = 'posts.php?threadId='+param_val1+'&catId='+param_val2;
 				});
 		});
 		
@@ -230,7 +230,7 @@ $("document").ready(
 				}
 				console.log(response);
 				$("#newPostCloseButton").click();
-				window.location = 'posts.php?threadId='+threadId;
+				window.location = 'posts.php?threadId='+threadid+'&catId='+param_val2;
 			});
 			
 		});
