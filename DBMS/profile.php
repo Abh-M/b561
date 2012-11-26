@@ -6,6 +6,26 @@ session_start();
 include 'header.php';
 ?>
 <title>Profile Page</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
+
+<script src="js/categories.js"></script>
+<script src="js/common.js"></script>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="css/categories.css" rel="stylesheet"> -->
+<link href="css/profile.css" rel="stylesheet">
+
 
 <script>
 global_str="0";
@@ -71,6 +91,68 @@ global_str="0";
     
 
 <body >
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner" style="padding: 0px 10px;">
+			<a class="brand" href="index.php">Course Disscussion System</a>
+			<ul class="nav">
+				<li class="divider-vertical"></li>				
+				<li><a id="create-category-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+				<li class="divider-vertical"></li>				
+			</ul>
+
+
+
+			<ul class="nav pull-right">
+				<!-- <li class="divider-vertical"></li> -->
+				<li class="divider-vertical"></li>				
+				<li class="dropdown">
+					<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#"><p id="loggedUser" style="display: inline;">Username</p>&nbsp;<i class="icon-user icon-white"></i></a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+						<li>
+							<a href="#" tabindex="-1">Profile</a>
+						</li>
+						<li>
+							<a href="#" tabindex="-1" class="logoutLink">Logout</a>
+						</li>
+
+					</ul>
+				</li>
+				<li class="divider-vertical"></li>				
+			</ul>
+
+
+
+
+			<form class="navbar-search">
+				<div class="input-append">
+					<input class="span3" id="appendedInputButtons" type="text">
+					<a class="btn" href="#"><i class="icon-search"></i></a>
+					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="create category" data-placement="bottom" class="btn">Advance Search</i></a>
+					<!-- <a href="#" id="blob" class="btn" rel="popover inner" data-placement="bottom" data-content="Works" data-original-title="Filters">Advance Search</a> -->
+						
+				</div>
+			</form>
+		</div>
+			
+		<div class="row-fluid" id="row1"class="margin: 0px;">
+			<div class="span2 ">
+			</div>
+			<div  class="span7">
+				<strong>
+					<div class="alert alert-error" id="errorAlert" style="display: none">
+					</div>
+					<div class="alert" id="infoAlert" style="display: none;">
+					</div>
+					<div class="alert alert-info" id="successAlert" style="display: none;">
+					</div>
+				</strong>
+			</div>
+			<div class="span3">
+			</div>
+		</div>
+			
+	</div>
+	
 <div style="background-color: ; position: relative; top: 60px; left: 20px;">
 <div class="span2 well" id="sidebar">			
 

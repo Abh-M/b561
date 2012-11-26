@@ -26,22 +26,6 @@
 	<link href="css/categories.css" rel="stylesheet">
 	</head>
 	<body>
-		<?php 
-	// include "dbconnect.php";
-	// $tableName = "category"; 
-	// $query = "select * from $tableName"; 
-	// $result = mysql_query ($query);
-	// $num = mysql_numrows ($result);
-	// for ($i = 0; $i < $num; $i++) 
-	// { 
-		// 	$categoryid=mysql_result ($result, $i, "categoryid"); 
-		// 	$categoryName = mysql_result ($result, $i, "Category"); 
-		// 	echo "<tr class=\"tableRow\" id=\"ref\">
-		// 	
-		// 	<td><a href="."reply.php?categoryid=$categoryid".">".$categoryName."</a></td>
-		// 	</tr>";
-		// }
-		?>
 
 
 		<div class="navbar navbar-inverse navbar-fixed-top">

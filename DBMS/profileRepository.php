@@ -52,24 +52,31 @@ else if (mysql_num_rows($result) == 0) {
     exit;
 }
 	 
- echo "<table class=\"table\">
- <tbody>
- <tr >
- <td>
- <table class=\"cellSkeleton\">
- <tbody>
- <tr class=\"rowSkeleton\">
- <th class=\"skeletonCol catName\"> Category Name </th>
- <th class=\"skeletonCol catCreated\">Created By </th>
- <th> </th>
+ echo "<!-- <table class=\"table\">
+  <tbody>
+  <tr >
+  <td>
+  <table class=\"cellSkeleton\">
+  <tbody>
+  <tr class=\"rowSkeleton\">
+  <th class=\"skeletonCol catName\"> Category Name </th>
+  <th class=\"skeletonCol catCreated\">Created By </th>
+  <th> </th>
+  
+  </tr>
+  </tbody>
+  </table>
+  </td>
+  </tr>
+  </tbody>
+  </table> -->
+  <table class=\"cellSkeleton\">
+	  <thead >
+		  <th>category name</th>
+		  <th>created by</th>
+	  </thead>
+   <tbody>
  
- </tr>
- </tbody>
- </table>
- </td>
- </tr>
- </tbody>
- </table>
  ";
   while($row = mysql_fetch_array($result))
    {
@@ -83,25 +90,20 @@ else if (mysql_num_rows($result) == 0) {
 	   }
 	   else $mode="hidden";
 	   echo "
-	   <table class=\"table\">
-	   <tbody>
-		 <tr >
-		 <td>
-		  <table class=\"cellSkeleton\">
-		   <tbody>
 		     <tr class=\"rowSkeleton\">
 		     <td class=\"skeletonCol catName\"> <a href=\"javascript:void(0)\" onclick=\"goToThread(". $row['categoryid'] .")\">" . $row['Category'] . "</a> </td>
  		     <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " .$row2['lastname'] . " </td> <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" id=\"$creator\" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel(". $row['categoryid'] .")\" ><i class=\"icon-trash\"></i></a></td> 
 		 
 		     </tr>
-		   </tbody>
+";
+	 
+  }
+  echo "		   </tbody>
 		  </table>
 		 </td>
 	  </tr> 
 	  </tbody>
 	  </table>";
-	 
-  }
  
  }
  
