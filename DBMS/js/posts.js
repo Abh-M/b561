@@ -23,28 +23,12 @@ $("document").ready(
 				$("#loggedUser").attr('username',userInfo.username);
 				
 				
-				//depending on usertype show/hide create and delete category button
-				var userType =parseInt(userInfo.userType);
-				if(userType != 0 && userType!= 1)
-				{
-					 $(".deleteLink").hide();
-					 $("#new-thread-link").hide();
-				}
-				else
-				{
-					 $(".deleteLink").show();
-					 $("#new-thread-link").show();
-				}
-				
 			}
 			
 		});
-		//$(".delete_button_cell").children().hide();
 		
 		$(".deleteLink").removeAttr('href');
 		$(".deleteLink").css('opacity',0);
-		
-		
 		
 		$('.inner_table').live('mouseover mouseout', function(event) {
 			if (event.type == 'mouseover') 
@@ -241,41 +225,21 @@ $("document").ready(
 		$(".deleteLink").live('click',function(event){
 			event.preventDefault();
 			
-			//get the post id and category id of the post
-			var postId = $(this).parentsUntil('.tableRow').parent().attr('postId');
-			var threadId = $("#ThreadName").attr('threadId');
-			
-			
-			$.post('postsRepository.php',{requestType: 'deletePostInCategory',threadId: String(threadId) ,postId: String(postId)},function(response){
-				
-				//remove old list
-				$("#ref").show();
-				$("#ref").siblings().detach();
-				
-				var list = jQuery.parseJSON(response);
-				console.log(list);
-				for(var i=0; i<list.length; i++)
-				{
-					var post = list[i];
-				
-					var cell = $("#ref").clone();
-					$(cell).removeAttr('id');
-					$(cell).attr('postId',String(post.postid));
-				
-					var post_Col = $(cell).find('.post_title_div');
-					console.log(post_Col);
-					var post_desc = $(cell).find('.post_content_div');
-					console.log(post_desc);
-				
-					$(cell).find('.post_title_div').html(post.title);
-					$(cell).find('.post_content_div').html(post.description);
-					$(cell).insertAfter("#ref");
-				
-				
-				}
-				$("#ref").hide();
-				
-			});
+			//get the post id
+			var postId  = $(this).closest('.tableRow').attr('postId');
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: { requestType: "deletePostInThread", postId: String(postId)},
+			}).done(function(data){
+					var response = jQuery.parseJSON(data);
+					console.log(response);
+					if(response!=true) {
+						alert("Permission denied to delete the post");
+					}
+					window.location = 'posts.php?threadId='+param_val1+'&catId='+param_val2;
+				});
 			
 		});
 

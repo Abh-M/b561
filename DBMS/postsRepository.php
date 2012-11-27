@@ -67,13 +67,18 @@ function createNewPost($postText,$threadId)
 }
 
 
-function deleteThreadInCategory($kThreadId,$kCatId)
+function deletePostInThread($postId)
 {
 	$result= json_encode(false);
-	$query = "DELETE FROM Thread WHERE threadid = ".$kThreadId;
+	if($_SESSION['isAdmin']==true) {
+		$query = "DELETE FROM Post WHERE postid = ".$postId;
+	} else {
+		$query = "DELETE FROM Post WHERE postid = ".$postId."AND createdby = ".$_SESSION['userid'];
+	}
 	$queryResult = mysql_query($query);
-	if($queryResult==true)
-		$result = getThreadsForCategory($kCatId);
+	if($queryResult>0) {
+		$result = json_encode(true);
+	}
 	return $result;
 }
 
@@ -106,10 +111,9 @@ switch($reqType)
 		$result = getPostsForThread($threadId);
 		break;
 
-	case 'deleteThreadInCategory':
-		$catId = $_POST['catId'];
-		$threadId = $_POST['threadId'];
-		$result = deleteThreadInCategory($threadId,$catId);
+	case 'deletePostInThread':
+		$postId = $_POST['postId'];
+		$result = deletePostInThread($postId);
 		break;
 
 }
