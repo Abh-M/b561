@@ -16,12 +16,29 @@ if (mysql_num_rows($login) == 1) {
 	$_SESSION['username'] = $_POST['username'];
 	$_SESSION['userid'] = $userid;
 	$_SESSION['userType'] = $row['type'];
+	if($_SESSION['userType']==0) {
+		$_SESSION['isProfessor'] = true;
+		$_SESSION['isAI'] = false;
+		$_SESSION['isAdmin'] = true;
+	}
+	else if($_SESSION['userType']==1) {
+		$_SESSION['isProfessor'] = false;
+		$_SESSION['isAI'] = true;
+		$_SESSION['isAdmin'] = true;
+	} else {
+		$_SESSION['isProfessor'] = false;
+		$_SESSION['isAI'] = false;
+		$_SESSION['isAdmin'] = false;
+	}
 	
 	
 	$userInfoMap = array();
 	$userInfoMap['username'] = $_SESSION['username'];
 	$userInfoMap['userid'] = $_SESSION['userid'];
 	$userInfoMap['userType'] = $_SESSION['userType'];
+	$userInfoMap['isProfessor'] = $_SESSION['isProfessor'];
+	$userInfoMap['isAI'] = $_SESSION['isAI'];
+	$userInfoMap['isAdmin'] = $_SESSION['isAdmin'];
 	
 	 $_SESSION['userInfoMap'] = $userInfoMap;
 	 	
