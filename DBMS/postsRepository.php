@@ -25,7 +25,7 @@ function getParentThreadInfo($kThreadId)
 function getPostsForThread($kThreadId)
 {
 	$result = json_encode(false);
-	$query = "SELECT * from post where threadid = ".$kThreadId;
+	$query = "SELECT * from Post where threadid = ".$kThreadId;
 	$queryResult = mysql_query($query);
 	$allPosts = array();
 	if($queryResult!=NULL)
