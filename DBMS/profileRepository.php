@@ -104,20 +104,23 @@ else if (mysql_num_rows($result) == 0) {
 }
 	 
  echo "<table class=\"table\" border='1' id='thrdTable'>
- <tr>
+ <!--<tr>
  <th>Title</th>
  <th>Description</th>
  <th>Votes</th>
  <th>Views</th>
- </tr>";
+ </tr>-->";
   while($row = mysql_fetch_array($result))
    {
    echo "<tr>";
    echo "<td>" . $row['title'] . "</td>";
    echo "<td>" . $row['description'] . "</td>";
+   echo "</tr><tr>";
    echo "<td>" . $row['votes'] . "</td>";
    echo "<td>" . $row['views'] . "</td>";
    echo "</tr>";
+   echo "<!--</table>-->";
+   echo "<!--<table class=\"table\" border='1' id='thrdTable'>-->";
    }
  echo "</table>";
  }
