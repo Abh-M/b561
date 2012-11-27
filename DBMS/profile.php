@@ -85,6 +85,14 @@
 			window.location = 'threads.php?catId='+id;
 		}
    
+   		function goToPost(Tid,Cid)
+		{
+			//var a = "<?php echo $_SESSION['userid']; ?>";
+			//alert (a);
+	   
+			//alert("i am here");
+			window.location = 'posts.php?threadId='+Tid+'&catId='+Cid;
+		}
 	</script>
 	
 </head>
