@@ -12,7 +12,7 @@ include "dbconnect.php";
 function getParentThreadInfo($kThreadId)
 {
 	$result = json_encode(false);
-	$query = "SELECT * from thread where threadid = ".$kThreadId;
+	$query = "SELECT * from Thread where threadid = ".$kThreadId;
 	$queryResult = mysql_query($query);
 	if($queryResult==true)
 	{
