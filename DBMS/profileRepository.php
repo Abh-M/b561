@@ -113,7 +113,7 @@ else if (mysql_num_rows($result) == 0) {
   while($row = mysql_fetch_array($result))
    {
    echo "<tr>";
-   echo "<td>" . $row['title'] . "</td>";
+   echo "<td> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
    echo "<td>" . $row['description'] . "</td>";
    echo "</tr><tr>";
    echo "<td> Votes : " . $row['votes'] . "</td>";
