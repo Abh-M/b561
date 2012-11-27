@@ -116,8 +116,8 @@ else if (mysql_num_rows($result) == 0) {
    echo "<td>" . $row['title'] . "</td>";
    echo "<td>" . $row['description'] . "</td>";
    echo "</tr><tr>";
-   echo "<td>" . $row['votes'] . "</td>";
-   echo "<td>" . $row['views'] . "</td>";
+   echo "<td> Votes : " . $row['votes'] . "</td>";
+   echo "<td> Views: " . $row['views'] . "</td>";
    echo "</tr>";
    echo "<!--</table>-->";
    echo "<!--<table class=\"table\" border='1' id='thrdTable'>-->";
