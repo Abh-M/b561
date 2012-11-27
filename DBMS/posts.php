@@ -48,7 +48,7 @@
 								<a href="#" tabindex="-1">Profile</a>
 							</li>
 							<li>
-								<a href="" class="logoutLink">Logout</a>
+								<a href="#" tabindex="-1" class="logoutLink">Logout</a>
 							</li>
 
 						</ul>
