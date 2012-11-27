@@ -1,26 +1,6 @@
 <html>
 
 
-<!-- Bootstrap -->
-	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
-	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
-	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
-	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
-	
-
-
-	<script src="js/profile.js"></script> 
-
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/bootstrap-responsive.css" rel="stylesheet">
-	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/categories.css" rel="stylesheet">
     
  </html> 
  
@@ -70,7 +50,7 @@ else if (mysql_num_rows($result) == 0) {
   </tr>
   </tbody>
   </table> -->
-  <table class=\"cellSkeleton\">
+  <table class='table cellSkeleton'>
 	  <thead >
 		  <th>category name</th>
 		  <th>created by</th>
@@ -123,7 +103,7 @@ else if (mysql_num_rows($result) == 0) {
     exit;
 }
 	 
- echo "<table class=\"table\" border='1'>
+ echo "<table class=\"table\" border='1' id='thrdTable'>
  <tr>
  <th>Title</th>
  <th>Description</th>
@@ -159,24 +139,17 @@ else if (mysql_num_rows($result) == 0) {
 }
 
 echo "<table class=\"table\">
- <tbody>
- <tr >
- <td>
- <table class=\"cellSkeleton\">
- <tbody>
- <tr class=\"rowSkeleton\">
+	<thead>
  <th class=\"skeletonCol catName\"> Name </th>
  <th class=\"skeletonCol catCreated\">Email ID</th>
  <th class=\"skeletonCol catCreated\">Role</th>
+</thead>
+	 <tbody>
  
- </tr>
- </tbody>
- </table>
- </td>
- </tr>
- </tbody>
- </table>
+ 
+ 
  ";
+
 
 while($row = mysql_fetch_array($result))
    {
@@ -197,25 +170,16 @@ while($row = mysql_fetch_array($result))
 		   $role="Student";
 	   }
 	   echo "
-	   <table class=\"table\">
-	   <tbody>
-		 <tr >
-		 <td>
-		  <table class=\"cellSkeleton\">
-		   <tbody>
 		     <tr class=\"rowSkeleton\">
 		     <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
  		     <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 							
 			 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
 		 
-		     </tr>
-		   </tbody>
-		  </table>
-		 </td>
-	  </tr> 
-	  </tbody>
-	  </table>";
+		     </tr>";
    }
+   echo "</tbody>
+		  </table>";
+
  }
  
  mysql_close($dbConnection);
