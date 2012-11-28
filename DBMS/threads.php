@@ -128,7 +128,7 @@
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
-							<li><a href="" class="homeLink">Home</a> <span class="divider">/</span></li>
+							<li><a href="categories.php" class="homeLink">Home</a> <span class="divider">/</span></li>
 							<li class="catLink" id="CategoryName">Category <span class="divider">/</span></li>
 						</ul></caption>
 						</thead>

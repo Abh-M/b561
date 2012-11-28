@@ -4,6 +4,7 @@ body
 }
 
 
+
 #ref
 {
 	display: none;
@@ -34,7 +35,10 @@ table
 
 #content_container
 {
-	margin-top: 60px;
+	margin-top: 100px;
+	padding-right: 5px;
+	padding-left: 5px;
+	
 }
 
 #contentPane
@@ -129,11 +133,6 @@ td
 }
 
 
-#content_container
-{
-	padding-right: 5px;
-	padding-left: 5px;
-}
 
 
 .ratings_col1
