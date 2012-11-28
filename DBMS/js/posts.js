@@ -112,6 +112,8 @@ $("document").ready(
 				var cell = $("#ref").clone();
 				$(cell).removeAttr('id');
 				$(cell).attr('postId',String(this.postid));
+				var x=$(cell).find(".mybadge").html(this.votes);
+				console.log("mybadge:::"+x);
 				$(cell).find('.posted_date_val').html(this.dateposted);
 				if(this.createdby != $("#loggedUser").attr('userid')) {
 					$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
@@ -265,11 +267,13 @@ $("document").ready(
 			$(this).removeAttr('href');
 			event.preventDefault();
 			var postId  = $(this).closest('.tableRow').attr('postId');
+			
 			//var postId  = $(this).parentsUntil('.tableRow').parent().attr('postId');
 			console.log("Incrementing vote for .."+postId);
 			var prev_count = parseInt($(this).siblings(".mybadge").html());
 			$(this).siblings(".mybadge").html(String(prev_count+1));
 			//update database
+		
 			$.post('postsRepository.php',{requestType: 'incrementVoteForPosts',postId: postId},function(response){
 				console.log("Done");
 				var status = jQuery.parseJSON(response);
@@ -297,6 +301,7 @@ $("document").ready(
 			var prev_count = parseInt($(this).siblings(".mybadge").html());
 			$(this).siblings(".mybadge").html(String(prev_count-1));
 			//store in the database 
+
 			$.post('postsRepository.php',{requestType: 'decrementVoteForPosts',postId: postId},function(response){
 				console.log("Done");
 				var status = jQuery.parseJSON(response);

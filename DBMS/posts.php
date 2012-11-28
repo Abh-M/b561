@@ -101,7 +101,7 @@
 											<td class="ratings_col1" rowspan="6">
 												<div id="ddiv">
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
-												<span class="mybadge" id="votes_val"> 0</span><br/>
+												<span class="mybadge" id="votes_val"> 10</span><br/>
 												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
 												<br/>
 												</div>

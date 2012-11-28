@@ -94,7 +94,7 @@ function incrementVoteForPosts($postId)
 }
 
 
-function decrementVoteForPosts($kId)
+function decrementVoteForPosts($postId)
 {
 	$result = json_encode(false);
 	$query = "UPDATE Post SET votes = votes - 1  WHERE postid = ".$postId;
