@@ -98,13 +98,21 @@
 								<td><table class="inner_table table">
 									<tbody>
 										<tr class="post_rating_row">
-											<td class="rating_col">
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a>
-												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a>
-											</td>
+											<td class="ratings_col1" rowspan="6">
+												<div id="ddiv">
+												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
+												<span class="mybadge" id="votes_val"> 0</span><br/>
+												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
+												<br/>
+												</div>
+											</td>	
+<!-- 											<td class="rating_col"> -->
+<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a> -->
+<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a> -->
+<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a> -->
+<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a> -->
+<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a> -->
+<!-- 											</td> -->
 											<td class="posted_by">
 												<p>Posted By: <span class="posted_by_val"></span></p>
 											</td>

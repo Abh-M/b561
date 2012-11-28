@@ -82,6 +82,29 @@ function deletePostInThread($postId)
 	return $result;
 }
 
+function incrementVoteForPosts($postId)
+{
+	$result = json_encode(false);
+	$query = "UPDATE Post SET votes = votes +1  WHERE postid = ".$postId;
+	$queryResult = mysql_query($query);
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+
+	return $result;
+}
+
+
+function decrementVoteForPosts($kId)
+{
+	$result = json_encode(false);
+	$query = "UPDATE Post SET votes = votes - 1  WHERE postid = ".$postId;
+	$queryResult = mysql_query($query);
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+
+	return $result;
+}
+
 
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
@@ -115,6 +138,19 @@ switch($reqType)
 		$postId = $_POST['postId'];
 		$result = deletePostInThread($postId);
 		break;
+	
+	case 'incrementVoteForPosts':
+		$postId = $_POST['postId'];
+		$result = incrementVoteForPosts($postId);
+		break;
+		
+		
+	case 'decrementVoteForPosts':
+		$postId = $_POST['postId'];
+		$result = decrementVoteForPosts($postId);
+		break;
+		
+	
 
 }
 

@@ -257,6 +257,61 @@ $("document").ready(
 			console.log("Clicked home : ");
 			window.location = 'categories.php';
 		});
+		
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+		/* increment vote for posts*/
+		$(".plus_button").live('click',function(event){
+			//increment vote
+			$(this).removeAttr('href');
+			event.preventDefault();
+			var postId  = $(this).closest('.tableRow').attr('postId');
+			//var postId  = $(this).parentsUntil('.tableRow').parent().attr('postId');
+			console.log("Incrementing vote for .."+postId);
+			var prev_count = parseInt($(this).siblings(".mybadge").html());
+			$(this).siblings(".mybadge").html(String(prev_count+1));
+			//update database
+			$.post('postsRepository.php',{requestType: 'incrementVoteForPosts',postId: postId},function(response){
+				console.log("Done");
+				var status = jQuery.parseJSON(response);
+				console.log(status);
+				if(status == true)
+				{
+				}
+				
+			});
+
+			
+			$(this).attr('href','');
+			return false;
+
+		});
+		
+		
+		/* decrement vote for posts*/
+		$(".minus_button").live('click',function(event){
+			//increment vote
+			event.preventDefault();
+			var postId  = $(this).closest('.tableRow').attr('postId');
+			//var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
+			console.log("Decrementing vote for .."+postId);
+			var prev_count = parseInt($(this).siblings(".mybadge").html());
+			$(this).siblings(".mybadge").html(String(prev_count-1));
+			//store in the database 
+			$.post('postsRepository.php',{requestType: 'decrementVoteForPosts',postId: postId},function(response){
+				console.log("Done");
+				var status = jQuery.parseJSON(response);
+				console.log(status);
+				if(status == true)
+				{
+				}
+				
+			});
+			
+			
+			
+			return false;
+			//deactivate the button
+		});
 
 		}
 	);
