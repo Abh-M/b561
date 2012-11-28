@@ -25,7 +25,28 @@ function getUserInfoFromUserId($userid)
 function newGroupRequest($kName, $kRequester, $kMembers)
 {
 	 
-	$result = json_encode(true);
+	 $result = array();
+	 $result['duplicateGroup']=false;
+	 $result['duplicateRequest']=false;
+	 $result['insert']=false;
+	 
+	 //check if group with same name already exists
+	 $groupCheckQuery = "SELECT *  FROM groups where name =  '$kName'";
+	 $groupCheckQueryResult = mysql_query($groupCheckQuery);
+	 if(mysql_num_rows($groupCheckQueryResult)>0)
+	 {
+		 $result['duplicateGroup']=true;
+		 return json_encode($result);
+	 }
+	 
+	 //check if there is already a req with same name
+	 $groupReqCheckQuery = "SELECT *  FROM group_request where group_name =  '$kName'";
+	 $groupReqCheckQueryResult = mysql_query($groupReqCheckQuery);
+	 if(mysql_num_rows($groupReqCheckQueryResult)>0)
+	 {
+		 $result['duplicateRequest']=true;
+		 return json_encode($result);
+	 }
 	 $members = json_decode($kMembers,true);
 	 // print_r($members['memberslist']);
 	 foreach($members['memberslist'] as $mem)
@@ -33,13 +54,20 @@ function newGroupRequest($kName, $kRequester, $kMembers)
 		 $memberId =  $mem['userid'];
 		 $query = "INSERT INTO group_request (group_name,requester,member) VALUES ('$kName',$kRequester,$memberId)";
 		 $query_result = mysql_query($query);
-		 if(!$query_result)
+		 if(mysql_affected_rows()>0)
 		 {
-		 			 $result = json_encode(false);
+			 $result['insert']=true;
+			 
+		 }
+		 else
+		 {
+		 	 $result['insert']=false;
+			 return json_encode($result);
+			 
 		 }
 	 }
 	 
-	 return $result;
+	 return json_encode($result);
 }
 
 function getGroupResquests()

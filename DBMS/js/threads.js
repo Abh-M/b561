@@ -470,7 +470,56 @@ $("document").ready(
 				data: {requestType: 'newGroupRequest',groupName: grpName, requesterId: String(kuserid), groupMembers: myJSON},
 			}).done(function(response)
 			{
-				$("#cancelGrpReq").click();
+				/*{
+				    "duplicateGroup": false,
+				    "duplicateRequest": true,
+				    "insert": false
+				}*/
+				if(response)
+				{
+					var result = jQuery.parseJSON(response);
+					if(result.duplicateGroup==true)
+					{
+						$("div.grpReqAlert").hide();
+						$("div.grpReqAlert.error").html("<i class=' icon-warning-sign'></i> Please select different group name,group name already exists");
+						$("div.grpReqAlert.error").fadeIn('fast');
+						$("div.grpReqAlert.error").fadeOut(3000);
+						
+						
+					}
+					else if( result.duplicateRequest == true)
+					{
+						$("div.grpReqAlert").hide();
+						$("div.grpReqAlert.error").html("<i class=' icon-warning-sign'></i> Please select different group name,group name already exists");
+						$("div.grpReqAlert.error").fadeIn('fast');
+						$("div.grpReqAlert.error").fadeOut(3000);
+						
+					}
+					else if(result.insert == false)
+					{
+						$("div.grpReqAlert").hide();
+						$("div.grpReqAlert.error").html("<i class=' icon-warning-sign'></i> Something went wrong, please try again");
+						$("div.grpReqAlert.error").fadeIn('fast');
+						$("div.grpReqAlert.error").fadeOut(3000);
+						
+						
+					}
+					else if(result.insert == true)
+					{
+						$("div.grpReqAlert").hide();
+						$("div.grpReqAlert.error").html("New group request submitted");
+						$("div.grpReqAlert.error").fadeIn('fast');
+						$("div.grpReqAlert.error").fadeOut(3000);
+						
+						
+					}
+				}
+				else
+				{
+					$("#cancelGrpReq").click();
+					
+				}
+				
 				
 			});
 			
