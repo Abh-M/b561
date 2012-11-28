@@ -270,6 +270,28 @@ function setThreadStatus($kThreadId, $kStatus)
 	return json_encode($result);
 }
 
+
+function getAllTags()
+{
+	$result = json_encode('false');
+	
+	$query = "Select * from Tag";
+	$queryResult  = mysql_query($query);
+	$allTags = array();
+	if(mysql_num_rows($queryResult)>0)
+	{
+		while($row = mysql_fetch_assoc($queryResult))
+		{
+			array_push($allTags,$row);
+		}
+		$result = json_encode($allTags);
+	}
+	
+	
+	return $result;
+	
+}
+
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
 switch($reqType)
@@ -321,6 +343,11 @@ switch($reqType)
 	$threadId = $_POST['threadId'];
 	$status = $_POST['status'];
 	$result = setThreadStatus($threadId,$status);
+	break;
+	
+	
+	case 'getAllTags':
+	$result = getAllTags();
 	break;
 	
 		

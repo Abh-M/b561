@@ -176,6 +176,8 @@ $("document").ready(
 		/*------------Get groups for current user-------------*/
 		getGroupsForCurrentUser();
 		
+		getTagsForThreads();
+		
 		
 		/*---------------------------------------get url components---------------------------*/
 		var params = location.search;
@@ -212,6 +214,19 @@ $("document").ready(
 		
 		
 		
+		
+		$("#tagOption").change(function(){
+			 var tagName = $('#tagOption option:selected').val();
+			 console.log(tagName);
+			 var tagsList = $('#tagsList').val();
+			 if(tagsList== null || tagsList=='')
+				 $("#tagsList").val(tagName);
+			else
+				$("#tagsList").val(tagsList+','+tagName);
+			// var grpId = parseInt($('#groupsOption option:selected').attr('grpid'));
+			// var grpcreator = $('#groupsOption option:selected').attr('creator');
+			
+		});
 		
 		/*---------------------------------------Create new thread---------------------------*/
 		
@@ -492,6 +507,10 @@ $("document").ready(
 				var data = jQuery.parseJSON(response);
 				if(data!=false && data.length>0)
 				{
+					$("#grpReqErrorMsg").html("");
+					$("#grpReqErrorMsg").hide();
+					$("#requestContainer").find("#requestModalBody").show();
+					
 					$("#requestContainer").find("#refReqRow").hide();
 					$("#requestContainer").find("#refReqRow").siblings().detach();
 					$refRow = $("#requestContainer").find("#refReqRow");
@@ -530,6 +549,16 @@ $("document").ready(
 					}
 				
 				}
+				else
+				{
+				
+					$("#requestContainer").find("#refReqRow").hide();
+					$("#requestContainer").find("#requestModalBody").hide();
+					$("#grpReqErrorMsg").hide().show();
+					
+					$("#grpReqErrorMsg").html("No pending requests");
+					
+				}
 				
 			});
 			
@@ -563,7 +592,19 @@ $("document").ready(
 				data: {requestType: 'approveGroupRequest',groupName: String(grpname),creatorid :String(creatorid)},
 			}).done(function(response)
 			{
-				$($row).fadeOut();
+				$($row).detach();
+				
+				var siblings = $($row).siblings();
+				if(siblings.length==0)
+				{
+					// $("#requestContainer").find("#requestModalBody").hide();
+					// $("#grpReqErrorMsg").hide().show();
+					// $("#grpReqErrorMsg").html("No pending requests");
+					
+					
+				}
+				
+				
 				//after request is approved refresh the groups lists
 				getGroupsForCurrentUser();
 			});
@@ -588,11 +629,21 @@ $("document").ready(
 			{
 				var result = jQuery.parseJSON(response);
 				if(result.deleteResult == true)
-					$($row).fadeOut();
+					$($row).detach();
 				else
 				{
 					//show error message
 				}
+				var siblings = $($row).siblings();
+				if(siblings.length==0)
+				{
+					// $("#requestContainer").find("#requestModalBody").hide();
+					// $("#grpReqErrorMsg").hide().show();
+					// $("#grpReqErrorMsg").html("No pending requests");
+					
+					
+				}
+				
 				//after request is approved refresh the groups lists
 				getGroupsForCurrentUser();
 			});
@@ -774,6 +825,47 @@ $("document").ready(
 					
 			});
 					
+		}
+		
+		
+		function getTagsForThreads()
+		{
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: false,
+				data: {requestType: 'getAllTags'},
+			}).done(function(response)
+			{
+				if(response)
+				{
+					var data = jQuery.parseJSON(response);
+					if(data!=false)
+					{
+						$("#tagOption").show();
+						$refOption = $("#tagOption").find("#refTagOption");
+						$($refOption).siblings().detach();
+						for(var index=0; index < data.length; index++)
+						{
+							var tag = data[index];
+							$newOpt = $($refOption).clone();
+							$($newOpt).removeAttr('id');
+							$($newOpt).html(tag.keyword);
+							$($newOpt).attr('tagid',tag.tagid);
+							$($newOpt).insertAfter($refOption);
+						}
+						console.log(data);
+							
+					}
+					else
+					{
+						//hide the select option
+						 $("#tagOption").hide();
+					}
+				}
+					
+			});
+			
 		}	
 
 

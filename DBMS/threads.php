@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Threads</title>
 	<!-- Bootstrap -->
@@ -218,11 +218,16 @@
 				<h6>New Thread</h6>
 			</div>
 			<div class="modal-body">
-				<input type="text" placeholder="thread title" id="newThreadTitle" maxlength="200">
+				<input class="span6" type="text"  placeholder="thread title" id="newThreadTitle" maxlength="200">
 				<br/>
-				<textarea rows="5" placeholder="thread description" id="newThreadDesc"></textarea>
+				<textarea rows="6" cols="200" class="span6" placeholder="thread description" id="newThreadDesc"></textarea>
 				<br/>
-				<input type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
+				<div>
+				<input class="span6" type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
+				<select id="tagOption">
+					<option id="refTagOption" tagId="-1">--Select Tag--</option>
+				</select>
+				</div>
 				<br/>
 			    <select id="groupsOption">
 			      <option id="refOption" grpid='-1'>-- select group--</option>
@@ -317,7 +322,7 @@
 				<div id="requestModalHeader">
 					<div style="display: inline-block;">Group Requests</div>
 				</div>
-				<div class="alertPopUp">Alert</div>
+				<div class="alertPopUp" id="grpReqErrorMsg">Alert</div>
 				
 				<!-- <table>
 				<thead class="reqHeaders">
