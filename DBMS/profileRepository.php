@@ -266,6 +266,8 @@ else if($q == 'password')
 			<td width='175px'>Enter current password:</td><td><input type='password' name='cur_pass'></td>
 			</tr><tr>
 			<td>Enter new password:</td> <td><input type='password' name='new_pass'></td>
+			</tr><tr>
+			<td>Re-type new password:</td> <td><input type='password' name='re_new_pass'></td>
 			</tr>
 			</table>
 			<input type='hidden' name='userid' value='$userid'>
