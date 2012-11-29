@@ -1,65 +1,50 @@
-<html>
-
-
-    
- </html> 
- 
-   
-
 <?php
 $q=$_GET["q"];
 session_start();
 $userid = $_SESSION['userid'];
 include "dbconnect.php";
 
-
+function deleteGroup($kgroupId)
+{
+	 $result = array();
+	 $query = "DELETE FROM groups WHERE id = ".$kgroupId;
+	 $queryRessult = mysql_query($query);
+	 
+	 $result['deleteResult']=mysql_affected_rows();
+	// $result['list'] = json_decode(getAllCategories());
+	
+	 return json_encode($result);
+}
 
 // as Q, User as U where Q.creator=U.userid and U.userid='". $_SESSION['userid']."' ";   //WHERE id = '".$q."'";
 
 if ($q == 'category')
- {
-	 $sql="SELECT * FROM ".$q.""; 
-	 
- $result = mysql_query($sql);
+{
+	$sql="SELECT * FROM ".$q."";  
+	$result = mysql_query($sql);
 
-if (!$result) {
-    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
-    exit;
-}
+	if (!$result) 
+	{
+    	echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+    	exit;
+	}
 
-else if (mysql_num_rows($result) == 0) {
-    echo "No rows found, nothing to print so am exiting";
-    exit;
-}
+	else if (mysql_num_rows($result) == 0) 
+	{
+    	echo "No rows found, nothing to print so am exiting";
+    	exit;
+	}
 	 
- echo "<!-- <table class=\"table\">
-  <tbody>
-  <tr >
-  <td>
-  <table class=\"cellSkeleton\">
-  <tbody>
-  <tr class=\"rowSkeleton\">
-  <th class=\"skeletonCol catName\"> Category Name </th>
-  <th class=\"skeletonCol catCreated\">Created By </th>
-  <th> </th>
-  
-  </tr>
-  </tbody>
-  </table>
-  </td>
-  </tr>
-  </tbody>
-  </table> -->
-  <table class='table cellSkeleton'>
-	  <thead >
-		  <th>category name</th>
-		  <th>created by</th>
-	  </thead>
-   <tbody>
- 
- ";
-  while($row = mysql_fetch_array($result))
-   {
+	echo "
+	<table class='table cellSkeleton'>
+		<thead >
+			<th>category name</th>
+			<th>created by</th>
+		</thead>
+	<tbody>
+ 		";
+	while($row = mysql_fetch_array($result))
+	{
 	   $creator = $row['creator'];
 	   $sql2="SELECT * FROM User where userid = '".$creator."'";
 	   $result2 = mysql_query($sql2);
@@ -72,19 +57,17 @@ else if (mysql_num_rows($result) == 0) {
 	   echo "
 		     <tr class=\"rowSkeleton\">
 		     <td class=\"skeletonCol catName\"> <a href=\"javascript:void(0)\" onclick=\"goToThread(". $row['categoryid'] .")\">" . $row['Category'] . "</a> </td>
- 		     <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " .$row2['lastname'] . " </td> <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" id=\"$creator\" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel(". $row['categoryid'] .")\" ><i class=\"icon-trash\"></i></a></td> 
-		 
+ 		     <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " .$row2['lastname'] . " </td> <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" id=\"$creator\" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel(". $row['categoryid'] .")\" ><i class=\"icon-trash\"></i></a></td>
 		     </tr>
-";
-	 
+			";
   }
-  echo "		   </tbody>
-		  </table>
-		 </td>
-	  </tr> 
-	  </tbody>
-	  </table>";
- 
+  
+  echo "</tbody>
+		</table>
+		</td>
+	  	</tr> 
+	  	</tbody>
+	  	</table>";
  }
  
  else if ($q == 'thread')
@@ -234,6 +217,47 @@ else if ($q == 'roster')
 
 }
 
+else if ($q == 'group')
+{
+	$sql="SELECT * FROM groups"; 
+	 
+	$result = mysql_query($sql);
+
+	if (!$result) 
+	{
+		echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+		exit;
+	}
+
+	else if (mysql_num_rows($result) == 0) 
+	{
+    	echo "No rows found, nothing to print so am exiting";
+    	exit;
+	}
+	echo "<table class=\"table\">
+		<thead>
+		<th class=\"skeletonCol catName\"> Group Name </th>
+		<th class=\"skeletonCol catCreated\">Created By</th>
+		<th class=\"skeletonCol catCreated\"> </th>
+		</thead>
+	 	<tbody>";
+
+		while($row = mysql_fetch_array($result))
+		{
+		   $creator = $row['creator'];
+		   $sql2="SELECT * FROM User where userid = '".$creator."'";
+		   $result2 = mysql_query($sql2);
+		   $row2 = mysql_fetch_array($result2);
+		   echo "<tr class=\"rowSkeleton\">
+				 <td class=\"skeletonCol catName\"> " . $row['name'] . "</a> </td>
+				 <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " . $row2['lastname'] . "</td> 							
+				 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a id=\"$creator\" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ongrpdel(". $row['id'] .")\" ><i class=\"icon-trash\"></i></a></td> 
+				 </tr>";
+	   }
+	   echo "</tbody>
+			 </table>";
+	
+}
 else if($q == 'password')
 {
 	echo "  <form action='change_pass.php' method='post'>

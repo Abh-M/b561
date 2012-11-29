@@ -81,6 +81,22 @@
 			
 			list(global_str);
 		}
+		
+		function ongrpdel(id)
+		{
+ 	
+			var grpId = id;
+			console.log(grpId);
+			
+			$.ajax({
+				type: "POST",
+				url: "profileRepository.php",
+				async: false,
+				data: {eventType: "deleteGroup", groupId: grpId},
+			}).done(function(response){});
+			
+			list(global_str);
+		}
  
    
 		function goToThread(id)
