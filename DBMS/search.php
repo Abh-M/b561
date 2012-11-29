@@ -12,7 +12,7 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 	
-	<script src="js/threads.js"></script>
+	<script src="js/search.js"></script>
 	<script src="js/common.js"></script>
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
