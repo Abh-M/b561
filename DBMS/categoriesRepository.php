@@ -1,5 +1,7 @@
 <?php
 
+
+
 session_start();
 
 include "dbconnect.php";
@@ -45,18 +47,20 @@ function getAllCategories()
 		{
 			
 			//get number of threads in this category
-			$numberOfThreadsQuery  = "SELECT COUNT(*) AS num FROM Thread WHERE categoryid = ".$row['categoryid'];
+			$cid= $row['categoryid'];
+			$numberOfThreadsQuery  = "SELECT COUNT(*) AS num FROM Thread WHERE categoryid = $cid ";
 			$numOfThreadsResult = mysql_query($numberOfThreadsQuery);
 
 			if(mysql_num_rows($numOfThreadsResult)==1)
 			{
-				$numOfThreads = mysql_fetch_assoc($numOfThreadsResult)['num'];
+				$n = mysql_fetch_assoc($numOfThreadsResult);
+				$numOfThreads = $n['num'];
 			}
 			
 			
 			//get the creator name from creator id
 			$userInfo = getUserInfoFromUserId($row['creator']);
-
+			
 			$row['num'] = $numOfThreads;
 			$row['creator'] = json_decode($userInfo);
 			array_push($allCat,$row);
@@ -100,7 +104,8 @@ function getUserInfo()
 	return json_encode($_SESSION['username']);
 }
 
-$event = $_POST["eventType"];
+ $event = $_POST["eventType"];
+
 $result;
 switch($event)
 {
@@ -127,8 +132,8 @@ switch($event)
 	{
 		$result = getUserInfo();
 	}
-}
+ }
 
-echo $result;
+ echo $result;
 
 ?>
