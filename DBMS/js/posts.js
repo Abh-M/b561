@@ -138,10 +138,10 @@ $("document").ready(
 		function convertPostToTable(text,counter) {
 			// Based on counter providing a different color for the reply post text.
 			if(counter%2===0)
-				text = text.replace('[Post]', '<table class="well table"><tbody><tr><td>');
+				text = text.replace('[Post]', '<table class="well table"><tbody><tr><td><span class="replyTitle">');
 			else
-				text = text.replace('[Post]', '<table class="alert alert-info table"><tbody><tr><td>');
-			text = text.replace('[lineBreak]', '<br>');
+				text = text.replace('[Post]', '<table class="alert alert-info table"><tbody><tr><td><span class="replyTitle">');
+			text = text.replace('[lineBreak]', '</span><br>');
 			text = text.replace('[endPost]', '</td></tr></tbody></table>');
 			if(text.indexOf('[Post]')>-1)
 				text = convertPostToTable(text, counter+1);

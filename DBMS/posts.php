@@ -95,7 +95,10 @@
 						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">
-								<td><table class="inner_table table">
+								<td>
+									<div class="inner_div">
+									
+									<table class="inner_table table">
 									<tbody>
 										<tr class="post_rating_row">
 											<td class="ratings_col1" rowspan="6">
@@ -103,22 +106,15 @@
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val"> 10</span><br/>
 												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
-												<br/>
-												</div>
+											</div>
 											</td>	
-<!-- 											<td class="rating_col"> -->
-<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star1"></i></a> -->
-<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star2"></i></a> -->
-<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star3"></i></a> -->
-<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star4"></i></a> -->
-<!-- 												<a href="#" class="star_link"><i class="icon-star-empty" id="star5"></i></a> -->
-<!-- 											</td> -->
 											<td class="posted_by">
 												<p>Posted By: <span class="posted_by_val"></span></p>
 											</td>
 											<td class="posted_date">
 												<p>Date Posted: <span class="posted_date_val"></span></p>
 											</td>
+											<td/>
 											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></a></td>
 										</tr>
 										
@@ -130,12 +126,14 @@
 												</div>
 											</td>
 										</tr>
-										<tr>
-											<td><a href="" class="btn replyLink" >Reply</a></td>
+										<tr class="reply-btn-row">
+											<td class="reply-btn-col"><a href="" class="btn btn btn-mini replyLink" >Reply</a></td>
 										</tr>
 										
 									</tbody>
-								</table></td>
+								</table>
+							</div>
+							</td>
 							</tr>
 						</tbody>
 						</table>
@@ -147,7 +145,7 @@
 				</div>
 
 
-				<div class="span3 well" id="rightPane"></div>
+				<div class="span3" id="rightPane"></div>
 			</div>
 		</div>
 
