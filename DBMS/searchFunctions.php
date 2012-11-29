@@ -345,6 +345,7 @@ function searchTag($CatId,$kUserId,$term)
 $cat = $_POST['catId'];
 $term = $_POST['term'];
 $type = $_POST['type'];
+$kUserId= $_SESSION['userid'];
 $result = json_encode(false);
 switch($type)
 {

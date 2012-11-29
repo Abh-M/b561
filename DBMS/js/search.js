@@ -207,7 +207,7 @@ $("document").ready(
 			type: "POST",
 			url: "searchFunctions.php",
 			async: false,
-			data: {requestType: 'searchFunction',catId: String(param_val), term: String(param_val2), type: String(param_val3)},
+			data: {catId: String(param_val), term: String(param_val2), type: String(param_val3)},
 		}).done(function(response){
 		
 			var list = jQuery.parseJSON(response);
