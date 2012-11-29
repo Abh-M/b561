@@ -114,15 +114,17 @@ else if (mysql_num_rows($result) == 0) {
 	 </tr>-->";
   	while($row = mysql_fetch_array($result))
    {
-   echo "<tr>";
-   echo "<td> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
-   echo "<td>" . $row['description'] . "</td>";
-   echo "</tr><tr>";
-   echo "<td> Votes : " . $row['votes'] . "</td>";
-   echo "<td> Views: " . $row['views'] . "</td>";
-   echo "</tr>";
-   echo "</table>";
-   echo "<table class=\"table\" border='1' id='thrdTable'>";
+	   echo "<tr colspan=2>";
+	   echo "<td colspan=2> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
+	   echo "</tr>";
+	   echo "<tr colspan=2>";
+	   echo "<td colspan=2>" . $row['description'] . "</td>";
+	   echo "</tr> <tr>";
+	   echo "<td> Votes : " . $row['votes'] . "</td>";
+	   echo "<td> Views: " . $row['views'] . "</td>";
+	   echo "</tr>";
+	   echo "</table>";
+	   echo "<table class=\"table\" border='1' id='thrdTable'>";
    }
 	echo "</table>";
  }
