@@ -85,7 +85,7 @@ function searchTag($term)
 	}
 	//list threads that matched
 }
-
+function searchFunction{
 $cat = $_POST['catId'];
 $term = $_POST['term'];
 $type = $_POST['type'];

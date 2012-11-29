@@ -352,31 +352,31 @@ switch($type)
 //	case 'threadTitle'	
 	case '1':
 	$term = $_POST['term'];
-	$result = searchThreadTitle($term,$cat);
+	$result = searchThreadTitle($CatId,$kUserId,$term);
 	break;
 	
 	
 //	case 'postContent':
 	case '2':
 	$term = $_POST['term'];
-	$result = searchPostContents($term,$cat);
+	$result = searchPostContents($CatId,$kUserId,$term);
 	break;
 	
 //	case 'firstPostContent':
 	case '3':
 	$term = $_POST['term'];
-	$result = searchFirstPostContents($term,$cat);
+	$result = searchFirstPostContents($CatId,$kUserId,$term);
 	break;
 	
 //	case 'threadAuthor':
 	case '4':
 	$term = $_POST['term'];
-	$result = searchAuthor($term);
+	$result = searchAuthor($CatId,$kUserId,$term);
 	break;
 
 //	case 'tagMatch':
 	case '5':
 	$term = $_POST['term'];
-	$result = searchTag($term);
+	$result = searchTag($CatId,$kUserId,$term);
 	break;		
 }
