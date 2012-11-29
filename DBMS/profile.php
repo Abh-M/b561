@@ -3,6 +3,7 @@
 <head>
 	<?php
 	session_start();
+	if(isset($_GET['a'])) { $a = $_GET['a'];}
 //	include 'header.php';
 	?>
 	<title>Profile Page</title>
@@ -54,7 +55,7 @@
 					document.getElementById("contentPane").innerHTML=xmlhttp.responseText;
 				}
 			}
-			xmlhttp.open("GET","profileRepository.php?q="+str,true);
+			xmlhttp.open("POST","profileRepository.php?q="+str,true);
 			xmlhttp.send();
  
 		}
@@ -171,15 +172,25 @@
 		<div class="span2 well" id="sidebar">			
 			<ul class="nav nav-list bs-docs-sidenav">
 				<li id="category" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Categories</a></li>
-				<li id="Thread" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Threads</a></li>
-				<li id="Post" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Posts</a></li>
+				<li id="thread" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Threads</a></li>
+				<li id="post" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Posts</a></li>
 				<li id="roster" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Roster</a></li>
-				<li id="" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> whatever</a></li>
+				<li id="group" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Group</a></li>
+                <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
           
 			</ul>
 		</div>
-		<div  class="span10 " id="contentPane">
-			Welcome! to your profile page
+		<div  class="span10 well" id="contentPane">
+            <?php 
+			if(isset($a))
+			{
+				if(!(strcmp($a,"")==0))
+				{ 
+					echo $a;
+					$a=""; 
+				}
+			}
+			else echo "Welcome! to your profile page"?>
 		</div>
 	</div>    
 </div>

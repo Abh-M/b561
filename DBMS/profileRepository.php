@@ -87,30 +87,32 @@ else if (mysql_num_rows($result) == 0) {
  
  }
  
- else if ($q == 'Thread')
+ else if ($q == 'thread')
  {
-	 $sql="SELECT * FROM ".$q." as Q, User as U where Q.owner=U.userid and U.userid='". $_SESSION['userid']."'"; 
+	$sql="SELECT * FROM Thread as Q, User as U where Q.owner=U.userid and U.userid='". $_SESSION['userid']."'"; 
 	 
- $result = mysql_query($sql);
+ 	$result = mysql_query($sql);
 
-if (!$result) {
+	if (!$result) 
+	{
     echo "Could not successfully run query ($sql) from DB: " . mysql_error();
     exit;
-}
+	}
 
-else if (mysql_num_rows($result) == 0) {
+	else if (mysql_num_rows($result) == 0) 
+	{
     echo "You are a lousy user. You have not created any Threads yet. So go create some.";
     exit;
-}
+	}
 	 
- echo "<table class=\"table\" border='1' id='thrdTable'>
- <!--<tr>
- <th>Title</th>
- <th>Description</th>
- <th>Votes</th>
- <th>Views</th>
- </tr>-->";
-  while($row = mysql_fetch_array($result))
+	 echo "<table class=\"table\" border='1' id='thrdTable'>
+	 <!--<tr>
+	 <th>Title</th>
+	 <th>Description</th>
+	 <th>Votes</th>
+	 <th>Views</th>
+	 </tr>-->";
+  	while($row = mysql_fetch_array($result))
    {
    echo "<tr>";
    echo "<td> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
@@ -122,68 +124,130 @@ else if (mysql_num_rows($result) == 0) {
    echo "</table>";
    echo "<table class=\"table\" border='1' id='thrdTable'>";
    }
- echo "</table>";
+	echo "</table>";
  }
  
- if ($q == 'roster')
+ else if ($q == 'post')
  {
-	 $sql="SELECT * FROM User"; 
+	$sql="SELECT * FROM Post as P, User as U where P.createdby=U.userid and U.userid='". $_SESSION['userid']."'"; 
 	 
- $result = mysql_query($sql);
+ 	$result = mysql_query($sql);
 
-if (!$result) {
+	if (!$result) 
+	{
     echo "Could not successfully run query ($sql) from DB: " . mysql_error();
     exit;
-}
+	}
 
-else if (mysql_num_rows($result) == 0) {
-    echo "No rows found, nothing to print so am exiting";
+	else if (mysql_num_rows($result) == 0) 
+	{
+    echo "You are a lousy user. You have not created any Threads yet. So go create some.";
     exit;
+	}
+	
+	echo "<table class=\"table\" border='1' id='thrdTable'>";
+	
+	while($row = mysql_fetch_array($result))
+	{
+		// cleaning up the post text
+		$post_text=$row['text'];
+		$pos = strpos($post_text, '[endPost]');
+		while(!($pos == false))
+		{	
+			$post_text = strstr($post_text, '[endPost]');
+			$post_text = substr($post_text, 9);
+			$pos = strpos($post_text, '[endPost]');
+		}
+		
+		$thread_id= $row['threadid'];
+	   	$sql2="SELECT * FROM Thread where threadid = '".$thread_id."'";
+	   	$result2 = mysql_query($sql2);
+	   	$row2 = mysql_fetch_array($result2);
+		echo "<tr>";
+		echo "<td><a href=\"javascript:void(0)\" onclick=\"goToPost(". $row2['threadid'] ."," . $row2['categoryid'] .")\">" . $row2['title'] . "</a></td>";
+   		echo "<td>" . $post_text . "</td>";
+		echo "<td>" . $row['votes'] . "</td>";
+		echo "</tr>";
+		echo "</table>";
+   		echo "<table class=\"table\" border='1' id='thrdTable'>";
+   	}
+	echo "</table>"; 
+		
+ }
+  
+else if ($q == 'roster')
+{
+	$sql="SELECT * FROM User"; 
+	 
+	$result = mysql_query($sql);
+
+	if (!$result) 
+	{
+		echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+		exit;
+	}
+
+	else if (mysql_num_rows($result) == 0) 
+	{
+    	echo "No rows found, nothing to print so am exiting";
+    	exit;
+	}
+
+	echo "<table class=\"table\">
+		<thead>
+		<th class=\"skeletonCol catName\"> Name </th>
+		<th class=\"skeletonCol catCreated\">Email ID</th>
+		<th class=\"skeletonCol catCreated\">Role</th>
+		</thead>
+	 	<tbody>";
+
+		while($row = mysql_fetch_array($result))
+   		{
+	   		$type = $row['type'];
+//	   		$sql2="SELECT * FROM User where userid = '".$creator."'";
+//	   		$result2 = mysql_query($sql2);
+//	   		$row2 = mysql_fetch_array($result2);
+		   if($type == "0")
+		   {
+			   $role="Instructor";
+		   }
+		   else if($type == "1")
+		   {
+			   $role="Associate Instructor";
+		   }
+		   else if($type == "2")
+		   {
+			   $role="Student";
+		   }
+		   echo "
+				 <tr class=\"rowSkeleton\">
+				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
+				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 							
+				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
+			 
+				 </tr>";
+	   }
+	   echo "</tbody>
+			 </table>";
+
 }
 
-echo "<table class=\"table\">
-	<thead>
- <th class=\"skeletonCol catName\"> Name </th>
- <th class=\"skeletonCol catCreated\">Email ID</th>
- <th class=\"skeletonCol catCreated\">Role</th>
-</thead>
-	 <tbody>
+else if($q == 'password')
+{
+	echo "  <form action='change_pass.php' method='post'>
+			<table>
+			<tr>
+			<td width='175px'>Enter current password:</td><td><input type='password' name='cur_pass'></td>
+			</tr><tr>
+			<td>Enter new password:</td> <td><input type='password' name='new_pass'></td>
+			</tr>
+			</table>
+			<input type='hidden' name='userid' value='$userid'>
+			<input type='submit' value='Submit'>
+			</form>
+			
+		";	
+}
  
- 
- 
- ";
-
-
-while($row = mysql_fetch_array($result))
-   {
-	   $type = $row['type'];
-//	   $sql2="SELECT * FROM User where userid = '".$creator."'";
-//	   $result2 = mysql_query($sql2);
-//	   $row2 = mysql_fetch_array($result2);
-	   if($type == "0")
-	   {
-		   $role="Instructor";
-	   }
-	   else if($type == "1")
-	   {
-		   $role="Associate Instructor";
-	   }
-	   else if($type == "2")
-	   {
-		   $role="Student";
-	   }
-	   echo "
-		     <tr class=\"rowSkeleton\">
-		     <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
- 		     <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 							
-			 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
-		 
-		     </tr>";
-   }
-   echo "</tbody>
-		  </table>";
-
- }
- 
- mysql_close($dbConnection);
- ?>
+mysql_close($dbConnection);
+?>
