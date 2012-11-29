@@ -36,11 +36,18 @@ $sql="SELECT * FROM User where userid='". $user_id ."'";
 		}
 		else 
 		{
-			echo "Password updated successfully";
-			header( 'Location: http://localhost/b561/DBMS/profile.php?a=Password Updated Successfully' ) ;
+			if(isset($_COOKIE['success']))
+				setcookie("success", "", time()-3600);
+			$str="Password updated successfully";
+			header( 'Location: profile.php?a=Password Updated Successfully' ) ;
 		}
 	}
-	else echo "Invalid current password";
+	else
+	{
+		if(isset($_COOKIE['success']))
+				setcookie("success", "", time()-3600);
+		 header( 'Location: profile.php?a=Your current password did not match' ) ;
+	}
 
 //echo $user_id;
 

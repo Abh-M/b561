@@ -3,7 +3,13 @@
 <head>
 	<?php
 	session_start();
-	if(isset($_GET['a'])) { $a = $_GET['a'];}
+	if(isset($_GET['a']) && (!(isset($_COOKIE['success'])))) 
+	{ 
+		setcookie('success');
+		$a = $_GET['a'];
+		
+	}
+	
 //	include 'header.php';
 	?>
 	<title>Profile Page</title>
@@ -182,6 +188,7 @@
 		</div>
 		<div  class="span10 well" id="contentPane">
             <?php 
+			
 			if(isset($a))
 			{
 				if(!(strcmp($a,"")==0))
