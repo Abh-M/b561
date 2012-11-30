@@ -292,6 +292,76 @@ function getAllTags()
 	
 }
 
+function sortByAttributeAndOrder($col,$order,$kCatId,$kUserId)
+{
+	
+		$result = json_encode(false);
+		$query ;
+		if($kUserId==-1)
+			$query = "SELECT * from Thread WHERE categoryid = $kCatId ORDER BY $col $order";
+		else
+			$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId ORDER BY $col $order";
+		$queryResult = mysql_query($query);
+		$allThreads = array();
+		if($queryResult!=NULL)
+		{
+			while($row = mysql_fetch_assoc($queryResult))
+			{
+				//get tags for this thread
+				$threadId = $row['threadid'];
+				//select keyword from Tag where tagid IN (Select tagid from tagtothread where threadid=61);
+				$tagSearchQuery = "select keyword from Tag where tagid IN (Select tagid from tagtothread where threadid = $threadId)";
+				$tagSearchQueryResult  = mysql_query($tagSearchQuery);
+				$alltags = array();
+				if(mysql_num_rows($tagSearchQueryResult))
+				{
+					//got some tags
+				
+					while($tagRow = mysql_fetch_assoc($tagSearchQueryResult))
+					{
+						//for each tag
+						$tag = $tagRow['keyword'];
+						//echo $tag;
+						array_push($alltags,$tag);
+					}
+				}
+				$row['tags'] = $alltags;
+			
+			
+			
+				//get creater info
+				$owner = $row['owner'];
+				$ownerSearchQuery = "Select * from User where userid = $owner";
+				$ownerSearchQueryResult = mysql_query($ownerSearchQuery);
+				if(mysql_num_rows($ownerSearchQueryResult)==1)
+				{
+					$user = mysql_fetch_assoc($ownerSearchQueryResult);
+					$row['owner'] = $user;
+				}
+			
+				//get group name
+				$groupId = $row['groupid'];
+				if($groupId != NULL)
+				{
+					$groupQuery = "SELECT name from groups WHERE id = $groupId";
+					$groupQueryResult = mysql_query($groupQuery);
+					if(mysql_num_rows($groupQueryResult)==1)
+					{
+						$grp = mysql_fetch_assoc($groupQueryResult);
+						$row['groupName']= $grp['name'];
+					}	
+				
+				}
+
+				array_push($allThreads,$row);
+			}
+			$result = json_encode($allThreads);
+		}
+		return $result;
+	
+	
+}
+
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
 switch($reqType)
@@ -348,6 +418,16 @@ switch($reqType)
 	
 	case 'getAllTags':
 	$result = getAllTags();
+	break;
+	
+	
+	case 'sortByAttributeAndOrder':
+	
+	$col = $_POST['attribute'];
+	$order = $_POST['order'];
+	$catid = $_POST['catId'];
+	$userid = (isset($_POST['userId']))?$_POST['userId']:-1;
+	$result = sortByAttributeAndOrder($col,$order,$catid,$userid);
 	break;
 	
 		

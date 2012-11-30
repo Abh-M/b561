@@ -499,3 +499,41 @@ div.success
 
 	
 }
+
+
+
+/*CSS sort for drop down */
+
+#sortLinks
+{
+	text-align: right !important;
+}
+
+
+.sortList
+{
+	list-style: none;
+	text-decoration: none;
+	text-align: right;
+	display: inline-block;
+}
+.sortList:hover
+{
+	text-decoration: none;
+}
+
+..dropdown:hover
+{
+	text-decoration: none !important;
+}
+
+.dropdown
+{
+	text-decoration: none !important;
+	text-align: right;
+	display: inline-block;
+}
+th
+{
+	border: 0px !important;
+}

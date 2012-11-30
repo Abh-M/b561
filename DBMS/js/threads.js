@@ -917,6 +917,42 @@ $("document").ready(
 			
 		}
 		
+		
+		
+		
+		/*Sorting threads*/
+		$(".sort_attr").live('click',function(event){
+			event.preventDefault();
+			
+			var postData =new Object();
+			postData.attribute = $(this).attr('sort_key');
+			postData.order = ($(this).attr('currOrder')=='ASC')?'DESC':'ASC';
+			$(this).attr('currOrder',postData.order);
+			postData.catId = String(param_val);
+			postData.requestType = 'sortByAttributeAndOrder';
+			
+			
+			
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: false,
+				data: postData,
+			}).done(function(response){
+		
+				var list = jQuery.parseJSON(response);
+				console.log(list);
+				$("#ref").siblings().detach();
+				
+				layoutRows(list);
+			
+			});
+			
+			
+		});
+		
+		
+		
 			
 
 
