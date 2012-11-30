@@ -126,8 +126,15 @@
 												</div>
 											</td>
 										</tr>
-										<tr class="reply-btn-row">
-											<td class="reply-btn-col"><a href="" class="btn btn btn-mini replyLink" >Reply</a></td>
+<!-- 										<tr class="reply-btn-row"> -->
+<!-- 											<td class="reply-btn-col"><a href="" class="btn btn btn-mini replyLink" >Reply</a></td> -->
+<!-- 										</tr> -->
+										<tr class="tagsRow">
+											<td colspan="3" class="tagsCol"><div class="tagContainer"><span class="label label-info tag" id="reftag">Sample Tag</span></div></td>
+										</tr>
+										<tr>
+										<td></td><td></td><td></td>
+										<td><a href="" class="btn replyLink" >Reply</a></td>
 										</tr>
 										
 									</tbody>
@@ -158,6 +165,15 @@
 			</div>
 			<div class="modal-body">
 				<textarea rows="5" class="span7" placeholder="Your message goes here" id="newPostDesc"></textarea>
+				<br/>
+				<div>
+				<input class="span6" type="text" placeholder="tag1,tag2,tag3...." id="tagsList" maxlength="200">
+				<select id="tagOption">
+					<option id="refTagOption" tagId="-1">--Select Tag--</option>
+				</select>
+				</div>
+				<br/>
+				
 			</div>
 			<div class="modal-footer">
 				<a href="" class="btn" data-dismiss="modal" id="newPostCloseButton">Close</a>

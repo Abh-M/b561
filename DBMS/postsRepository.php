@@ -30,8 +30,31 @@ function getPostsForThread($kThreadId)
 	$allPosts = array();
 	if($queryResult!=NULL)
 	{
-		while($row = mysql_fetch_assoc($queryResult))
+		while($row = mysql_fetch_assoc($queryResult)){
+			$postId = $row['postid'];
+					
+			//select keyword from Tag where tagid IN (Select tagid from tagtothread where threadid=61);
+			$tagSearchQuery = "select keyword from Tag where tagid IN (Select tagid from tagtopost where postid = $postId)";
+			$tagSearchQueryResult  = mysql_query($tagSearchQuery);
+			$alltags = array();
+			if(mysql_num_rows($tagSearchQueryResult))
+			{
+				//got some tags
+					
+				while($tagRow = mysql_fetch_assoc($tagSearchQueryResult))
+				{
+					//for each tag
+					$tag = $tagRow['keyword'];
+					//echo $tag;
+					array_push($alltags,$tag);
+				}
+			}
+			$row['tags'] = $alltags;
+				
 			array_push($allPosts,$row);
+				
+		}
+			
 			
 		$result = json_encode($allPosts);
 	}
@@ -52,14 +75,86 @@ function createReplyPost($replyText, $postId, $threadId) {
 	return $result;
 }
 
-function createNewPost($postText,$threadId)
+function createNewPost($kthreadId,$kDesc,$kTags)
 {
 	$result = json_encode(false);
 	$currDateTime = date('Y-m-d H:i:s');
 	$createdby = $_SESSION['userid'];
-	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$postText."', '".$currDateTime."',
-			0,null, ".$threadId.", ".$createdby." )";
+	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$kDesc."', '".$currDateTime."',
+			0,null, ".$kthreadId.", ".$createdby." )";
 	$result = mysql_query($query);
+	//set make entries in tags for the new post
+	if(!empty($kTags) && $result==true)
+	{
+		$kTags = json_decode($kTags);
+	
+		$postId = mysql_insert_id();
+	
+		foreach($kTags as $tag)
+		{
+			if(empty($tag))
+				continue;
+			/* Tag
+			 +---------+-------------+------+-----+---------+----------------+
+			| Field   | Type        | Null | Key | Default | Extra          |
+			+---------+-------------+------+-----+---------+----------------+
+			| tagid   | int(11)     | NO   | PRI | NULL    | auto_increment |
+			| keyword | varchar(45) | YES  |     | NULL    |                |
+			+---------+-------------+------+-----+---------+----------------+
+			*/
+	
+			//check if tag already exist or else create new tag
+			$tagId =false;
+			$tagQuery = "SELECT * FROM Tag WHERE keyword LIKE '$tag'";
+			$tagQueryResult = mysql_query($tagQuery);
+			if(!mysql_num_rows($tagQueryResult))
+			{
+	
+				//tag is not present insert it
+				$insertTageQuery = "INSERT INTO Tag (keyword) VALUES ('$tag')";
+				$tagInsertResult = mysql_query($insertTageQuery);
+				if($tagInsertResult)
+				{
+					$tagId = mysql_insert_id();
+				}
+	
+			}
+			else
+			{
+				//tag already exist fetch the tagid
+				$row = mysql_fetch_assoc($tagQueryResult);
+				$tagId = $row['tagid'];
+	
+			}
+				
+	
+	
+			/* tagtopost
+			 +----------+---------+------+-----+---------+-------+
+			| Field    | Type    | Null | Key | Default | Extra |
+			+----------+---------+------+-----+---------+-------+
+			| threadid | int(11) | NO   | PRI | NULL    |       |
+			| tagid    | int(11) | NO   | PRI | NULL    |       |
+			+----------+---------+------+-----+---------+-------+
+			*/
+				
+				
+			//make entry in tagtopost
+				
+			if($tagId)
+			{
+				$insertTagToPostQuery = "INSERT INTO tagtopost (postid,tagid) VALUES ($postId,$tagId)";
+				if(mysql_query($insertTagToPostQuery))
+				{
+					//insert complete
+				}
+			}
+		}
+	}
+	
+	
+	
+	
 	if($result==true) {
 		$result = json_encode($result);
 	}
@@ -105,6 +200,27 @@ function decrementVoteForPosts($postId)
 	return $result;
 }
 
+function getAllTags()
+{
+	$result = json_encode('false');
+
+	$query = "Select * from Tag";
+	$queryResult  = mysql_query($query);
+	$allTags = array();
+	if(mysql_num_rows($queryResult)>0)
+	{
+		while($row = mysql_fetch_assoc($queryResult))
+		{
+			array_push($allTags,$row);
+		}
+		$result = json_encode($allTags);
+	}
+
+
+	return $result;
+
+}
+
 
 $reqType = $_POST['requestType'];
 $result = json_encode(false);
@@ -124,10 +240,12 @@ switch($reqType)
 		break;
 
 	case 'createNewPost':
-		$postText = $_POST['postText'];
+		$postText = $_POST['desc'];
 		$threadId = $_POST['threadId'];
-		$result = createNewPost($postText,$threadId);
+		$tags = $_POST['tags'];
+		$result = createNewPost($threadId,$postText,$tags);
 		break;
+		
 
 	case 'getPostsForThread':
 		$threadId = $_POST['threadId'];
@@ -148,6 +266,10 @@ switch($reqType)
 	case 'decrementVoteForPosts':
 		$postId = $_POST['postId'];
 		$result = decrementVoteForPosts($postId);
+		break;
+	
+	case 'getAllTags':
+		$result = getAllTags();
 		break;
 		
 	

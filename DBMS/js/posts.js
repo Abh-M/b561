@@ -129,12 +129,33 @@ $("document").ready(
 				if(this.text.indexOf('[Post]') > -1) {
 					this.text = convertPostToTable(this.text,1);
 				}
-				$(cell).find('.post_content_div').html(this.text);
+				$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
+				if(this.tags.length>0)
+				{
+					console.log("Hello");
+					for(var j=0 ; j<this.tags.length; j++)
+					{
+						var tag  =this.tags[j];
+						v = $(cell).find("#reftag").clone();
+						$(cell).find("#reftag").hide();
+						$(v).removeAttr('id');
+						$(v).show();
+						$(v).html(tag);
+						$(cell).find('.tagContainer').append(v);
+					}
+				}
+				else
+				{
+					$(cell).find('.tagsRow').hide();
+				}
 				$(cell).insertAfter("#ref");
 				
 			});
+			$("#reftag").hide();
 			$("#ref").hide();
+			
 		});
+
 		function convertPostToTable(text,counter) {
 			// Based on counter providing a different color for the reply post text.
 			if(counter%2===0)
@@ -202,13 +223,23 @@ $("document").ready(
 			
 			var desc = $("#newPostDesc").val();
 			var threadId = $("#ThreadName").attr('threadId');
+			var tagsList = $('#tagsList').val();
+			var allTags =tagsList.split(','); 
+			var jsonTags = JSON.stringify(allTags);
 			//create new post and get updated list of posts
 			console.log("Creating new post : "+ desc + "for thread "+threadId);
+			var postData = new Object();
+			postData.requestType = 'createNewPost';
+			postData.tags = jsonTags;
+			postData.threadId = String(threadId);
+			postData.desc = String(desc);
 			$.ajax({
 				type: "POST",
 				url: "postsRepository.php",
 				async: false,
-				data: { requestType: "createNewPost", postText: String(desc), threadId:String(threadId) },
+//				data: { requestType: "createNewPost", postText: String(desc), threadId:String(threadId) },
+				data: postData,
+
 			}).done(function(data){
 				var response = jQuery.parseJSON(data);
 				if(response!=true) {
@@ -318,5 +349,56 @@ $("document").ready(
 			//deactivate the button
 		});
 
+		$("#tagOption").change(function(){
+			 var tagName = $('#tagOption option:selected').val();
+			 console.log(tagName);
+			 var tagsList = $('#tagsList').val();
+			 if(tagsList== null || tagsList=='')
+				 $("#tagsList").val(tagName);
+			else
+				$("#tagsList").val(tagsList+','+tagName);
+			// var grpId = parseInt($('#groupsOption option:selected').attr('grpid'));
+			// var grpcreator = $('#groupsOption option:selected').attr('creator');
+			
+		});
+		function getTagsForPosts()
+		{
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: {requestType: 'getAllTags'},
+			}).done(function(response)
+			{
+				if(response)
+				{
+					var data = jQuery.parseJSON(response);
+					if(data!=false)
+					{
+						$("#tagOption").show();
+						$refOption = $("#tagOption").find("#refTagOption");
+						$($refOption).siblings().detach();
+						for(var index=0; index < data.length; index++)
+						{
+							var tag = data[index];
+							$newOpt = $($refOption).clone();
+							$($newOpt).removeAttr('id');
+							$($newOpt).html(tag.keyword);
+							$($newOpt).attr('tagid',tag.tagid);
+							$($newOpt).insertAfter($refOption);
+						}
+						console.log(data);
+							
+					}
+					else
+					{
+						//hide the select option
+						 $("#tagOption").hide();
+					}
+				}
+					
+			});
+			
 		}
-	);
+		getTagsForPosts();
+});
