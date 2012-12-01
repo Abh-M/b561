@@ -92,6 +92,29 @@
 							<li><a href="" id="CategoryName" class="catLink">Category</a> <span class="divider">/</span></li>
 							<li class="threadLink" id="ThreadName">Thread <span class="divider">/</span></li>
 						</ul></caption>
+						<th>
+						
+						<div class="sortLinks">
+							<ul class="sortList">
+								<li class="dropdown">
+									<a class="dropdown-toggle"
+									data-toggle="dropdown"
+									href="#">
+									Sort by
+									<b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+							
+									<li><a tabindex="-1" href="" sort_key="votes" class="sort_attr" currOrder='ASC'>number of votes</a></li>
+									<li><a tabindex="-1" href="" sort_key="dateposted" class="sort_attr" currOrder='ASC'>Date created</a></li>
+									
+								</ul>
+							</li>
+						</ul>
+					</div>
+						
+						
+				</th>
 						</thead>
 						<tbody>
 							<tr class="tableRow" id="ref">

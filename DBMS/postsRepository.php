@@ -232,6 +232,48 @@ function getAllTags()
 	return $result;
 
 }
+function sortByAttributeAndOrder($col,$order,$kthreadId)
+{
+
+	$result = json_encode(false);
+	$query ;
+	$query = "SELECT * from Post WHERE threadid = $kthreadId ORDER BY $col $order";
+	$queryResult = mysql_query($query);
+	$allPosts = array();
+	if($queryResult!=NULL)
+	{
+		while($row = mysql_fetch_assoc($queryResult))
+		{
+			//get tags for this post
+			$postId = $row['postid'];
+			//select keyword from Tag where tagid IN (Select tagid from tagtothread where threadid=61);
+			$tagSearchQuery = "select keyword from Tag where tagid IN (Select tagid from tagtopost where postid = $postId)";
+			$tagSearchQueryResult  = mysql_query($tagSearchQuery);
+			$alltags = array();
+			if(mysql_num_rows($tagSearchQueryResult))
+			{
+				//got some tags
+
+				while($tagRow = mysql_fetch_assoc($tagSearchQueryResult))
+				{
+					//for each tag
+					$tag = $tagRow['keyword'];
+					//echo $tag;
+					array_push($alltags,$tag);
+				}
+			}
+			$row['tags'] = $alltags;
+				
+
+
+			array_push($allPosts,$row);
+		}
+		$result = json_encode($allPosts);
+	}
+	return $result;
+
+
+}
 
 
 $reqType = $_POST['requestType'];
@@ -288,6 +330,15 @@ switch($reqType)
 	case 'getAllTags':
 		$result = getAllTags();
 		break;
+	
+	case 'sortByAttributeAndOrder':
+		$col = $_POST['attribute'];
+		$order = $_POST['order'];
+		$threadid = $_POST['threadId'];
+		//$userid = (isset($_POST['userId']))?$_POST['userId']:-1;
+		$result = sortByAttributeAndOrder($col,$order,$threadid);
+		break;
+		
 		
 	
 
