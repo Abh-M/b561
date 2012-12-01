@@ -31,7 +31,7 @@ $("document").ready(
 				if(userType != 0 && userType!= 1)
 				{
 					$(".deleteLink").hide();
-					$("#new-thread-link").hide();
+					$("#new-thread-link").show();
 				}
 				else
 				{
