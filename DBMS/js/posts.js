@@ -401,4 +401,77 @@ $("document").ready(
 			
 		}
 		getTagsForPosts();
+		
+		/*Sorting posts*/
+		$(".sort_attr").live('click',function(event){
+			event.preventDefault();
+			
+			var postData =new Object();
+			postData.attribute = $(this).attr('sort_key');
+			postData.order = ($(this).attr('currOrder')=='ASC')?'DESC':'ASC';
+			$(this).attr('currOrder',postData.order);
+			console.log(postData.order);
+			console.log(postData.attribute);
+			postData.threadId = String(param_val1);
+			postData.requestType = 'sortByAttributeAndOrder';			
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: postData,
+			}).done(function(response){		
+				var list = jQuery.parseJSON(response);
+				console.log(list);
+				//$("#ref").siblings().detach();
+				
+				jQuery.each(list, function() {
+					var cell = $("#ref").clone();
+					$(cell).removeAttr('id');
+					$(cell).attr('postId',String(this.postid));
+					var x=$(cell).find(".mybadge").html(this.votes);
+					console.log("mybadge:::"+x);
+					$(cell).find('.posted_date_val').html(this.dateposted);
+					if(this.createdby != $("#loggedUser").attr('userid')) {
+						$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
+						function(response){
+							var user = jQuery.parseJSON(response);
+							console.log(user);
+							$(cell).find('.posted_by_val').html(user.username);
+						});
+					} else {
+						$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
+					}
+					$(cell).find('.post_content_div').attr("value",this.text);
+					if(this.text.indexOf('[Post]') > -1) {
+						this.text = convertPostToTable(this.text,1);
+					}
+					$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
+					if(this.tags.length>0)
+					{
+						
+						for(var j=0 ; j<this.tags.length; j++)
+						{
+							var tag  =this.tags[j];
+							v = $(cell).find("#reftag").clone();
+							$(cell).find("#reftag").hide();
+							$(v).removeAttr('id');
+							$(v).show();
+							$(v).html(tag);
+							$(cell).find('.tagContainer').append(v);
+						}
+					}
+					else
+					{
+						$(cell).find('.tagsRow').hide();
+					}
+					$(cell).insertAfter("#ref");
+					
+				});
+				$("#reftag").hide();
+				$("#ref").hide();
+				
+			});
+			
+			
+		});
 });
