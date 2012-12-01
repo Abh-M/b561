@@ -44,7 +44,7 @@ function addNewUser($kusername,$kfirstname,$klastname,$kemailid,$kpassword,$ktyp
 function getLoggedInUserInfo()
 {
 	
-	return json_encode($_SESSION['userInfoMap']);
+	return (isset($_SESSION['userInfoMap']))?json_encode($_SESSION['userInfoMap']):json_encode(false);
 }
 
 

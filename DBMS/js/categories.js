@@ -8,12 +8,21 @@ $("document").ready(
 		 $("#ref").hide();
 		 $("#right_bar_ref_listItem").hide();
 		//Get logged in userinfo
-		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
-
-			
+		
+		$.ajax({
+			type: "POST",
+			url: "helpers.php",
+			async: false,
+			data: {requestType:'getLoggedInUserInfo'},
+		}).done(function(response){
+		
 			var userInfo = jQuery.parseJSON(response);
 			console.log(userInfo);
-			if(userInfo)
+			if(userInfo==false)
+			{
+				$(".logoutLink").click();
+			}
+			else
 			{
 				//set username
 				$("#loggedUser").html(userInfo.username);

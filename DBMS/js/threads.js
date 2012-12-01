@@ -18,7 +18,13 @@ $("document").ready(
 			
 			var userInfo = jQuery.parseJSON(response);
 			console.log(userInfo);
-			if(userInfo)
+			
+			if(userInfo==false)
+			{
+				//force logout
+				$(".logoutLink").click();
+			}
+			else
 			{
 				//set username
 				$("#loggedUser").html(userInfo.username);
@@ -49,6 +55,7 @@ $("document").ready(
 				{
 					$("#new-notifications-button").hide();
 				}
+				
 				
 			}
 			
