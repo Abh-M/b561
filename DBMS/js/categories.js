@@ -2,6 +2,9 @@ $("document").ready(
 	function()
 	{
 		
+		var allCategories;
+		
+		
 		 $("#ref").hide();
 		//Get logged in userinfo
 		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
@@ -111,14 +114,13 @@ $("document").ready(
 				if(categories!=null && categories.length>0)
 				{
 					$("#ref").siblings().detach();
-					
+					allCategories = categories;
 					layoutRows(categories);
 				}
 			});
 		});
 		
 		
-		var allCategories;
 		
 		//onload get all categories
 		$.ajax({
@@ -168,6 +170,8 @@ $("document").ready(
 				$("#successAlert").fadeOut(4000);
 				var categories = jQuery.parseJSON(response);
 				console.log(categories);
+				allCategories = categories;
+				
 				layoutRows(categories);
 				
 			});

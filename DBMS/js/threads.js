@@ -141,6 +141,14 @@ $("document").ready(
 				if(res.updateResult == true)
 				{
 					$(this).html(res.status);
+					
+					//make changes in the array
+					for(var i=0; i<allThreads.length;i++)
+					{
+						if(allThreads[i].threadid == threadId)
+							allThreads[i].status = res.status;
+					}
+					
 				}
 				else
 				{
@@ -726,6 +734,16 @@ $("document").ready(
 				console.log(status);
 				if(status == true)
 				{
+					console.log(threadId);
+					for(var i=0; i<allThreads.length; i++)
+					{
+						var currThread = allThreads[i];
+						if(currThread.threadid == threadId)
+						{
+							currThread.votes = String(parseInt(currThread.votes)+1);
+							allThreads[i]=currThread;
+						}	
+					}
 				}
 				
 			});
@@ -752,6 +770,18 @@ $("document").ready(
 				console.log(status);
 				if(status == true)
 				{
+					
+					console.log(threadId);
+					for(var i=0; i<allThreads.length; i++)
+					{
+						var currThread = allThreads[i];
+						if(currThread.threadid == threadId)
+						{
+							currThread.votes = String(parseInt(currThread.votes)+1);
+							allThreads[i]=currThread;
+						}	
+					}
+					
 				}
 				
 			});
@@ -1233,30 +1263,6 @@ $("document").ready(
 			}
 			
 			layoutRows(allThreads);
-			
-			
-			
-			
-			// postData.catId = String(param_val);
-			// postData.requestType = 'sortByAttributeAndOrder';
-			// 
-			// 
-			// 
-			// $.ajax({
-			// 	type: "POST",
-			// 	url: "threadsRepository.php",
-			// 	async: false,
-			// 	data: postData,
-			// }).done(function(response){
-			// 		
-			// 	var list = jQuery.parseJSON(response);
-			// 	console.log(list);
-			// 	$("#ref").siblings().detach();
-			// 	
-			// 	layoutRows(list);
-			// 
-			// });
-			
 			
 		});
 		
