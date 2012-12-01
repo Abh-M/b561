@@ -16,11 +16,11 @@
 			   }
 			   else if($logged_user_type == "1")
 			   {
-				  $mode="hidden";
+				  $mode="none";
 			   }
 			   else if($logged_user_type == "2")
 			   {
-				   $mode="hidden";
+				   $mode="none";
 			   }
 //	include 'header.php';
 	?>
@@ -279,8 +279,8 @@
 				<li id="post" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Posts</a></li>
 				<li id="roster" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Roster</a></li>
 				<li id="group" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Group</a></li>
+                <li style="display: <?php echo $mode; ?>" id="blocked" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Blocked &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Students</a></li>
                 <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
-          		<li style="visibility: <?php echo $mode; ?>" id="blocked" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Blocked &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Students</a></li>
 			</ul>
 		</div>
 		<div  class="span10 well" id="contentPane">
