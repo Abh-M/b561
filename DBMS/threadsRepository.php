@@ -70,6 +70,7 @@ function getThreadsForCategory($kCatId,$kUserId)
 			
 			//get group name
 			$groupId = $row['groupid'];
+			$row['groupName']= "no group";
 			if($groupId != NULL)
 			{
 				$groupQuery = "SELECT name from groups WHERE id = $groupId";
@@ -81,6 +82,17 @@ function getThreadsForCategory($kCatId,$kUserId)
 				}	
 				
 			}
+			
+			//get number of posts in this thread
+			$numPostQuery = "Select COUNT(*) as numPost from Post WHERE threadid = $threadId";
+			$numPostQueryResutlt = mysql_query($numPostQuery);
+			if(mysql_num_rows($numPostQueryResutlt)==1)
+			{
+				$numPosts = mysql_fetch_assoc($numPostQueryResutlt);
+				$row['numPost']= $numPosts['numPost'];
+				
+			}
+			
 
 			array_push($allThreads,$row);
 		}

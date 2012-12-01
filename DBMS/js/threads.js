@@ -4,7 +4,7 @@ $("document").ready(
 		
 		
 
-		
+		var allThreads;
 		//Get logged in userinfo
 		$.ajax({
 			type: "POST",
@@ -208,6 +208,7 @@ $("document").ready(
 		
 			var list = jQuery.parseJSON(response);
 			console.log(list);
+			 allThreads = list;
 			layoutRows(list);
 			
 		});
@@ -278,6 +279,8 @@ $("document").ready(
 					$("#successAlert").fadeOut(5000);
 					
 				}
+   			 allThreads = list;
+				
 				layoutRows(list);
 				$("#newThreadCloseButton").click();
 			});
@@ -346,7 +349,8 @@ $("document").ready(
 				{
 					$("#ref").siblings().detach();
 					console.log(list);
-					layoutRows(list);
+					 allThreads = list;
+					 layoutRows(list);
 				}
 			});
 		});
@@ -789,6 +793,7 @@ $("document").ready(
 		
 		function layoutRows(list)
 		{
+			$("#ref").siblings().detach();
 			
 			for(var i=0; i<list.length; i++)
 			{
@@ -806,6 +811,7 @@ $("document").ready(
 				$(cell).find(".thread_title_div").attr('threadId',String(thread.threadid));
 				$(cell).find('.thread_content_div').html(thread.description);
 				$(cell).find('.views_val').html(thread.views);
+				$(cell).find('.posts_val').html(thread.numPost);				
 				$(cell).find('.group_val').html((thread.groupid)?thread.groupName:"no group");
 				$(cell).find('.status-link').html(thread.status);
 				$(cell).show();
@@ -920,6 +926,210 @@ $("document").ready(
 		
 		
 		
+		
+		/* functions for sorting threads on various attributes*/
+		
+		// sort by title
+		var sortByTitleAsc = function compare(obj1,obj2)
+		{
+			var title1 = obj1.title.toLowerCase();
+			var title2 = obj2.title.toLowerCase();
+			
+			if(title1<title2)
+			return -1;
+			if(title1>title2)
+			return 1;
+			return 0
+		}
+		
+		var sortByTitleDesc = function compare(obj1,obj2)
+		{
+			var title1 = obj1.title.toLowerCase();
+			var title2 = obj2.title.toLowerCase();
+			
+			if(title1>title2)
+			return -1;
+			if(title1<title2)
+			return 1;
+			return 0
+		}
+		
+		
+		// sort by creator
+		var sortByCreatorAsc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.owner.username.toLowerCase();
+			var val2 = obj2.owner.username.toLowerCase();
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		
+		
+		var sortByCreatorDesc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.owner.username.toLowerCase();
+			var val2 = obj2.owner.username.toLowerCase();
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		
+		// sort by views
+		var sortByViewsAsc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.views);
+			var val2 = parseInt(obj2.views);
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		var sortByViewsDesc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.views);
+			var val2 = parseInt(obj2.views);
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		// Sort by votes
+		var sortByVotesAsc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.votes);
+			var val2 = parseInt(obj2.votes);
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		var sortByVotesDesc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.votes);
+			var val2 = parseInt(obj2.votes);
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		// sort by posts
+		
+		var sortByPostsAsc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.numPost);
+			var val2 = parseInt(obj2.numPost);
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		var soryByPostsDesc = function compare(obj1,obj2)
+		{
+			var val1 = parseInt(obj1.numPost);
+			var val2 = parseInt(obj2.numPost);
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		//sort by status
+		var sortByStatusAsc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.status.toLowerCase();
+			var val2 = obj2.status.toLowerCase();
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		
+		var sortByStatusDesc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.status.toLowerCase();
+			var val2 = obj2.status.toLowerCase();
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		//sort by group
+		
+		var sortByGroupNameAsc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.groupName.toLowerCase();
+			var val2 = obj2.groupName.toLowerCase();
+			
+			if(val1<val2)
+			return -1;
+			if(val1>val2)
+			return 1;
+			return 0
+		}
+		
+		var sortByGroupNameDesc = function compare(obj1,obj2)
+		{
+			var val1 = obj1.groupName.toLowerCase();
+			var val2 = obj2.groupName.toLowerCase();
+			
+			if(val1>val2)
+			return -1;
+			if(val1<val2)
+			return 1;
+			return 0
+		}
+		
+		
+		//sort by date created
+		var sortByDateCreatedAsc = function compare(obj1,obj2)
+		{
+			var val1 = new Date(obj1.datecreated);
+			var val2 = new Date(obj2.datecreated);
+			return val1-val2;
+		}
+		
+		var sortByDateCreatedDesc = function compare(obj1,obj2)
+		{
+			var val1 = new Date(obj1.datecreated);
+			var val2 = new Date(obj2.datecreated);
+			return val2-val1;
+		}
+		
+		
+		
+		
 		/*Sorting threads*/
 		$(".sort_attr").live('click',function(event){
 			event.preventDefault();
@@ -928,25 +1138,124 @@ $("document").ready(
 			postData.attribute = $(this).attr('sort_key');
 			postData.order = ($(this).attr('currOrder')=='ASC')?'DESC':'ASC';
 			$(this).attr('currOrder',postData.order);
-			postData.catId = String(param_val);
-			postData.requestType = 'sortByAttributeAndOrder';
 			
 			
-			
-			$.ajax({
-				type: "POST",
-				url: "threadsRepository.php",
-				async: false,
-				data: postData,
-			}).done(function(response){
-		
-				var list = jQuery.parseJSON(response);
-				console.log(list);
-				$("#ref").siblings().detach();
 				
-				layoutRows(list);
+			if(postData.order == 'ASC')
+			{
+				switch(postData.attribute)
+				{
+					case 'title':
+					allThreads.sort(sortByTitleAsc);
+					break;
+					
+					case 'creator':
+					allThreads.sort(sortByCreatorAsc);
+					break;
+					
+					
+					case 'views':
+					allThreads.sort(sortByViewsAsc);
+					break;
+					
+					
+					case 'votes':
+					allThreads.sort(sortByVotesAsc);					
+					break;
+					
+					
+					case 'numPost':
+					allThreads.sort(sortByPostsAsc);										
+					break;
+					
+					
+					case 'status':
+					allThreads.sort(sortByStatusAsc);															
+					break;
+					
+					
+					case 'group':
+					allThreads.sort(sortByGroupNameAsc);															
+					break;
+					
+					
+					case 'datecreated':
+					allThreads.sort(sortByDateCreatedAsc);															
+					break;
+				}
+				
+			}
+			else if(postData.order = 'DESC')
+			{
+				
+				switch(postData.attribute)
+				{
+					case 'title':
+					allThreads.sort(sortByTitleDesc);
+					break;
+					
+					case 'creator':
+					allThreads.sort(sortByCreatorDesc);
+					break;
+					
+					case 'views':
+					allThreads.sort(sortByViewsDesc);
+					break;
+					
+					case 'votes':
+					allThreads.sort(sortByVotesDesc);					
+					break;
+					
+					
+					case 'numPost':
+					allThreads.sort(soryByPostsDesc);										
+					break;
+					
+					case 'status':
+					allThreads.sort(sortByStatusDesc);															
+					break;
+					
+					
+					case 'group':
+					allThreads.sort(sortByGroupNameDesc);															
+					break;
+					
+					
+					case 'datecreated':
+					allThreads.sort(sortByDateCreatedDesc);															
+					break;
+					
+					
+					
+				}
+				
+				
+			}
 			
-			});
+			layoutRows(allThreads);
+			
+			
+			
+			
+			// postData.catId = String(param_val);
+			// postData.requestType = 'sortByAttributeAndOrder';
+			// 
+			// 
+			// 
+			// $.ajax({
+			// 	type: "POST",
+			// 	url: "threadsRepository.php",
+			// 	async: false,
+			// 	data: postData,
+			// }).done(function(response){
+			// 		
+			// 	var list = jQuery.parseJSON(response);
+			// 	console.log(list);
+			// 	$("#ref").siblings().detach();
+			// 	
+			// 	layoutRows(list);
+			// 
+			// });
 			
 			
 		});

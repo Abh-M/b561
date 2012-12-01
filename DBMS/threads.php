@@ -147,10 +147,14 @@
 								<ul class="dropdown-menu">
 							
 									<li><a tabindex="-1" href="" sort_key="title" class="sort_attr" currOrder='ASC'>title</a></li>
+									<li><a tabindex="-1" href="" sort_key="group" class="sort_attr" currOrder='ASC'>group</a></li>
+									<li><a tabindex="-1" href="" sort_key="creator" class="sort_attr" currOrder='ASC'>creator</a></li>
+									<li><a tabindex="-1" href="" sort_key="status" class="sort_attr" currOrder='ASC'>status</a></li>
+									<li><a tabindex="-1" href="" sort_key="datecreated" class="sort_attr" currOrder='ASC'>date created</a></li>
 									<li><a tabindex="-1" href="" sort_key="votes" class="sort_attr" currOrder='ASC'>number of votes</a></li>
 									<li><a tabindex="-1" href="" sort_key="views" class="sort_attr" currOrder='ASC'>number of views</a></li>
-									<li><a tabindex="-1" href="" sort_key="status" class="sort_attr" currOrder='ASC'>Status</a></li>
-									<li><a tabindex="-1" href="" sort_key="datecreated" class="sort_attr" currOrder='ASC'>Date created</a></li>
+									<li><a tabindex="-1" href="" sort_key="numPost" class="sort_attr" currOrder='ASC'>number of posts</a></li>
+									
 									
 								</ul>
 							</li>
@@ -168,7 +172,7 @@
 								<tbody>				
 										
 									<tr class="thread_title_row">
-										<td class="ratings_col1" rowspan="6">
+										<td class="ratings_col1" rowspan="7">
 											<div id="ddiv">
 												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val">10</span><br/>
@@ -177,7 +181,7 @@
 											</div>
 										</td>	
 											
-										<td class="thread_title_col" colspan="5">
+										<td class="thread_title_col" colspan="6">
 											<div class="thread_title_div">
 												<a href="" class="threadLink">
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit.
@@ -189,7 +193,7 @@
 										
 											
 											<tr class="thread_content_row">
-												<td class="thread_content_col" colspan="6">
+												<td class="thread_content_col" colspan="7">
 													<div class="thread_content_div">
 														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam scelerisque mattis dui et blandit. Etiam a orci et purus fringilla pulvinar posuere eget massa. Nam at velit ante. In hac habitasse platea dictumst. Phasellus in mauris erat, vitae scelerisque ligula. Suspendisse potenti. Cras mauris sem, cursus ut molestie mollis, tincidunt ut nibh. Quisque eleifend libero dui. Proin sagittis adipiscing diam sit amet elementum. Fusce pellentesque vulputate massa cursus cursus. Nulla facilisi. Nam rhoncus ligula ut nisl sodales in cursus elit viverra. Vestibulum volutpat, velit in hendrerit tempor, risus erat ultricies lectus, sed tincidunt dolor ligula sed quam. Morbi congue tempus nibh, eget imperdiet nulla placerat facilisis.
 													</div>
@@ -202,7 +206,9 @@
 												<td class="status_col">
 													<p class="status_lbl">Status:&nbsp;<a href="" class="status-link">Closed</a></p>
 												</td>
-											
+												<td class="posts_col">
+													<p class="posts_lbl">Posts:&nbsp; <span class="posts_val"></span></p>
+												</td>
 												<td class="views_col">
 													<p class="views_val_lbl">Views:&nbsp;<span class="views_val"></span></p>
 												</td>

@@ -105,6 +105,28 @@
 						<caption><ul class="breadcrumb pull-left">
 							<li>Home <span class="divider">/</span></li>
 						</ul></caption>
+						<th>
+							<div class="sortLinks">
+								<ul class="sortList">
+									<li class="dropdown">
+										<a class="dropdown-toggle"
+										data-toggle="dropdown"
+										href="#">
+										Sort by
+										<b class="caret"></b>
+									</a>
+									<ul class="dropdown-menu">
+							
+										<li><a tabindex="-1" href="" sort_key="Category" class="sort_attr" currOrder='ASC'>title</a></li>
+										<li><a tabindex="-1" href="" sort_key="creator" class="sort_attr" currOrder='ASC'>creator</a></li>
+										<li><a tabindex="-1" href="" sort_key="threads_count" class="sort_attr" currOrder='ASC'>thread count</a></li>
+									
+									</ul>
+								</li>
+							</ul>
+						</div>
+							
+						</th>
 						<thead>
 						</thead>
 						<tbody>

@@ -118,6 +118,8 @@ $("document").ready(
 		});
 		
 		
+		var allCategories;
+		
 		//onload get all categories
 		$.ajax({
 			type: "POST",
@@ -126,7 +128,11 @@ $("document").ready(
 			data: { eventType: "getAllCategories" },
 		}).done(function(data){
 			var categories = jQuery.parseJSON(data);
+			//categories.sort(cfunc );
+			
+			allCategories = categories;
 			layoutRows(categories);
+			
 		});
 		
 		$('.dropdown-toggle').dropdown(); 
@@ -182,19 +188,14 @@ $("document").ready(
 		
 		function layoutRows(categories)	
 		{
-			
+			console.log(categories);
+			$("#ref").siblings().detach();
 			for(var index in categories)
 			{
-				console.log(cat);
 				var cat = categories[index];
-				console.log(cat.Category);
-				console.log(cat.categoryid);
-				console.log(cat.creator);
-				
 				var cell = $("#ref").clone();
 				var cc = cell[0];
 				$(cc).removeAttr('id');
-				console.log($(cc).find(".catName").children().html());
 				$(cc).find(".catName").children().html(cat.Category);
 				$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
 				$(cc).find(".delLink").attr('href','');
@@ -209,6 +210,144 @@ $("document").ready(
 			
 			
 		}
+		
+		
+		var sortByNumberOfThreadAsc = function compare(obj1,obj2)
+		{
+			if(obj1.num<obj2.num)
+			return -1;
+			if(obj1.num>obj2.num)
+			return 1;
+			return 0;
+				
+		}
+		
+		var sortByNumberOfThreadDesc = function compare(obj1,obj2)
+		{
+			if(obj1.num>obj2.num)
+			return -1;
+			if(obj1.num<obj2.num)
+			return 1;
+			return 0;
+				
+		}
+		
+		
+		
+		
+		var sortByCreatorAsc = function compareCreator(obj1,obj2)
+		{
+			var username1 = obj1.creator.username.toLowerCase();
+			var username2 = obj2.creator.username.toLowerCase();
+			if(username1<username2)
+				return -1;
+			if(username1>username2)
+				return 1;
+			return 0;
+			
+			
+		}
+		
+		
+		var sortByCreatorDesc = function compareCreator(obj1,obj2)
+		{
+			var username1 = obj1.creator.username.toLowerCase();
+			var username2 = obj2.creator.username.toLowerCase();
+			if(username1>username2)
+				return -1;
+			if(username1<username2)
+				return 1;
+			return 0;
+			
+			
+		}
+		
+		
+		var sortByTitleAsc = function compareTitleAsc(obj1,obj2)
+		{
+			var title1 = obj1.Category.toLowerCase();
+			var title2 = obj2.Category.toLowerCase();
+			console.log('Working ASC');
+			if(title1<title2)
+			return -1;
+			if(title1>title2)
+			return 1;
+			return 0;
+			
+			
+		}
+		var sortByTitleDesc = function compareTitleDesc(obj1,obj2)
+		{
+			var title1 = obj1.Category.toLowerCase();
+			var title2 = obj2.Category.toLowerCase();
+			console.log('Working ASC');
+			if(title1>title2)
+			return -1;
+			if(title1<title2)
+			return 1;
+			return 0;
+			
+			
+		}
+		
+		
+		
+		
+		$(".sort_attr").live('click',function(event){
+			event.preventDefault();
+			
+			var postData =new Object();
+			postData.attribute = $(this).attr('sort_key');
+			postData.order = ($(this).attr('currOrder')=='ASC')?'DESC':'ASC';
+			$(this).attr('currOrder',postData.order);
+			console.log(postData);
+			
+			
+			if(postData.order=='DESC')
+			{
+				switch(postData.attribute)
+				{
+					case 'Category':
+					allCategories.sort(sortByTitleDesc);
+					break;
+				
+					case 'creator':
+					allCategories.sort(sortByCreatorDesc);				
+					break;
+				
+					case 'threads_count':
+					allCategories.sort(sortByNumberOfThreadDesc);								
+					break;
+				}
+				
+				
+			}
+			else if(postData.order=='ASC')
+			{
+				switch(postData.attribute)
+				{
+					case 'Category':
+					allCategories.sort(sortByTitleAsc);
+					break;
+				
+					case 'creator':
+					allCategories.sort(sortByCreatorAsc);				
+					break;
+				
+					case 'threads_count':
+					allCategories.sort(sortByNumberOfThreadAsc);								
+					break;
+				}
+				
+			}
+			
+			layoutRows(allCategories);
+			
+			
+			
+			
+		});
+		
 		
 
 	}
