@@ -168,7 +168,7 @@ function deletePostInThread($postId)
 	if($_SESSION['isAdmin']==true) {
 		$query = "DELETE FROM Post WHERE postid = ".$postId;
 	} else {
-		$query = "DELETE FROM Post WHERE postid = ".$postId."AND createdby = ".$_SESSION['userid'];
+		$query = "DELETE FROM Post WHERE postid = ".$postId." AND createdby = ".$_SESSION['userid'];
 	}
 	$queryResult = mysql_query($query);
 	if($queryResult>0) {
