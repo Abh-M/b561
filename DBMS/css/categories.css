@@ -127,6 +127,8 @@ th
 	list-style-type: none;
 	padding: 5px;
 	border: 1px solid white;
+	//word-wrap: break-word !important;
+	
 }
 
 .right_bar_ref_listItems:hover
@@ -145,4 +147,6 @@ th
 
  a.right_bar_nav_link
  {
+ 	word-wrap: break-word !important;
+	 
  }
