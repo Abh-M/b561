@@ -39,7 +39,7 @@ if ($q == 'category')
 	   $sql2="SELECT * FROM User where userid = '".$creator."'";
 	   $result2 = mysql_query($sql2);
 	   $row2 = mysql_fetch_array($result2);
-	   if($creator == $_SESSION["userid"] && $row['type']==0)
+	   if($creator == $_SESSION["userid"] && $row2['type']==0)
 	   {
 		   $mode="visible";
 	   }
@@ -141,7 +141,8 @@ if ($q == 'category')
 		echo "<tr>";
 		echo "<td><a href=\"javascript:void(0)\" onclick=\"goToPost(". $row2['threadid'] ."," . $row2['categoryid'] .")\">" . $row2['title'] . "</a></td>";
    		echo "<td>" . $post_text . "</td>";
-		echo "<td>" . $row['votes'] . "</td>";
+		echo "<td> Votes : " . $row['votes'] . "</td>";
+		echo "<td class=\"skeletonCol catDelButton\" colspan=\"1\"><a href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onpostdel(". $row['postid'] .")\" ><i class=\"icon-trash\"></i></a></td>";
 		echo "</tr>";
 		echo "</table>";
    		echo "<table class=\"table\" border='1' id='thrdTable'>";
@@ -152,7 +153,7 @@ if ($q == 'category')
   
 else if ($q == 'roster')
 {
-	$sql="SELECT * FROM User"; 
+	$sql="SELECT * FROM User where type != 3 and type != 4"; 
 	 
 	$result = mysql_query($sql);
 
@@ -168,12 +169,6 @@ else if ($q == 'roster')
     	exit;
 	}
 	
-	if($_SESSION['userType']==0)
-	   {
-		   $mode="visible";
-	   }
-	   else $mode="hidden";
-	   
 	echo "<table class=\"table\">
 		<thead>
 		<th class=\"skeletonCol catName\"> Name </th>
@@ -185,21 +180,65 @@ else if ($q == 'roster')
 		while($row = mysql_fetch_array($result))
    		{
 	   		$type = $row['type'];
+			$logged_user_type=$_SESSION['userType'];
 //	   		$sql2="SELECT * FROM User where userid = '".$creator."'";
 //	   		$result2 = mysql_query($sql2);
 //	   		$row2 = mysql_fetch_array($result2);
-		   if($type == "0")
-		   {
-			   $role="Instructor";
-		   }
-		   else if($type == "1")
-		   {
-			   $role="Associate Instructor";
-		   }
-		   else if($type == "2")
-		   {
-			   $role="Student";
-		   }
+			if($logged_user_type == 0)
+			{
+			   if($type == "0")
+			   {
+				   $role="Instructor";
+				   $mode="hidden";
+			   }
+			   else if($type == "1")
+			   {
+				   $role="Associate Instructor";
+				   $mode="visible";
+			   }
+			   else if($type == "2")
+			   {
+				   $role="Student";
+				   $mode="visible";
+			   }
+			}
+			else if($logged_user_type == 1)
+			{
+			   if($type == "0")
+			   {
+				   $role="Instructor";
+				   $mode="hidden";
+			   }
+			   else if($type == "1")
+			   {
+				   $role="Associate Instructor";
+				   $mode="hidden";
+			   }
+			   else if($type == "2")
+			   {
+				   $role="Student";
+				   $mode="visible";
+			   }
+			}
+			else if($logged_user_type == 2)
+			{
+			   if($type == "0")
+			   {
+				   $role="Instructor";
+				   $mode="hidden";
+			   }
+			   else if($type == "1")
+			   {
+				   $role="Associate Instructor";
+				   $mode="hidden";
+			   }
+			   else if($type == "2")
+			   {
+				   $role="Student";
+				   $mode="hidden";
+			   }
+			}
+		   else $role="Blocked";
 		   echo "
 				 <tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
@@ -214,7 +253,11 @@ else if ($q == 'roster')
 
 else if ($q == 'group')
 {
-	$sql="SELECT * FROM groups"; 
+	if($_SESSION['userType'] == 0 || $_SESSION['userType'] == 1)
+	{
+		$sql="SELECT * FROM groups";
+	}
+	else $sql="SELECT * FROM groups as G, user_group as U where G.id=U.group_id and U.user_id = '".$_SESSION['userid']."'";
 	 
 	$result = mysql_query($sql);
 
@@ -226,7 +269,7 @@ else if ($q == 'group')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    	echo "No rows found, nothing to print so am exiting";
+    	echo "You are not part of any groups.";
     	exit;
 	}
 	if($_SESSION['userType']==0)
@@ -278,5 +321,63 @@ else if($q == 'password')
 		";	
 }
  
+else if ($q == 'blocked')
+{
+	$sql="SELECT * FROM User where type = 3 or type = 4"; 
+	 
+	$result = mysql_query($sql);
+
+	if (!$result) 
+	{
+		echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+		exit;
+	}
+
+	else if (mysql_num_rows($result) == 0) 
+	{
+    	echo "No Blocked Users!";
+    	exit;
+	}
+	
+	if($_SESSION['userType']==0)
+	   {
+		   $mode="visible";
+	   }
+	   else $mode="hidden";
+	   
+	echo "<table class=\"table\">
+		<thead>
+		<th class=\"skeletonCol catName\"> Name </th>
+		<th class=\"skeletonCol catCreated\">Email ID</th>
+		<th class=\"skeletonCol catCreated\">Role</th>
+		</thead>
+	 	<tbody>";
+
+		while($row = mysql_fetch_array($result))
+   		{
+	   		$type = $row['type'];
+//	   		$sql2="SELECT * FROM User where userid = '".$creator."'";
+//	   		$result2 = mysql_query($sql2);
+//	   		$row2 = mysql_fetch_array($result2);
+		   if($type == "3")
+		   {
+			   $role="Student";
+		   }
+		   else if($type == "4")
+		   {
+			   $role="Associate Instructor";
+		   }
+		   
+		   echo "
+				 <tr class=\"rowSkeleton\">
+				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
+				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
+			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onremblock(". $row['userid'] .")\" ><i class=\"icon-ok\"></i></a></td> 
+				 </tr>";
+	   }
+	   echo "</tbody>
+			 </table>";
+
+} 
 mysql_close($dbConnection);
 ?>

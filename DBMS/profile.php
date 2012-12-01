@@ -9,7 +9,19 @@
 		$a = $_GET['a'];
 		
 	}
-	
+	$logged_user_type=$_SESSION['userType'];
+			if($logged_user_type == "0")
+			   {
+				   $mode="visible";
+			   }
+			   else if($logged_user_type == "1")
+			   {
+				  $mode="hidden";
+			   }
+			   else if($logged_user_type == "2")
+			   {
+				   $mode="hidden";
+			   }
 //	include 'header.php';
 	?>
 	<title>Profile Page</title>
@@ -99,22 +111,56 @@
 			list(global_str);
 		}
 		
+		function onpostdel(id)
+		{
+ 			//alert (id);
+			var postId = id;
+			console.log(postId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "deletePost", postId: postId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}
+		
 		function onuserdel(id)
 		{
  			//alert (id);
-			var groupId = id;
+			var userId = id;
 			console.log(userId);
 			
 			$.ajax({
 				type: "POST",
 				url: "pro_del.php",
 				async: false,
-				data: {eventType: "deleteUser", groupId: userId},
+				data: {eventType: "deleteUser", userId: userId},
 			}).done(function(response){
 				});
 			
 			list(global_str);
 		}
+		
+		function onremblock(id)
+		{
+ 			//alert (id);
+			var userId = id;
+			console.log(userId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "deleteBlock", userId: userId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}		
 		
 		function onthreaddel(id)
 		{
@@ -160,7 +206,7 @@
 	
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner" style="padding: 0px 10px;">
-			<a class="brand" href="index.php">Course Disscussion System</a>
+			<a class="brand" href="index.php">Course Discussion System</a>
 			<ul class="nav">
 				<li class="divider-vertical"></li>				
 				<li><a id="create-category-link" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="create category" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
@@ -234,7 +280,7 @@
 				<li id="roster" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Roster</a></li>
 				<li id="group" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Group</a></li>
                 <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
-          
+          		<li style="visibility: <?php echo $mode; ?>" id="blocked" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Blocked &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Students</a></li>
 			</ul>
 		</div>
 		<div  class="span10 well" id="contentPane">
@@ -248,7 +294,8 @@
 					$a=""; 
 				}
 			}
-			else echo "Welcome! to your profile page"?>
+			else echo "Welcome! to your profile page";
+			?>
 		</div>
 	</div>    
 </div>
