@@ -239,7 +239,13 @@
 			</div>
 
 
-			<div class="span2 well well-small" data-spy="affix"  id="rightPane"></div>
+			<div class="span2" data-spy="affix"  id="rightPane">
+				<div id="tch">Top Threads</div>
+				<ul id="right_bar_nav_list">
+					<li id="right_bar_ref_listItem" class="right_bar_ref_listItems"><a id="right_bar_ref_link" target-row="cat:x" class="right_bar_nav_link">Cat 1</a></li>
+				</ul>
+				
+			</div>
 		</div>
 	</div>
 

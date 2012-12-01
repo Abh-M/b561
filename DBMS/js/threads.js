@@ -2,6 +2,7 @@ $("document").ready(
 	function()
 	{
 		
+	 $("#right_bar_ref_listItem").hide();
 		
 
 		var allThreads;
@@ -744,7 +745,9 @@ $("document").ready(
 							allThreads[i]=currThread;
 						}	
 					}
+					layoutRightSideBar();
 				}
+				
 				
 			});
 
@@ -781,7 +784,7 @@ $("document").ready(
 							allThreads[i]=currThread;
 						}	
 					}
-					
+				layoutRightSideBar();	
 				}
 				
 			});
@@ -833,6 +836,7 @@ $("document").ready(
 				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
 				
 				$(cell).removeAttr('id');
+				$(cell).attr('id','thread:'+String(thread.threadid));
 				$(cell).attr('threadid',String(thread.threadid));
 				$(cell).find('.created_by_val').html(thread.owner.username);
 				$(cell).find('.date_creted_val').html(formattedDate);
@@ -865,6 +869,8 @@ $("document").ready(
 				$(cell).insertAfter("#ref");
 			}
 			$("#reftag").hide();
+		 layoutRightSideBar();
+			
 		}
 		
 		
@@ -1267,6 +1273,48 @@ $("document").ready(
 		});
 		
 		
+		
+		
+		
+		function populateRightSideBar(kCategoriesList)
+		{
+			 layoutRightSideBar();
+		}
+		
+		
+		
+		
+		function layoutRightSideBar()
+		{
+			
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: true,
+				data: {requestType: 'getThreadsForCategory',catId: String(param_val)},
+			}).done(function(response){
+		
+				var list = jQuery.parseJSON(response);
+				list.sort(sortByVotesAsc);
+				$("#right_bar_ref_listItem").siblings().detach();
+				for(var i=0;i<list.length;i++)
+				{
+					var thread = list[i];
+					$cell = $("#right_bar_ref_listItem").clone();
+					$($cell).show();
+					$($cell).find(".right_bar_nav_link").html(thread.title);
+					$($cell).find(".right_bar_nav_link").attr('target-row','thread:'+thread.threadid);
+					$($cell).find(".right_bar_nav_link").attr('href','#thread:'+thread.threadid);
+					$($cell).find(".right_bar_nav_link").removeAttr('id');
+					$cell.insertAfter("#right_bar_ref_listItem");
+				
+				}
+				
+				
+			
+			});
+			
+		}
 		
 			
 

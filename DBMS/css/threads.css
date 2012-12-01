@@ -23,7 +23,7 @@ td
 	
 }
 
- span
+span
 {
 	white-space: pre-wrap !important;
 }
@@ -55,9 +55,11 @@ table
 
 #rightPane
 {
-	height: 500px;
+
 	margin-left: 10px;
 	right: 10px;
+	background-color: #f7f7f7;
+	
 
 }
 
@@ -185,7 +187,7 @@ td
 
 .thread_info_row
 {
-/*	border-top: 1px solid lightgrey !important;*/
+	/*	border-top: 1px solid lightgrey !important;*/
 	font-size: 11px;
 	color: gray;
 	padding: 0px !important;
@@ -195,13 +197,13 @@ td
 
 td.views_col, td.created_by_col, td.created_col, p
 {
-/*	padding: 1px;*/
+	/*	padding: 1px;*/
 	margin: 0;
 }
 
 .tagsRow
 {
-/*	border-top: 1px solid lightgrey !important;*/
+	/*	border-top: 1px solid lightgrey !important;*/
 }
 
 
@@ -229,7 +231,7 @@ td.views_col, td.created_by_col, td.created_col, p
 
 .thread_title_col
 {
-/*	border-bottom: 1px solid lightgray !important;*/
+	/*	border-bottom: 1px solid lightgray !important;*/
 }
 
 
@@ -266,7 +268,7 @@ td.views_col, td.created_by_col, td.created_col, p
 
 #modalRow
 {
-/*	height: 400px;*/
+	/*	height: 400px;*/
 }
 
 .bcol
@@ -312,20 +314,20 @@ td.views_col, td.created_by_col, td.created_col, p
 
 #requestContainer
 {
-/*	border: 1px solid black;
+	/*	border: 1px solid black;
 	z-index: 9999999;
 	width: 100%;
-*/
-position: absolute;
-display: none;
-z-index: 999999 !important;
-background-color: black;
-text-align: center;
+	*/
+	position: absolute;
+	display: none;
+	z-index: 999999 !important;
+	background-color: black;
+	text-align: center;
 
-height: 100%;
-top: 0px;
-left: 0px;
-width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	width: 100%;
 
 
 }
@@ -333,14 +335,14 @@ width: 100%;
 
 #requestsModal
 {
-position: relative;
-background-color: white;
-display: inline-block;
-margin-top: 50px;
-margin-bottom: 50px;
-width: 60%;
-max-height: 80%;
-opacity: 1.0;
+	position: relative;
+	background-color: white;
+	display: inline-block;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	width: 60%;
+	max-height: 80%;
+	opacity: 1.0;
 
 
 
@@ -425,7 +427,7 @@ thead.reqHeaders
 
 .alertPopUp
 {
-    border: 1px solid #e2c822;  
+	border: 1px solid #e2c822;  
 	background-color: gray;
 	padding: 5px;
 	margin: 5px;
@@ -536,4 +538,46 @@ div.success
 th
 {
 	border: 0px !important;
+}
+
+
+
+/*CSS for side bar links*/
+
+#right_bar_nav_list{
+	position: relative;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+
+.right_bar_ref_listItems
+{
+	list-style-type: none;
+	padding: 5px;
+	border: 1px solid white;
+	//word-wrap: break-word !important;
+	
+}
+
+.right_bar_ref_listItems:hover
+{
+	background-color: #d4dae8;
+
+	
+}
+
+#tch
+{
+	padding: 10px;
+	font-weight: bold;
+}
+
+
+a.right_bar_nav_link
+{
+	word-wrap: break-word !important;
+	 
 }
