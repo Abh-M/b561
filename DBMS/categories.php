@@ -95,7 +95,7 @@
 			<div class="row-fluid" id="row1"class="margin: 0px;">
 
 
-				<div class="span2 well well-small"   id="sidebar">
+				<div class="span2"   id="sidebar">
 					<!-- Side bar div  -->
 				</div>
 
@@ -162,7 +162,12 @@
 				</div>
 
 
-				<div class="span3 well well-small" id="rightPane"></div>
+				<div class="span3 " id="rightPane">
+					<div id="tch">Top Categories</div>
+					<ul id="right_bar_nav_list">
+						<li id="right_bar_ref_listItem" class="right_bar_ref_listItems"><a id="right_bar_ref_link" target-row="cat:x" class="right_bar_nav_link">Cat 1</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 

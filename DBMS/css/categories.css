@@ -27,7 +27,7 @@ height: 500px;
 
 #rightPane
 {
-	height: 500px;
+	background-color: #f7f7f7;
 
 }
 
@@ -108,3 +108,41 @@ th
 {
 	border: 0px !important;
 }
+
+
+
+/*CSS for side bar links*/
+
+#right_bar_nav_list{
+	position: relative;
+	padding: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+
+.right_bar_ref_listItems
+{
+	list-style-type: none;
+	padding: 5px;
+	border: 1px solid white;
+}
+
+.right_bar_ref_listItems:hover
+{
+	background-color: #d4dae8;
+
+	
+}
+
+#tch
+{
+	padding: 10px;
+	font-weight: bold;
+}
+
+
+ a.right_bar_nav_link
+ {
+ }

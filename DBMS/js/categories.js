@@ -3,9 +3,10 @@ $("document").ready(
 	{
 		
 		var allCategories;
-		
+		var allCategoriesForSideBar;
 		
 		 $("#ref").hide();
+		 $("#right_bar_ref_listItem").hide();
 		//Get logged in userinfo
 		$.post("helpers.php",{requestType:'getLoggedInUserInfo'},function(response){
 
@@ -200,6 +201,7 @@ $("document").ready(
 				var cell = $("#ref").clone();
 				var cc = cell[0];
 				$(cc).removeAttr('id');
+				$(cc).attr('id','cat:'+String(cat.categoryid));
 				$(cc).find(".catName").children().html(cat.Category);
 				$(cc).find(".catName").attr('categoryId',String(cat.categoryid));
 				$(cc).find(".delLink").attr('href','');
@@ -210,6 +212,11 @@ $("document").ready(
 				
 				
 			}
+			populateRightSideBar(categories.slice());
+			
+			
+			
+			
 			 // $("#ref").hide();
 			
 			
@@ -218,9 +225,11 @@ $("document").ready(
 		
 		var sortByNumberOfThreadAsc = function compare(obj1,obj2)
 		{
-			if(obj1.num<obj2.num)
+			val1 = parseInt(obj1.num);
+			val2 = parseInt(obj2.num);
+			if(val1<val2)
 			return -1;
-			if(obj1.num>obj2.num)
+			if(val1>val2)
 			return 1;
 			return 0;
 				
@@ -228,11 +237,14 @@ $("document").ready(
 		
 		var sortByNumberOfThreadDesc = function compare(obj1,obj2)
 		{
-			if(obj1.num>obj2.num)
+			val1 = parseInt(obj1.num);
+			val2 = parseInt(obj2.num);
+			if(val1>val2)
 			return -1;
-			if(obj1.num<obj2.num)
+			if(val1<val2)
 			return 1;
 			return 0;
+			
 				
 		}
 		
@@ -353,6 +365,52 @@ $("document").ready(
 		});
 		
 		
+		
+		
+		// Populating side bar with top categories
+		
+		
+		
+		function populateRightSideBar(kCategoriesList)
+		{
+			 layoutRightSideBar();
+		}
+		
+		
+		
+		
+		function layoutRightSideBar()
+		{
+			
+			$.ajax({
+				type: "POST",
+				url: "categoriesRepository.php",
+				async: true,
+				data: { eventType: "getAllCategories" },
+			}).done(function(data){
+				var categories = jQuery.parseJSON(data);
+				categories.sort(sortByNumberOfThreadAsc);								
+				$("#right_bar_ref_listItem").siblings().detach();
+				for(var i=0;i<categories.length;i++)
+				{
+					var cat = categories[i];
+					console.log(cat);
+					$cell = $("#right_bar_ref_listItem").clone();
+					$($cell).show();
+					$($cell).find(".right_bar_nav_link").html(cat.Category);
+					$($cell).find(".right_bar_nav_link").attr('target-row','cat:'+cat.categoryid);
+					$($cell).find(".right_bar_nav_link").attr('href','#cat:'+cat.categoryid);
+					$($cell).find(".right_bar_nav_link").removeAttr('id');
+					$cell.insertAfter("#right_bar_ref_listItem");
+				
+				}
+				
+				
+			
+			});
+			
+			
+		}
 
 	}
 );
