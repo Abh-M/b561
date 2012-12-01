@@ -103,9 +103,9 @@
 										<tr class="post_rating_row">
 											<td class="ratings_col1" rowspan="6">
 												<div id="ddiv">
-												<a href="" class="plus_button"><i class="icon-plus" id="star1"></i></a><br/>
+												<a href="" class="plus_button"><i title="Vote Up" class="icon-plus" id="star1"></i></a><br/>
 												<span class="mybadge" id="votes_val"> 10</span><br/>
-												<a href="" class="minus_button"><i class="icon-minus" id="star2"></i></a><br/>
+												<a href="" class="minus_button"><i title="Vote Down" class="icon-minus" id="star2"></i></a><br/>
 											</div>
 											</td>	
 											<td class="posted_by">
@@ -115,7 +115,7 @@
 												<p>Date Posted: <span class="posted_date_val"></span></p>
 											</td>
 											<td/>
-											<td class="delete_button_cell" ><a href="" class="deleteLink"><i class="icon-remove"></i></a></td>
+											<td class="button_cell"><a href="#" class="editLink"><i title="Edit" class="icon-edit"></i></a>  <a href="" class="delete_button_cell deleteLink"><i title="Delete" class="icon-remove"></i></a></td>
 										</tr>
 										
 											
@@ -132,8 +132,7 @@
 										<tr class="tagsRow">
 											<td colspan="3" class="tagsCol"><div class="tagContainer"><span class="label label-info tag" id="reftag">Sample Tag</span></div></td>
 										</tr>
-										<tr>
-										<td></td><td></td><td></td>
+										<tr class="replyRow">
 										<td><a href="" class="btn replyLink" >Reply</a></td>
 										</tr>
 										

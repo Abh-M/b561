@@ -177,6 +177,18 @@ function deletePostInThread($postId)
 	return $result;
 }
 
+function editPost($postId, $postText)
+{
+	$result = json_encode(false);
+	$currDateTime = date('Y-m-d H:i:s');
+	$query = "UPDATE Post SET text = '".$postText."',dateposted = '".$currDateTime."'  WHERE postid = ".$postId;
+	$queryResult = mysql_query($query);
+	if($queryResult !=NULL || $queryResult == true)
+		$result = json_encode(true);
+
+	return $result;
+}
+
 function incrementVoteForPosts($postId)
 {
 	$result = json_encode(false);
@@ -246,6 +258,11 @@ switch($reqType)
 		$result = createNewPost($threadId,$postText,$tags);
 		break;
 		
+	case "editPost":
+		$postId = $_POST['postId'];
+		$postText = $_POST['postText'];
+		$result  = editPost($postId, $postText);
+		break;
 
 	case 'getPostsForThread':
 		$threadId = $_POST['threadId'];

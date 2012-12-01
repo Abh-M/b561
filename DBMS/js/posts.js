@@ -29,33 +29,37 @@ $("document").ready(
 		
 		$(".deleteLink").removeAttr('href');
 		$(".deleteLink").css('opacity',0);
+		$(".editLink").removeAttr('href');
+		$(".editLink").css('opacity',0);
 		
 		$('.inner_table').live('mouseover mouseout', function(event) {
 			if (event.type == 'mouseover') 
 			{
 				$(this).find(".deleteLink").attr('href',"");
 				$(this).find(".deleteLink").css('opacity',1);
-				
+				$(this).find(".editLink").attr('href',"");
+				$(this).find(".editLink").css('opacity',1);
 			} 
 			else 
 			{
 				$(".deleteLink").removeAttr('href');
 				$(".deleteLink").css('opacity',0);
-
+				$(".editLink").removeAttr('href');
+				$(".editLink").css('opacity',0);
 			}
 		});
 		
 
 		$('.dropdown-toggle').dropdown(); 
-		$('[rel   = tooltip]').tooltip(); 
+		$('[rel = tooltip]').tooltip(); 
 
 		$(".star_link").click(function(){
 			$(this).children().toggleClass('icon-star icon-star-empty');
 		});
 
-		$(".delete_button_cell").click(function(){
+/*		$(".delete_button_cell").click(function(){
 			$(this).parentsUntil(".tableRow").hide();			
-		});
+		});*/
 
 		$("#searchFilter").click(function(event){
 			console.log("Opening search filter");
@@ -275,6 +279,63 @@ $("document").ready(
 				});
 			
 		});
+		
+		$(".editLink").live('click',function(event){
+			event.preventDefault();
+			
+			var index; 
+			//When user clicks on a edit of a post
+			$postContent = $(this).closest('.inner_table').find('.post_content_div');
+			if($postContent.val().indexOf('[endPost]')>-1) {
+				index = $postContent.val().lastIndexOf('[endPost]')+9;
+			} else {
+				index = 0;
+			}
+			$postContent.html("<div class=\"replyToPost well\">" +
+					"<textarea class=\"span10\" rows=\"3\" placeholder=\"Edit Post\" id=\"editPostContent\" data-spy=\"scroll\">"+
+					$postContent.val().slice(index)+"</textarea>"+
+					"<br>" +
+					"<a href=\"\" id=\"editSaveButton\" class=\"btn pull-right\"><i class=\"icon-ok\"></i></a>" +
+					"<a href=\"\" id=\"editCancelButton\" class=\"btn pull-right\"><i class=\"icon-remove\"></i></a>" +
+					"</div");
+			$postContent.attr('prevReplyText',$postContent.val().slice(0,index));
+			$(this).closest('.inner_table').find('.replyRow').html("");
+			
+		});
+		
+		$('#editCancelButton').live('click',function(event){
+			event.preventDefault();
+			$(this).closest('.inner_table').find('.replyRow').html("<td><a href=\"\" class=\"btn replyLink\" >Reply</a></td>");
+			$postContent = $(this).closest('.inner_table').find('.post_content_div');
+			var postContent = $postContent.val();
+			if(postContent.indexOf('[Post]') > -1) {
+				postContent = convertPostToTable(postContent,1);
+			}
+			$postContent.html(postContent);
+		});
+		
+		$('#editSaveButton').live('click',function(event){
+			event.preventDefault();
+			var $parentPostRow = $(this).closest('.inner_table');
+			eixstingReplyText = $parentPostRow.find('.post_content_div').attr('prevReplyText');
+			postText = existingReplyText + $(this).parent().find("#editPostContent").val();
+			//get the post id for the post which you are editing
+			var postId  = $(this).closest('.tableRow').attr('postId');
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: { requestType: "editPost", postText: String(postText),
+					postId: String(postId) },
+			}).done(function(data){
+					var response = jQuery.parseJSON(data);
+					if(response!=true) {
+						alert("There was an error editing the Post!\nPlease check the console logs for more details");
+					}
+					console.log(response);
+					window.location = 'posts.php?threadId='+param_val1+'&catId='+param_val2;
+				});
+		});
 
 		$('.catLink').live('click',function(event){
 			event.preventDefault();
@@ -291,7 +352,7 @@ $("document").ready(
 			window.location = 'categories.php';
 		});
 		
-		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+ 
 		/* increment vote for posts*/
 		$(".plus_button").live('click',function(event){
 			//increment vote
