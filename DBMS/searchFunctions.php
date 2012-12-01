@@ -15,7 +15,7 @@ function searchThreadTitle($CatId,$kUserId,$term)
 	if($kUserId==-1)
 		$query = "SELECT * from Thread where categoryid=".$CatId." and lower(title) contains lower('".$term."')";
 	else
-		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ."$CatId." and lower(title) contains lower('".$term."')";
+		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ".$CatId." and lower(title) contains lower('".$term."')";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -83,7 +83,7 @@ function searchPostContents($CatId,$kUserId,$term)
 	if($kUserId==-1)
 		$query = "SELECT t.* from post as p, thread as t where t.categoryid=".$CatId." and t.threadid = p.threadid and lower(p.text) contains lower('".$term."') group by t.threadid";
 	else
-		$query = "Select t.* from post as p, thread as t WHERE (t.groupid IS NULL OR .tgroupid IN (SELECT t.group_id FROM user_group WHERE user_id = ".$kUserId.")) AND t.categoryid = ."$CatId." and lower(p.text) contains lower('".$term."') group by t.threadid";
+		$query = "Select t.* from post as p, thread as t WHERE (t.groupid IS NULL OR .tgroupid IN (SELECT t.group_id FROM user_group WHERE user_id = ".$kUserId.")) AND t.categoryid = ".$CatId." and lower(p.text) contains lower('".$term."') group by t.threadid";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -216,7 +216,7 @@ function searchAuthor($CatId,$kUserId,$term)
 	if($kUserId==-1)
 		$query = "SELECT * from Thread where categoryid=".$CatId." and lower(title) contains lower('".$term."')";
 	else
-		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ."$CatId." and lower(title) contains lower('".$term."')";
+		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ".$CatId." and lower(title) contains lower('".$term."')";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -282,7 +282,7 @@ function searchTag($CatId,$kUserId,$term)
 	if($kUserId==-1)
 		$query = "SELECT  t.* from tag as ta, tagtothread as ttt, thread as th where t.categoryid=".$CatId." and lower(ta.keyword)=lower('".$term."') and ta.tagid=ttt.tagid and ttt.threadid=th.threadid";
 	else
-		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND t.categoryid = ."$CatId." and lower(ta.keyword)=lower('".$term."') and ta.tagid=ttt.tagid and ttt.threadid=th.threadid";
+		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND t.categoryid = ".$CatId." and lower(ta.keyword)=lower('".$term."') and ta.tagid=ttt.tagid and ttt.threadid=th.threadid";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)
@@ -342,7 +342,7 @@ function searchTag($CatId,$kUserId,$term)
 	return $result;
 }
 
-$cat = $_POST['catId'];
+$CatId = $_POST['catId'];
 $term = $_POST['term'];
 $type = $_POST['type'];
 $kUserId= $_SESSION['userid'];
