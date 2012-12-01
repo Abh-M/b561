@@ -4,17 +4,7 @@ session_start();
 $userid = $_SESSION['userid'];
 include "dbconnect.php";
 
-function deleteGroup($kgroupId)
-{
-	 $result = array();
-	 $query = "DELETE FROM groups WHERE id = ".$kgroupId;
-	 $queryRessult = mysql_query($query);
-	 
-	 $result['deleteResult']=mysql_affected_rows();
-	// $result['list'] = json_decode(getAllCategories());
-	
-	 return json_encode($result);
-}
+
 
 // as Q, User as U where Q.creator=U.userid and U.userid='". $_SESSION['userid']."' ";   //WHERE id = '".$q."'";
 
@@ -49,7 +39,7 @@ if ($q == 'category')
 	   $sql2="SELECT * FROM User where userid = '".$creator."'";
 	   $result2 = mysql_query($sql2);
 	   $row2 = mysql_fetch_array($result2);
-	   if($creator == $_SESSION["userid"])
+	   if($creator == $_SESSION["userid"] && $row['type']==0)
 	   {
 		   $mode="visible";
 	   }
@@ -98,7 +88,7 @@ if ($q == 'category')
   	while($row = mysql_fetch_array($result))
    {
 	   echo "<tr colspan=2>";
-	   echo "<td colspan=2> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
+	   echo "<td colspan=2> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "<a href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onthreaddel(". $row['threadid'] .")\" ><i  class=\"icon-trash\"></i></a></td>";
 	   echo "</tr>";
 	   echo "<tr colspan=2>";
 	   echo "<td colspan=2>" . $row['description'] . "</td>";
@@ -126,7 +116,7 @@ if ($q == 'category')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    echo "You are a lousy user. You have not created any Threads yet. So go create some.";
+    echo "You are a lousy user. You have not created any Posts yet. So go create some.";
     exit;
 	}
 	
@@ -177,7 +167,13 @@ else if ($q == 'roster')
     	echo "No rows found, nothing to print so am exiting";
     	exit;
 	}
-
+	
+	if($_SESSION['userType']==0)
+	   {
+		   $mode="visible";
+	   }
+	   else $mode="hidden";
+	   
 	echo "<table class=\"table\">
 		<thead>
 		<th class=\"skeletonCol catName\"> Name </th>
@@ -207,9 +203,8 @@ else if ($q == 'roster')
 		   echo "
 				 <tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
-				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 							
-				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
-			 
+				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
+			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i class=\"icon-trash\"></i></a></td> 
 				 </tr>";
 	   }
 	   echo "</tbody>
@@ -234,6 +229,12 @@ else if ($q == 'group')
     	echo "No rows found, nothing to print so am exiting";
     	exit;
 	}
+	if($_SESSION['userType']==0)
+	   {
+		   $mode="visible";
+	   }
+	   else $mode="hidden";
+	   
 	echo "<table class=\"table\">
 		<thead>
 		<th class=\"skeletonCol catName\"> Group Name </th>
@@ -251,7 +252,7 @@ else if ($q == 'group')
 		   echo "<tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['name'] . "</a> </td>
 				 <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " . $row2['lastname'] . "</td> 							
-				 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a id=\"$creator\" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ongrpdel(". $row['id'] .")\" ><i class=\"icon-trash\"></i></a></td> 
+				 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ongrpdel(". $row['id'] .")\" ><i class=\"icon-trash\"></i></a></td> 
 				 </tr>";
 	   }
 	   echo "</tbody>

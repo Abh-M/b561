@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 	<?php
 	session_start();
@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
 	<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>  
 
-	<script src="js/categories.js"></script>
+	<!--<script src="js/categories.js"></script>-->
 	<script src="js/common.js"></script>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
@@ -84,16 +84,51 @@
 		
 		function ongrpdel(id)
 		{
- 	
-			var grpId = id;
-			console.log(grpId);
+ 			//alert (id);
+			var groupId = id;
+			console.log(groupId);
 			
 			$.ajax({
 				type: "POST",
-				url: "profileRepository.php",
+				url: "pro_del.php",
 				async: false,
-				data: {eventType: "deleteGroup", groupId: grpId},
-			}).done(function(response){});
+				data: {eventType: "deleteGroup", groupId: groupId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}
+		
+		function onuserdel(id)
+		{
+ 			//alert (id);
+			var groupId = id;
+			console.log(userId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "deleteUser", groupId: userId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}
+		
+		function onthreaddel(id)
+		{
+ 			//alert (id);
+			var threadId = id;
+			console.log(threadId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "deleteThread", threadId: threadId},
+			}).done(function(response){
+				});
 			
 			list(global_str);
 		}
