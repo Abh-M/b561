@@ -483,11 +483,12 @@ $("document").ready(
 			}).done(function(response){		
 				var list = jQuery.parseJSON(response);
 				console.log(list);
-				//$("#ref").siblings().detach();
+				$("#ref").siblings().detach();
 				
 				jQuery.each(list, function() {
 					var cell = $("#ref").clone();
 					$(cell).removeAttr('id');
+					$(cell).show();
 					$(cell).attr('postId',String(this.postid));
 					var x=$(cell).find(".mybadge").html(this.votes);
 					console.log("mybadge:::"+x);
