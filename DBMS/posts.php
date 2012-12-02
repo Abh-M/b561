@@ -61,8 +61,8 @@
 
 				<form class="navbar-search">
 					<div class="input-append">
-						<input class="span3" id="appendedInputButtons" placeholder="Search Threads" type="text">
-						<a class="btn" href="#" rel="popover" id="searchFilter" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
+						<input class="span3" id="searchText" placeholder="Search Threads" type="text">
+						<a class="btn" href="#" rel="popover" id="threadSearch" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
 						<div class="popover fade bottom in" id="example">
 							<div class="arrow"></div>
 							<div class="popover-inner">

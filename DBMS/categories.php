@@ -63,7 +63,7 @@
 				<form class="navbar-search">
 					<div class="input-append">
 						<input class="span3" id="searchText" type="text" placeholder="Search Threads">
-						<a class="btn" href="#"><i class="icon-search"></i></a>
+						<a class="btn" href="#" id="threadSearch"><i class="icon-search"></i></a>
 						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
 						<!-- <a href="#" id="blob" class="btn" rel="popover inner" data-placement="bottom" data-content="Works" data-original-title="Filters">Advance Search</a> -->
 						
