@@ -110,52 +110,7 @@ $("document").ready(
 			data: { requestType: "getPostsForThread", threadId: String(threadId) },
 		}).done(function(response){
 			var list = jQuery.parseJSON(response);
-			jQuery.each(list, function() {
-				var cell = $("#ref").clone();
-				$(cell).removeAttr('id');
-				$(cell).attr('postId',String(this.postid));
-				var x=$(cell).find(".mybadge").html(this.votes);
-				console.log("mybadge:::"+x);
-				$(cell).find('.posted_date_val').html(this.dateposted);
-				if(this.createdby != $("#loggedUser").attr('userid')) {
-					$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
-					function(response){
-						var user = jQuery.parseJSON(response);
-						console.log(user);
-						$(cell).find('.posted_by_val').html(user.username);
-					});
-				} else {
-					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
-				}
-				$(cell).find('.post_content_div').attr("value",this.text);
-				if(this.text.indexOf('[Post]') > -1) {
-					this.text = convertPostToTable(this.text,1);
-				}
-				$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
-				if(this.tags.length>0)
-				{
-					console.log("Hello");
-					for(var j=0 ; j<this.tags.length; j++)
-					{
-						var tag  =this.tags[j];
-						v = $(cell).find("#reftag").clone();
-						$(cell).find("#reftag").hide();
-						$(v).removeAttr('id');
-						$(v).show();
-						$(v).html(tag);
-						$(cell).find('.tagContainer').append(v);
-					}
-				}
-				else
-				{
-					$(cell).find('.tagsRow').hide();
-				}
-				$(cell).insertAfter("#ref");
-				
-			});
-			$("#reftag").hide();
-			$("#ref").hide();
-			
+			layoutRows(list);			
 		});
 
 		function convertPostToTable(text,counter) {
@@ -480,56 +435,8 @@ $("document").ready(
 				data: postData,
 			}).done(function(response){		
 				var list = jQuery.parseJSON(response);
-				console.log(list);
 				$("#ref").siblings().detach();
-				
-				jQuery.each(list, function() {
-					var cell = $("#ref").clone();
-					$(cell).removeAttr('id');
-					$(cell).show();
-					$(cell).attr('postId',String(this.postid));
-					var x=$(cell).find(".mybadge").html(this.votes);
-					console.log("mybadge:::"+x);
-					$(cell).find('.posted_date_val').html(this.dateposted);
-					if(this.createdby != $("#loggedUser").attr('userid')) {
-						$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
-						function(response){
-							var user = jQuery.parseJSON(response);
-							console.log(user);
-							$(cell).find('.posted_by_val').html(user.username);
-						});
-					} else {
-						$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
-					}
-					$(cell).find('.post_content_div').attr("value",this.text);
-					if(this.text.indexOf('[Post]') > -1) {
-						this.text = convertPostToTable(this.text,1);
-					}
-					$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
-					if(this.tags.length>0)
-					{
-						
-						for(var j=0 ; j<this.tags.length; j++)
-						{
-							var tag  =this.tags[j];
-							v = $(cell).find("#reftag").clone();
-							$(cell).find("#reftag").hide();
-							$(v).removeAttr('id');
-							$(v).show();
-							$(v).html(tag);
-							$(cell).find('.tagContainer').append(v);
-						}
-					}
-					else
-					{
-						$(cell).find('.tagsRow').hide();
-					}
-					$(cell).insertAfter("#ref");
-					
-				});
-				$("#reftag").hide();
-				$("#ref").hide();
-				
+				layoutRows(list);
 			});
 			
 			
@@ -553,70 +460,83 @@ $("document").ready(
 			}
 		});
 		
+		$("#advancedSearch").live('click', function(event) {
+
+			event.preventDefault();
+			performSearch();
+			
+		});
+		
+		
 		function performSearch() {
 			var searchRequest =new Object();
 			searchRequest.text = $("#postSearchText").val();
 			searchRequest.threadId = String(threadId);
 			searchRequest.catId = String(catId);
+			if($("#keyword_filter").val()!="") {
+				searchRequest.text = $("#keyword_filter").val();
+			}
+			searchRequest.user = $("#user_filter").val();
+			searchRequest.tag = $("#tag_filter").val();
 			$.ajax({
 				type: "POST",
 				url: "searchRepository.php",
 				async: false,
 				data: {searchRequest : searchRequest, requestType : 'searchPosts'}
 			}).done(function(response){		
-				console.log("response is "+response);
 				var list = jQuery.parseJSON(response);
-				console.log(list);
-				$("#ref").siblings().detach();
-				
-				jQuery.each(list, function() {
-					var cell = $("#ref").clone();
-					$(cell).removeAttr('id');
-					$(cell).show();
-					$(cell).attr('postId',String(this.postid));
-					var x=$(cell).find(".mybadge").html(this.votes);
-					console.log("mybadge:::"+x);
-					$(cell).find('.posted_date_val').html(this.dateposted);
-					if(this.createdby != $("#loggedUser").attr('userid')) {
-						$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
-						function(response){
-							var user = jQuery.parseJSON(response);
-							console.log(user);
-							$(cell).find('.posted_by_val').html(user.username);
-						});
-					} else {
-						$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
-					}
-					$(cell).find('.post_content_div').attr("value",this.text);
-					if(this.text.indexOf('[Post]') > -1) {
-						this.text = convertPostToTable(this.text,1);
-					}
-					$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
-					if(this.tags.length>0)
-					{
-						
-						for(var j=0 ; j<this.tags.length; j++)
-						{
-							var tag  =this.tags[j];
-							v = $(cell).find("#reftag").clone();
-							$(cell).find("#reftag").hide();
-							$(v).removeAttr('id');
-							$(v).show();
-							$(v).html(tag);
-							$(cell).find('.tagContainer').append(v);
-						}
-					}
-					else
-					{
-						$(cell).find('.tagsRow').hide();
-					}
-					$(cell).insertAfter("#ref");
-					
-				});
-				$("#reftag").hide();
-				$("#ref").hide();
-				
+				$("#ref").siblings().detach();				
+				layoutRows(list);				
 			});
 			
+		}
+		
+		function layoutRows(list) {
+			jQuery.each(list, function() {
+				var cell = $("#ref").clone();
+				$(cell).removeAttr('id');
+				$(cell).show();
+				$(cell).attr('postId',String(this.postid));
+				var x=$(cell).find(".mybadge").html(this.votes);
+				console.log("mybadge:::"+x);
+				$(cell).find('.posted_date_val').html(this.dateposted);
+				if(this.createdby != $("#loggedUser").attr('userid')) {
+					$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
+					function(response){
+						var user = jQuery.parseJSON(response);
+						console.log(user);
+						$(cell).find('.posted_by_val').html(user.username);
+					});
+				} else {
+					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
+				}
+				$(cell).find('.post_content_div').attr("value",this.text);
+				if(this.text.indexOf('[Post]') > -1) {
+					this.text = convertPostToTable(this.text,1);
+				}
+				$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
+				if(this.tags.length>0)
+				{
+					console.log("Hello");
+					for(var j=0 ; j<this.tags.length; j++)
+					{
+						var tag  =this.tags[j];
+						v = $(cell).find("#reftag").clone();
+						$(cell).find("#reftag").hide();
+						$(v).removeAttr('id');
+						$(v).show();
+						$(v).html(tag);
+						$(cell).find('.tagContainer').append(v);
+					}
+				}
+				else
+				{
+					$(cell).find('.tagsRow').hide();
+				}
+				$(cell).insertAfter("#ref");
+				
+			});
+			$("#reftag").hide();
+			$("#ref").hide();			
 		}
 });

@@ -240,8 +240,8 @@
 				
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancel</a>
-				<a href="#" class="btn btn-primary">Search</a>
+				<a href="#" class="btn" data-dismiss="modal" onclick="$('#keyword_filter').val('');$('#user_filter').val('');$('#tag_filter').val('');">Cancel</a>
+				<a href="#" class="btn btn-primary" data-dismiss="modal" id="advancedSearch">Search</a>
 			</div>
 		</div>
 
