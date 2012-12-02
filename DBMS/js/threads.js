@@ -3,7 +3,8 @@ $("document").ready(
 	{
 		
 	 $("#right_bar_ref_listItem").hide();
-						$("#NewThreadErrorMsg").hide();
+	 $("#NewThreadErrorMsg").hide();
+	 $("#search_result_info").hide();
 
 		var allThreads;
 		//Get logged in userinfo
@@ -215,19 +216,26 @@ $("document").ready(
 		
 		
 		/*---------------------------------------Get all threads in category---------------------------*/
-		$.ajax({
-			type: "POST",
-			url: "threadsRepository.php",
-			async: false,
-			data: {requestType: 'getThreadsForCategory',catId: String(param_val)},
-		}).done(function(response){
+		function onLoadGetAllThreds()
+		{
+			$.ajax({
+				type: "POST",
+				url: "threadsRepository.php",
+				async: false,
+				data: {requestType: 'getThreadsForCategory',catId: String(param_val)},
+			}).done(function(response){
 		
-			var list = jQuery.parseJSON(response);
-			console.log(list);
-			 allThreads = list;
-			layoutRows(list);
+				var list = jQuery.parseJSON(response);
+				console.log(list);
+				 allThreads = list;
+				layoutRows(list);
 			
-		});
+			});
+			
+			
+		}
+		
+		onLoadGetAllThreds();
 		
 		
 		
@@ -1364,6 +1372,85 @@ $("document").ready(
 			});
 			
 		}
+		
+		
+		
+		
+		/*Search Related function*/
+		
+		// searchText
+		// $.ajax({
+		// 	type: "POST",
+		// 	url: "threadsRepository.php",
+		// 	async: false,
+		// 	data: {requestType: 'getThreadsForCategory',catId: String(param_val)},
+		// }).done(function(response){
+		// 
+		// 	var list = jQuery.parseJSON(response);
+		// 	console.log(list);
+		// 	 allThreads = list;
+		// 	layoutRows(list);
+		// 	
+		// });
+		
+		
+		
+		
+		$("#basicThreadSearhButton").live('click',function(event){
+
+			event.preventDefault();
+			var keyWord = $("#searchText").val();
+			if(keyWord)
+			{
+				if(keyWord.length>0)
+				{
+					
+					var params = new Object();
+					 params.requestType = 'basicThreadSearch';
+					 params.catId = String(param_val);
+					 params.key = keyWord;
+					
+					
+					$.ajax({
+						type: "POST",
+						url: "threadsRepository.php",
+						async: false,
+						data: params,
+					}).done(function(response){
+						
+						if(response)
+						{
+							var list = jQuery.parseJSON(response);
+							if(list.length>0)
+							{
+								allThreads = list;
+								layoutRows(list);
+								
+							}
+
+						}
+
+					});
+
+				}
+
+			}
+			
+			
+		});
+		
+		
+		
+		/* Clear search Results*/
+		$("#search_result_info").live('click',function(event){
+			event.preventDefault();
+			$("#search_result_info").hide();
+			var keyWord = $("#searchText").val('');
+			
+			onLoadGetAllThreds();
+		});
+		
+		
 		
 			
 
