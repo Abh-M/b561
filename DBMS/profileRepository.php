@@ -78,7 +78,7 @@ if ($q == 'category')
     exit;
 	}
 	 
-	 echo "<table class=\"table\" border='1' id='thrdTable'>
+	 echo "<table   id='thrdTable'>
 	 <!--<tr>
 	 <th>Title</th>
 	 <th>Description</th>
@@ -87,17 +87,22 @@ if ($q == 'category')
 	 </tr>-->";
   	while($row = mysql_fetch_array($result))
    {
-	   echo "<tr colspan=2>";
-	   echo "<td colspan=2> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "<a href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onthreaddel(". $row['threadid'] .")\" ><i  class=\"icon-trash\"></i></a></td>";
+	   echo "<table class='table threadRowTable'>";
+	   echo "<tr>";
+	   echo "<td colspan=2 class='thread-link-cell'> <a href=\"javascript:void(0)\" onclick=\"goToPost(". $row['threadid'] ."," . $row['categoryid'] .")\">" . $row['title'] . "</td>";
+	   echo "<td class='thread-delete-link'><a href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onthreaddel(". $row['threadid'] .")\" ><i  class=\"icon-trash\"></i></a></td>";
 	   echo "</tr>";
-	   echo "<tr colspan=2>";
-	   echo "<td colspan=2>" . $row['description'] . "</td>";
-	   echo "</tr> <tr>";
+	   echo "<tr colspan=3>";
+	   echo "<td colspan=3>" . $row['description'] . "</td>";
+	   echo "</tr> <tr class='thread_info_row'>";
 	   echo "<td> Votes : " . $row['votes'] . "</td>";
 	   echo "<td> Views: " . $row['views'] . "</td>";
+	   echo "<td/>";
 	   echo "</tr>";
 	   echo "</table>";
-	   echo "<table class=\"table\" border='1' id='thrdTable'>";
+
+	   // echo "</table>";
+	   // echo "<table class=\"table\" border='1' id='thrdTable'>";
    }
 	echo "</table>";
  }
@@ -120,7 +125,7 @@ if ($q == 'category')
     exit;
 	}
 	
-	echo "<table class=\"table\" border='1' id='thrdTable'>";
+	echo "<table class=\"table\" border='1' >";
 	
 	while($row = mysql_fetch_array($result))
 	{
@@ -139,13 +144,17 @@ if ($q == 'category')
 	   	$result2 = mysql_query($sql2);
 	   	$row2 = mysql_fetch_array($result2);
 		echo "<tr>";
-		echo "<td><a href=\"javascript:void(0)\" onclick=\"goToPost(". $row2['threadid'] ."," . $row2['categoryid'] .")\">" . $row2['title'] . "</a></td>";
-   		echo "<td>" . $post_text . "</td>";
-		echo "<td> Votes : " . $row['votes'] . "</td>";
+		echo "<table class='table post-cell-table'>";
+		echo "<tr>";
+		echo "<td class='post-link-cell'><a href=\"javascript:void(0)\" onclick=\"goToPost(". $row2['threadid'] ."," . $row2['categoryid'] .")\">" . $row2['title'] . "</a></td>";
 		echo "<td class=\"skeletonCol catDelButton\" colspan=\"1\"><a href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onpostdel(". $row['postid'] .")\" ><i class=\"icon-trash\"></i></a></td>";
 		echo "</tr>";
-		echo "</table>";
-   		echo "<table class=\"table\" border='1' id='thrdTable'>";
+		
+   		echo "<tr colspan='2'><td colspan='2'>" . $post_text . "</td></tr>";
+		echo "<tr colspan='2' class='post_info_row'><td colspan='2'> Votes : " . $row['votes'] . "</td></tr>";
+
+		 echo "</table>";
+   		// echo "<table class=\"table\" border='1' id='thrdTable'>";
    	}
 	echo "</table>"; 
 		

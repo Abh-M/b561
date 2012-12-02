@@ -238,7 +238,7 @@
                 <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
 			</ul>
 		</div>
-		<div  class="span10 well" id="contentPane">
+		<div  class="span10" id="contentPane">
             <?php 
 			
 			if(isset($a))
