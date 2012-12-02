@@ -17,3 +17,11 @@ $("#threadSearch").live('click', function(event) {
 	
 });
 
+$('#searchText').live('keyup',function(e){
+	e.preventDefault();
+	if(e.keyCode == 13)
+	{
+		window.location = "search.php?catId="+$("#CategoryName").attr("catId")
+		+"&threadTitle="+$("#searchText").val();
+	}
+});
