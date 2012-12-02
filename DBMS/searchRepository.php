@@ -8,12 +8,13 @@ session_start();
 include "dbconnect.php";
 
 // Get info about the category for which the threads are being displayed
-function searchThreadTitle($CatId,$kUserId,$term)
+function searchThreadTitle($CatId,$term)
 {
 	$result = json_encode(false);
-	$query ;
+	// Setting userid by default to -1. Not sure when to use 2nd query
+	$kUserId = -1;
 	if($kUserId==-1)
-		$query = "SELECT * from Thread where categoryid=".$CatId." and lower(title) contains lower('".$term."')";
+		$query = "SELECT * from Thread where categoryid=".$CatId." and title like ('%".$term."%')";
 	else
 		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ".$CatId." and lower(title) contains lower('".$term."')";
 	$queryResult = mysql_query($query);
@@ -342,18 +343,19 @@ function searchTag($CatId,$kUserId,$term)
 	return $result;
 }
 
-$CatId = $_POST['catId'];
-$term = $_POST['term'];
-$type = $_POST['type'];
-$kUserId= $_SESSION['userid'];
+//$CatId = $_POST['catId'];
+//$term = $_POST['term'];
+$requestType = $_POST['requestType'];
+//$kUserId= $_SESSION['userid'];
 $result = json_encode(false);
-switch($type)
+switch($requestType)
 {
 	
-//	case 'threadTitle'	
-	case '1':
-	$term = $_POST['term'];
-	$result = searchThreadTitle($CatId,$kUserId,$term);
+	case 'threadTitle':
+//	case '1':
+	$searchText = urldecode($_POST['searchText']);
+	$catId = $_POST['catId'];
+	$result = searchThreadTitle($catId,$searchText);
 	break;
 	
 	
@@ -381,3 +383,8 @@ switch($type)
 	$result = searchTag($CatId,$kUserId,$term);
 	break;		
 }
+
+
+echo $result;
+
+?>

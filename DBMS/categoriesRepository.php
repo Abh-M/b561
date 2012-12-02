@@ -1,12 +1,8 @@
 <?php
 
-
-
 session_start();
 
 include "dbconnect.php";
-
-
 
 
 /*Remove this replace this with cURL as this func is there in helpers.php*/ 

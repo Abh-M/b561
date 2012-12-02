@@ -9,3 +9,11 @@ $(".logoutLink").live('click', function(event) {
 		window.location = "index.php";
 	});
 });
+
+$("#threadSearch").live('click', function(event) {
+
+	window.location = "search.php?catId="+$("#CategoryName").attr("catId")
+	+"&threadTitle="+$("#searchText").val();
+	
+});
+

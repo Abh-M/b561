@@ -186,14 +186,14 @@ $("document").ready(
 		var param_name1 = components[0].slice(1);
 		var param_val1 = components[1].slice(0,components[1].indexOf('&'));
 		var param_name2 = components[1].slice(components[1].indexOf('&')+1);
-		var param_val2 = components[2];
-		var param_name3 = components[2].slice(components[2].indexOf('&')+1);
-		var param_val3 = components[3];
-		console.log(param_val+" <> "+param_name);
+		var param_val2 = decodeURIComponent(components[2]);
+		//var param_name3 = components[2].slice(components[2].indexOf('&')+1);
+		//var param_val3 = components[3];
+		console.log(param_val1+" <> "+param_name1+" <> "+param_val2+" <> "+param_name2);
 		
 		
 		/*---------------------------------------get Parent category info---------------------------*/
-		$.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val)},
+		$.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val1)},
 		function(response){
 			var json = jQuery.parseJSON(response);
 			console.log(json);
@@ -203,7 +203,7 @@ $("document").ready(
 		
 		
 		/*---------------------------------------Get all threads in category---------------------------*/
-		$.ajax({
+/*		$.ajax({
 			type: "POST",
 			url: "searchFunctions.php",
 			async: false,
@@ -214,8 +214,20 @@ $("document").ready(
 			console.log(list);
 			layoutRows(list);
 			
-		});
+		});*/
 		
+		$.ajax({
+			type : "POST",
+			url : "searchRepository.php",
+			data : {requestType : "threadTitle",
+			catId : String(param_val1),
+			searchText : String(param_val2)}
+		}).done(function(response) {
+			console.log(response);
+			var list = jQuery.parseJSON(response);
+			console.log(list);
+			layoutRows(list);
+		});
 		
 		
 		
@@ -780,7 +792,7 @@ $("document").ready(
 								console.log(response);
 			});
 			
-			window.location = 'posts.php?threadId='+threadid+'&catId='+param_val;
+			window.location = 'posts.php?threadId='+threadid+'&catId='+param_val1;
 		});
 		
 		$('.homeLink').live('click',function(event){
