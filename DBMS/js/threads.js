@@ -2,6 +2,9 @@ $("document").ready(
 	function()
 	{
 		
+		$("div#calendar").datepicker({ altField: 'input#date', altFormat: 'yy-mm-dd' });
+		$('.datepicker').datepicker();
+		
 	 $("#right_bar_ref_listItem").hide();
 	 $("#NewThreadErrorMsg").hide();
 	 $("#search_result_info").hide();
