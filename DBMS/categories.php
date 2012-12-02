@@ -179,10 +179,12 @@
 				<!-- <button class="close" data-dismiss="modal">×</button> -->
 				<h3>Create new category</h3>
 			</div>
+			<div id='newCatAlert'>Please enter category Name</div>
+			
 			<div class="modal-body">
-				<input type="text" placeholder="category name"  maxlength="200" id="catName">
+				<input type="text" placeholder="category name" class="span5"  maxlength="200" size="100" id="catName">
 				<br/>
-				<textarea rows="5" placeholder="description"></textarea>
+				<!-- <textarea rows="5" placeholder="description"></textarea> -->
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal" id="cancelNewCat">Close</a>

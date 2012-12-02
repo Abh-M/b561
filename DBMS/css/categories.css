@@ -150,3 +150,23 @@ th
  	word-wrap: break-word !important;
 	 
  }
+ 
+ 
+ 
+ 
+ 
+ 
+ /*CSS for alert while creating new category*/
+ #newCatAlert
+ {
+	 
+	 border: 1px solid #e2c822;  
+	 background-color: gray;
+	 padding: 5px;
+	 margin: 5px;
+	 background-color: #fff9d7;
+	 text-align: center;
+	 display: none;
+ 
+ 	
+ }

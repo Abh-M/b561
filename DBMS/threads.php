@@ -258,6 +258,8 @@
 			<h6>New Thread</h6>
 		</div>
 		<div class="modal-body">
+			<div class="alertPopUp" id="NewThreadErrorMsg">Alert</div>
+			
 			<input class="span6" type="text"  placeholder="thread title" id="newThreadTitle" maxlength="200">
 			<br/>
 			<textarea rows="6" cols="200" class="span6" placeholder="thread description" id="newThreadDesc"></textarea>
