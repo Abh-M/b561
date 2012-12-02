@@ -339,12 +339,6 @@ else if ($q == 'blocked')
     	exit;
 	}
 	
-	if($_SESSION['userType']==0)
-	   {
-		   $mode="visible";
-	   }
-	   else $mode="hidden";
-	   
 	echo "<table class=\"table\">
 		<thead>
 		<th class=\"skeletonCol catName\"> Name </th>
@@ -355,6 +349,11 @@ else if ($q == 'blocked')
 
 		while($row = mysql_fetch_array($result))
    		{
+			if($_SESSION['userType']==0 or $_SESSION['userType']==1)
+			   {
+				   $mode="visible";
+			   }
+			   else $mode="hidden";
 	   		$type = $row['type'];
 //	   		$sql2="SELECT * FROM User where userid = '".$creator."'";
 //	   		$result2 = mysql_query($sql2);
@@ -364,8 +363,10 @@ else if ($q == 'blocked')
 			   $role="Student";
 		   }
 		   else if($type == "4")
-		   {
+		   {			   
 			   $role="Associate Instructor";
+			   if ($_SESSION['userType']==1)
+			     $mode="hidden";
 		   }
 		   
 		   echo "

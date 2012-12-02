@@ -45,7 +45,7 @@
 						<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<span id="loggedUser">Usernname</span>&nbsp;<i class="icon-user icon-white"></i></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 							<li>
-								<a href="#" tabindex="-1">Profile</a>
+								<a href="profile.php" tabindex="-1">Profile</a>
 							</li>
 							<li>
 								<a href="#" tabindex="-1" class="logoutLink">Logout</a>
@@ -77,9 +77,27 @@
 					</div>
 				</form>
 			</div>
+		
+		<div class="container-fluid" style="padding-left: 5px !important; padding-right: 5px !important;">
+			<div class="row-fluid">
+				<div class="span10" style="margin-left: 20px !important;">
+					<strong>
+						<div class="alert alert-error" id="errorAlert" style="display: none">
+						</div>
+						<div class="alert" id="infoAlert" style="display: none;">
+						</div>
+						<div class="alert alert-info" id="successAlert" style="display: none;">
+						</div>
+					</strong>
+				
+				</div>
+				<div class="span2"></div>
+			</div>
 		</div>
 
-
+		</div>
+		
+		
 		<div class="container-fluid" id="content_container">
 			<div class="row-fluid" id="row1"class="margin: 0px;">
 
@@ -187,6 +205,7 @@
 				<h6>New Post</h6>
 			</div>
 			<div class="modal-body">
+			<div class="alertPopUp" id="NewPostErrorMsg">Alert</div>
 				<textarea rows="5" class="span7" placeholder="Your message goes here" id="newPostDesc"></textarea>
 				<br/>
 				<div>
