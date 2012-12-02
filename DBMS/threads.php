@@ -87,7 +87,7 @@
 							</div>
 						</div>
 					</div>
-					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
+					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" id="threadFilters" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
 						
 				</div>
 			</form>
@@ -318,8 +318,8 @@
 				
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Cancel</a>
-			<a href="#" class="btn btn-primary">Search</a>
+			<a href="#" class="btn" data-dismiss="modal" id="dismissFilters">Cancel</a>
+			<a href="#" class="btn btn-primary" id="advancedThreadSearch">Search</a>
 		</div>
 	</div>
 		
