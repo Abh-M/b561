@@ -59,10 +59,10 @@
 
 
 
-				<form class="navbar-search">
+				<form class="navbar-search" onsubmit="return false;">
 					<div class="input-append">
-						<input class="span3" id="searchText" placeholder="Search Threads" type="text">
-						<a class="btn" href="#" rel="popover" id="threadSearch" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
+						<input class="span3" id="postSearchText" placeholder="Search Posts" type="text">
+						<a class="btn" href="#" rel="popover" id="postSearch" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
 						<div class="popover fade bottom in" id="example">
 							<div class="arrow"></div>
 							<div class="popover-inner">
