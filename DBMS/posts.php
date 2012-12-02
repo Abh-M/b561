@@ -61,7 +61,7 @@
 
 				<form class="navbar-search">
 					<div class="input-append">
-						<input class="span3" id="appendedInputButtons" placeholder="Search" type="text">
+						<input class="span3" id="appendedInputButtons" placeholder="Search Threads" type="text">
 						<a class="btn" href="#" rel="popover" id="searchFilter" data-placement="top" data-content="demo" data-orignal-title="Search"><i class="icon-search"></i></a>
 						<div class="popover fade bottom in" id="example">
 							<div class="arrow"></div>
@@ -72,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-						<a rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Advanced Search" data-placement="bottom" class="btn">Advance Search</a>
+						<a rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</a>
 						
 					</div>
 				</form>

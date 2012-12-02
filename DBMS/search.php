@@ -77,7 +77,7 @@
 
 			<form class="navbar-search">
 				<div class="input-append">
-					<input class="span3" id="searchText" type="text">
+					<input class="span3" id="searchText" type="text" placeholder="Search Threads">
 					<a class="btn" href="#" rel="popover" id="threadSearch" data-placement="top" data-content="demo" data-orignal-title="popvoer"><i class="icon-search"></i></a>
 					<div class="popover fade bottom in" id="example">
 						<div class="arrow"></div>
@@ -88,7 +88,7 @@
 							</div>
 						</div>
 					</div>
-					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="search filters" data-placement="bottom" class="btn">Advance Search</i></a>
+					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
 						
 				</div>
 			</form>

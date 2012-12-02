@@ -12,11 +12,14 @@ function searchThreadTitle($CatId,$term)
 {
 	$result = json_encode(false);
 	// Setting userid by default to -1. Not sure when to use 2nd query
-	$kUserId = -1;
-	if($kUserId==-1)
+	//$kUserId = -1;
+	//if($kUserId==-1)
+	if(is_numeric($CatId))
 		$query = "SELECT * from Thread where categoryid=".$CatId." and title like ('%".$term."%')";
-	else
-		$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ".$CatId." and lower(title) contains lower('".$term."')";
+	else 
+		$query = "SELECT * from Thread where title like ('%".$term."%')";
+	//else
+		//$query = "Select * from Thread WHERE (groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = ".$kUserId.")) AND categoryid = ".$CatId." and lower(title) contains lower('".$term."')";
 	$queryResult = mysql_query($query);
 	$allThreads = array();
 	if($queryResult!=NULL)

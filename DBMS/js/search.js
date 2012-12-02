@@ -193,13 +193,15 @@ $("document").ready(
 		
 		
 		/*---------------------------------------get Parent category info---------------------------*/
-		$.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val1)},
-		function(response){
-			var json = jQuery.parseJSON(response);
-			console.log(json);
-			$("#CategoryName").html(String(json.Category));
-			$("#CategoryName").attr("catId",String(json.categoryid));
-		});
+		if(param_val1!='undefined') {
+			$.post("threadsRepository.php",{requestType: 'getParentCategoryInfo', catId: String(param_val1)},
+			function(response){
+				var json = jQuery.parseJSON(response);
+				console.log(json);
+				$("#CategoryName").html(String(json.Category));
+				$("#CategoryName").attr("catId",String(json.categoryid));
+			});
+		}
 		
 		
 		/*---------------------------------------Get all threads in category---------------------------*/
@@ -779,6 +781,7 @@ $("document").ready(
 			event.preventDefault();
 			//get the thread id, for the link which is clicked
 			var threadid  = $(this).parent().attr('threadId');
+			var catid = $(this).parentsUntil('.tableRow').parent().attr('catid');
 			console.log("Clicked thread : "+threadid);
 			
 			//increase view count for this thred
@@ -791,8 +794,10 @@ $("document").ready(
 			}).done(function(response){
 								console.log(response);
 			});
-			
-			window.location = 'posts.php?threadId='+threadid+'&catId='+param_val1;
+			if(param_val1!='undefined')
+				window.location = 'posts.php?threadId='+threadid+'&catId='+param_val1;
+			else
+				window.location = 'posts.php?threadId='+threadid+'&catId='+catid;
 		});
 		
 		$('.homeLink').live('click',function(event){
@@ -815,6 +820,7 @@ $("document").ready(
 				
 				$(cell).removeAttr('id');
 				$(cell).attr('threadid',String(thread.threadid));
+				$(cell).attr('catid',String(thread.categoryid));
 				$(cell).find('.created_by_val').html(thread.owner.username);
 				$(cell).find('.date_creted_val').html(formattedDate);
 				$(cell).find(".mybadge").html(thread.votes);
