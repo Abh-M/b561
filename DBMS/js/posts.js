@@ -147,6 +147,22 @@ $("document").ready(
 			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
 			parentPostDate = $parentPostRow.find('.posted_date_val').html();
 			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :[lineBreak]'+parentPostText+'[endPost]';
+			var isvalid = false;
+			
+			isvalid = (($(this).parent().find("#replyPostContent").val()>0)?true:false);
+						
+			if(!isvalid)
+			{
+				console.log("ERROR in Reply");
+				$(".alert").hide();
+				$("#errorAlert").html("<i class=' icon-warning-sign'></i> Please enter some text");
+				$("#errorAlert").fadeIn('fast');
+				$("#errorAlert").fadeOut(3000);
+				
+			}
+			else
+			{
+			
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			//get the post id for the post to which you are replying
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
@@ -164,6 +180,7 @@ $("document").ready(
 					console.log(response);
 					window.location = 'posts.php?threadId='+threadId+'&catId='+catId;
 				});
+			}
 		});
 		
 		
