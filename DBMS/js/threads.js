@@ -3,7 +3,7 @@ $("document").ready(
 	{
 		
 	 $("#right_bar_ref_listItem").hide();
-		
+						$("#NewThreadErrorMsg").hide();
 
 		var allThreads;
 		//Get logged in userinfo
@@ -245,6 +245,24 @@ $("document").ready(
 			
 		});
 		
+		
+		// --- clear pop up contents before showing popup
+		$("#new-thread-link").live('click',function(){
+			
+			newThreadTitle
+			newThreadDesc
+			tagOption
+			refOption
+			tagsList
+			$("#newThreadTitle").val('');
+			$("#newThreadDesc").val('');
+			$("#newThreadDesc").val('');
+			$('#tagsList').val('');
+			$("#tagOption").val('0');
+			$("#refOption").val('0');
+			$("#groupsOption").val('0');
+		});
+		
 		/*---------------------------------------Create new thread---------------------------*/
 		
 		$("#newThreadSaveButton").click(function(event){
@@ -262,44 +280,68 @@ $("document").ready(
 			console.log(jsonTags);
 			console.log("Creating new thread title "+ title + " desc: "+ desc + "for cat "+catId);
 			
-			var postData = new Object();
-			postData.requestType = 'createNewThreadForCategory';
-			postData.tags = jsonTags;
-			postData.catId = String(catId);
-			postData.title = String(title);
-			postData.desc = String(desc);
-			if(grpId!=-1)
+			var isvalid = false;
+			
+			
+			isvalid = (title.length > 0)?true:false;
+			isvalid = ((desc.length>0)?true:false)&isvalid;
+			
+			
+			if(!isvalid)
 			{
-				postData.groupid = grpId;
+				
+				$(".alert").hide();
+				$("#NewThreadErrorMsg").html("Enter title and description for new Thread");
+				$("#NewThreadErrorMsg").fadeIn('fast');
+				$("#NewThreadErrorMsg").fadeOut(3000);
+				
+			}
+			else
+			{
+				
+				var postData = new Object();
+				postData.requestType = 'createNewThreadForCategory';
+				postData.tags = jsonTags;
+				postData.catId = String(catId);
+				postData.title = String(title);
+				postData.desc = String(desc);
+				if(grpId!=-1)
+				{
+					postData.groupid = grpId;
+				}
+			
+				$.ajax({
+					type: "POST",
+					url: "threadsRepository.php",
+					async: false,
+					// data: {requestType: 'createNewThreadForCategory',tags: jsonTags, catId: String(catId), title: String(title), desc: String(desc)},
+					data: postData,				
+				}).done(function(response)
+				{
+			
+					/* remove all old threads*/
+					$("#ref").siblings().detach();
+					var list = jQuery.parseJSON(response);
+					console.log(list);
+					/* show alert on top of the page*/
+					if(list.length && list.length>0)
+					{
+						$(".alert").hide();
+						$("#successAlert").html("<i class=' icon-ok'></i> Thread inserted");
+						$("#successAlert").fadeIn('fast');
+						$("#successAlert").fadeOut(5000);
+					
+					}
+	   			 allThreads = list;
+				
+					layoutRows(list);
+					$("#newThreadCloseButton").click();
+				});
+				
+				
 			}
 			
-			$.ajax({
-				type: "POST",
-				url: "threadsRepository.php",
-				async: false,
-				// data: {requestType: 'createNewThreadForCategory',tags: jsonTags, catId: String(catId), title: String(title), desc: String(desc)},
-				data: postData,				
-			}).done(function(response)
-			{
 			
-				/* remove all old threads*/
-				$("#ref").siblings().detach();
-				var list = jQuery.parseJSON(response);
-				console.log(list);
-				/* show alert on top of the page*/
-				if(list.length && list.length>0)
-				{
-					$(".alert").hide();
-					$("#successAlert").html("<i class=' icon-ok'></i> Thread inserted");
-					$("#successAlert").fadeIn('fast');
-					$("#successAlert").fadeOut(5000);
-					
-				}
-   			 allThreads = list;
-				
-				layoutRows(list);
-				$("#newThreadCloseButton").click();
-			});
 		});
 		
 		

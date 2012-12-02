@@ -160,31 +160,55 @@ $("document").ready(
 		
 		
 		
+		$("#create-category-link").live('click',function(event){
+			$("#catName").val('');
+		});
+		
 		// Create new category
 		$("#newCatSave").click(function(){
+			$("#newCatAlert").hide();
+			
 			var catName = $("#catName").val();
 			var user = $("#loggedUser").attr('userid');
-			$("#cancelNewCat").click();
+
 			
-			$.ajax({
-				type: "POST",
-				url: "categoriesRepository.php",
-				async: false,
-				data: {eventType: 'createNewCategory',kName: String(catName), userid:user },
-			}).done(function(response){
-				// $("#ref").show();
-				$("#ref").siblings().detach();
-				$(".alert").hide();
-				$("#successAlert").html("<i class=' icon-ok'></i> &nbsp; Category added");
-				$("#successAlert").fadeIn('fast');
-				$("#successAlert").fadeOut(4000);
-				var categories = jQuery.parseJSON(response);
-				console.log(categories);
-				allCategories = categories;
+			if(catName!=null)
+			{
+				if(catName.length<1)
+				{
+					$("#newCatAlert").show();
+					$("#newCatAlert").fadeIn('fast');
+					$("#newCatAlert").fadeOut(3000);
+					
+				}
+				else
+				{
+					$("#newCatAlert").hide();
+					$("#cancelNewCat").click();
+					
+					$.ajax({
+						type: "POST",
+						url: "categoriesRepository.php",
+						async: false,
+						data: {eventType: 'createNewCategory',kName: String(catName), userid:user },
+					}).done(function(response){
+						// $("#ref").show();
+						$("#ref").siblings().detach();
+						$(".alert").hide();
+						$("#successAlert").html("<i class=' icon-ok'></i> &nbsp; Category added");
+						$("#successAlert").fadeIn('fast');
+						$("#successAlert").fadeOut(4000);
+						var categories = jQuery.parseJSON(response);
+						console.log(categories);
+						allCategories = categories;
+						layoutRows(categories);
 				
-				layoutRows(categories);
-				
-			});
+					});
+					
+					
+				}
+			}
+			
 		});
 		
 		
