@@ -74,7 +74,6 @@ function searchThreadTitle($CatId,$term)
 	return $result;
 }
 
-
 function searchPosts($searchRequest)
 {
 	$result = json_encode(false);

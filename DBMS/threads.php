@@ -77,7 +77,7 @@
 			<form class="navbar-search">
 				<div class="input-append">
 					<input class="span3" id="searchText" type="text" placeholder="Search Threads">
-					<a class="btn" href="#" rel="popover" id="threadSearch" data-placement="top" data-content="demo" data-orignal-title="popvoer"><i class="icon-search"></i></a>
+					<a class="btn" href="#" rel="popover" id="basicThreadSearhButton" data-placement="top" data-content="demo" data-orignal-title="popvoer"><i class="icon-search"></i></a>
 					<div class="popover fade bottom in" id="example">
 						<div class="arrow"></div>
 						<div class="popover-inner">
@@ -125,6 +125,8 @@
 			</div> -->
 
 			<div class="span10" id="contentPane">
+				<div id="search_result_info"><a href="" id="clearSearchResult">clear search results</a></div>
+				
 				<!--Body content-->
 				<table class="table outer_table">
 					<thead><caption><ul class="breadcrumb pull-left">
