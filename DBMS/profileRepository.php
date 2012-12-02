@@ -21,7 +21,7 @@ if ($q == 'category')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    	echo "No rows found, nothing to print so am exiting";
+    	echo "There are no Categories created yet!";
     	exit;
 	}
 	 
@@ -74,7 +74,7 @@ if ($q == 'category')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    echo "You are a lousy user. You have not created any Threads yet. So go create some.";
+    echo "You have not created any Threads yet!";
     exit;
 	}
 	 
@@ -121,7 +121,7 @@ if ($q == 'category')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    echo "You are a lousy user. You have not created any Posts yet. So go create some.";
+    echo "You have not created any Posts yet!";
     exit;
 	}
 	
@@ -174,7 +174,7 @@ else if ($q == 'roster')
 
 	else if (mysql_num_rows($result) == 0) 
 	{
-    	echo "No rows found, nothing to print so am exiting";
+    	echo "This class dosent have any members yet!";
     	exit;
 	}
 	
@@ -252,8 +252,14 @@ else if ($q == 'roster')
 				 <tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
 				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
-			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i class=\" icon-remove\"></i></a></td> 
-				 </tr>";
+			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i class=\" icon-remove\"></i></a></td> ";
+				 if($type == "2")
+				 {
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onmake_AI(". $row['userid'] .")\" ><i class=\" icon-arrow-up\"></i></a></td>";  }
+				if($type == "1")
+				 {
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel_AI(". $row['userid'] .")\" ><i class=\" icon-arrow-down\"></i></a></td>";  }
+		echo    " </tr>";
 	   }
 	   echo "</tbody>
 			 </table>";
