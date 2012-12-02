@@ -16,7 +16,7 @@
 			   }
 			   else if($logged_user_type == "1")
 			   {
-				  $mode="none";
+				  $mode="visible";
 			   }
 			   else if($logged_user_type == "2")
 			   {
