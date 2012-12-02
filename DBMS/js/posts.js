@@ -1,7 +1,7 @@
 $("document").ready(
 	function()
 	{
-		
+		$("#NewPostErrorMsg").hide();
 		
 		//Get logged in userinfo
 		$.ajax({
@@ -147,6 +147,22 @@ $("document").ready(
 			parentPostByUser = $parentPostRow.find('.posted_by_val').html();
 			parentPostDate = $parentPostRow.find('.posted_date_val').html();
 			parentPost = '[Post]'+parentPostByUser+' on '+parentPostDate+' wrote :[lineBreak]'+parentPostText+'[endPost]';
+			var isvalid = false;
+			
+			isvalid = (($(this).parent().find("#replyPostContent").val()>0)?true:false);
+						
+			if(!isvalid)
+			{
+				console.log("ERROR in Reply");
+				$(".alert").hide();
+				$("#errorAlert").html("<i class=' icon-warning-sign'></i> Please enter some text");
+				$("#errorAlert").fadeIn('fast');
+				$("#errorAlert").fadeOut(3000);
+				
+			}
+			else
+			{
+			
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			//get the post id for the post to which you are replying
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
@@ -164,6 +180,7 @@ $("document").ready(
 					console.log(response);
 					window.location = 'posts.php?threadId='+threadId+'&catId='+catId;
 				});
+			}
 		});
 		
 		
@@ -177,7 +194,7 @@ $("document").ready(
 		$("#newPostSaveButton").click(function(event){
 			// get category id
 			// get post description
-			
+			event.preventDefault();
 			var desc = $("#newPostDesc").val();
 			var threadId = $("#ThreadName").attr('threadId');
 			var tagsList = $('#tagsList').val();
@@ -185,6 +202,22 @@ $("document").ready(
 			var jsonTags = JSON.stringify(allTags);
 			//create new post and get updated list of posts
 			console.log("Creating new post : "+ desc + "for thread "+threadId);
+			
+			var isvalid = false;
+				
+			isvalid = ((desc.length>0)?true:false);
+						
+			if(!isvalid)
+			{
+				console.log("ERROrin post");
+				$(".alert").hide();
+				$("#NewPostErrorMsg").html("Please enter some text");
+				$("#NewPostErrorMsg").fadeIn('fast');
+				$("#NewPostErrorMsg").fadeOut(3000);
+				
+			}
+			else
+			{
 			var postData = new Object();
 			postData.requestType = 'createNewPost';
 			postData.tags = jsonTags;
@@ -207,7 +240,8 @@ $("document").ready(
 				window.location = 'posts.php?threadId='+threadid+'&catId='+catId;
 			});
 			
-		});
+			}
+			});
 		
 		
 		

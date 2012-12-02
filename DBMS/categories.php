@@ -101,7 +101,7 @@
 
 				<div  class="span7" id="contentPane">
 					<!--Body content-->
-					<div id="search_result_info"><a href="" id="clearSearchResult">clear search results</a></div>
+					<div id="search_result_info"><a href="" id="clearSearchResult">Clear Search Results</a></div>
 					<table class="table">
 						<caption><ul class="breadcrumb pull-left">
 							<li>Home <span class="divider">/</span></li>
