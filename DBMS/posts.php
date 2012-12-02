@@ -108,7 +108,7 @@
 							
 									<li><a tabindex="-1" href="" sort_key="votes" class="sort_attr" currOrder='ASC'>number of votes</a></li>
 									<li><a tabindex="-1" href="" sort_key="dateposted" class="sort_attr" currOrder='ASC'>Date created</a></li>
-									
+									<li><a tabindex="-1" href="" sort_key="createdby" class="sort_attr" currOrder='ASC'>User</a></li>
 								</ul>
 							</li>
 						</ul>

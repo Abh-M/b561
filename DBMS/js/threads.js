@@ -1423,6 +1423,8 @@ $("document").ready(
 							var list = jQuery.parseJSON(response);
 							if(list.length>0)
 							{
+								$("#search_result_info").show();
+								
 								allThreads = list;
 								layoutRows(list);
 								
@@ -1450,6 +1452,57 @@ $("document").ready(
 			onLoadGetAllThreds();
 		});
 		
+		
+		/*Advanced Search*/
+		$("#advancedThreadSearch").live('click',function(event){
+			event.preventDefault();
+			
+			//get search filters
+			
+			var tag = $("#tag_filter").val();
+			var user = $("#user_filter").val();
+			var keyword = $("#keyword_filter").val();
+			
+			if(tag.length>0 || user.length>0 || keyword.length>0)
+			{
+				var params =  new Object();
+			 	params.requestType = 'advancedThreadSearch';
+				params.key = keyword;
+				params.catId = String(param_val);
+				params.user = user;
+				params.tag = tag
+				
+				$.ajax({
+					type: "POST",
+					url: "threadsRepository.php",
+					async: false,
+					data: params,
+				}).done(function(response)
+				{
+						
+					if(response)
+					{
+						var list = jQuery.parseJSON(response);
+						if(list.length>0)
+						{
+							$("#search_result_info").show();
+							
+							allThreads = list;
+							layoutRows(list);
+								
+						}
+
+					}
+
+				});
+				
+				$("#dismissFilters").click();
+
+			}
+			
+			
+			
+		});
 		
 		
 			

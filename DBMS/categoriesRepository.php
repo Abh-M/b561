@@ -224,13 +224,14 @@ switch($event)
 	{
 		$result = getUserInfo();
 	}
-	
+	break;
 	
 	case 'basicSearchForKey':
 	{
 		$key = $_POST['key'];
 		$result = basicSearchForKey($key);
 	}
+	break;
 	
 	
 	case 'advanceSearchForAttributes':
@@ -239,6 +240,7 @@ switch($event)
 			$creator = (isset($_POST['creator']))?$_POST['creator']:'';
 			$result = advanceSearchForAttributes($key,$creator);
 	}
+	break;
  }
 
  echo $result;
