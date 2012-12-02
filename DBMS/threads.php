@@ -60,7 +60,7 @@
 					<a  id="drop1" role="button" class="dropdown-toggle" data-toggle="dropdown" data-target="#" href="#">&nbsp;<p  id="loggedUser">Usernname</p>&nbsp;<i class="icon-user icon-white"></i></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
 						<li>
-							<a href="#" tabindex="-1">Profile</a>
+							<a href="profile.php" tabindex="-1">Profile</a>
 						</li>
 						<li>
 							<a href="#" class="logoutLink">Logout</a>
