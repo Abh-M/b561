@@ -252,13 +252,13 @@ else if ($q == 'roster')
 				 <tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
 				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
-			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i class=\" icon-remove\"></i></a></td> ";
+			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i title=\"Block User\" class=\" icon-remove\"></i></a></td> ";
 				 if($type == "2")
 				 {
-				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onmake_AI(". $row['userid'] .")\" ><i class=\" icon-arrow-up\"></i></a></td>";  }
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onmake_AI(". $row['userid'] .")\" ><i title=\"Promote to AI\" class=\" icon-arrow-up\"></i></a></td>";  }
 				if($type == "1")
 				 {
-				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel_AI(". $row['userid'] .")\" ><i class=\" icon-arrow-down\"></i></a></td>";  }
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel_AI(". $row['userid'] .")\" ><i title=\"Demote to Student\" class=\" icon-arrow-down\"></i></a></td>";  }
 		echo    " </tr>";
 	   }
 	   echo "</tbody>
@@ -310,7 +310,7 @@ else if ($q == 'group')
 		   echo "<tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['name'] . "</a> </td>
 				 <td class=\"skeletonCol catCreated\"> " .$row2['firstname'] . " " . $row2['lastname'] . "</td> 							
-				 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ongrpdel(". $row['id'] .")\" ><i class=\"icon-remove\"></i></a></td> 
+				 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ongrpdel(". $row['id'] .")\" ><i title=\"Remove Group\" class=\"icon-remove\"></i></a></td> 
 				 </tr>";
 	   }
 	   echo "</tbody>
@@ -388,7 +388,7 @@ else if ($q == 'blocked')
 				 <tr class=\"rowSkeleton\">
 				 <td class=\"skeletonCol catName\"> " . $row['firstname'] . " " . $row['lastname'] ."</a> </td>
 				 <td class=\"skeletonCol catCreated\"> <a href=\"mailto:".$row['emailid'] ."\" > " .$row['emailid'] . "</a> </td> 				 <td class=\"skeletonCol catCreated\"> " .$role . " </td>
-			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onremblock(". $row['userid'] .")\" ><i class=\"icon-ok\"></i></a></td> 
+			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onremblock(". $row['userid'] .")\" ><i title=\"Unblock User\" class=\"icon-ok\"></i></a></td> 
 				 </tr>";
 	   }
 	   echo "</tbody>
