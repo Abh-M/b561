@@ -79,11 +79,11 @@ function searchPosts($searchRequest)
 	$result = json_encode(false);
 	$query = "SELECT * from Post where threadid = ".$searchRequest['threadId'];
 	if(!empty($searchRequest['user']))
-		$query = $query." AND createdby IN (select userid from User where username = '".$searchRequest['user']."')";
+		$query = $query." AND createdby IN (select userid from User where username like '%".$searchRequest['user']."%')";
 	if(!empty($searchRequest['text']))
 		$query = $query." AND text like ('%".$searchRequest['text']."%')";
 	if(!empty($searchRequest['tag']))
-		$query = $query." AND postid IN (select tp.postid from tagtopost tp,tag t where tp.tagid = t.tagid and t.keyword='".$searchRequest['tag']."')";
+		$query = $query." AND postid IN (select tp.postid from tagtopost tp,Tag t where tp.tagid = t.tagid and t.keyword like '%".$searchRequest['tag']."%')";
 	$queryResult = mysql_query($query);
 	$allPosts = array();
 	if($queryResult!=NULL)
