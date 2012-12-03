@@ -17,8 +17,8 @@ $("document").ready(function(){
 		var pass = $("#password").val();
 		var repass = $("#repassword").val();
 		
-		console.log("username :"+usename + username.length);
-		console.log("password :"+pass  + pass.length);
+		//console.log("username :"+usename + username.length);
+		//console.log("password :"+pass  + pass.length);
 		
 		
 		var isUsernameValid = false;
@@ -28,10 +28,12 @@ $("document").ready(function(){
 		var isPasswordValid = false;
 		var isRePasswordValid = false;
 		
+		
 		if(username.length<1)
 		{
 			$("#usernameAlertView").show();
-		}  
+		}
+		  
 		else
 		{
 			$("#usernameAlertView").hide();
@@ -94,11 +96,11 @@ $("document").ready(function(){
 		}
 		
 		
-		/*if(!isPasswordValid || !isUsernameValid)
+		if(!isUsernameValid || !isFirstnameValid || !isLastnameValid || !isEmailValid || !isPasswordValid || !isRePasswordValid)
 		{
 			event.preventDefault();
 			return false;
-		}*/
+		}
 
 		 
 		
