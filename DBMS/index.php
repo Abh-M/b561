@@ -84,11 +84,11 @@ header('Location: categories.php');
 			
 			  <div class="control-group">
 			    <div class="controls">
-			      <label class="checkbox">
+			      <!--<label class="checkbox">
 			     <input type="checkbox"> Remember me
-			      </label>
+			      </label>-->
 			      <button type="submit" class="btn" id="loginButton">Sign in</button>
-				  <button class="btn btn-link btn-mini" id="forgotPasswordButton">Forgot password?</button>
+				 <!-- <button class="btn btn-link btn-mini" id="forgotPasswordButton">Forgot password?</button>-->
 			    </div>
 			  </div>
 			</form>
