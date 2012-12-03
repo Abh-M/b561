@@ -2,8 +2,8 @@ $("document").ready(
 	function()
 	{
 		
-		$("div#calendar").datepicker({ altField: 'input#date', altFormat: 'yy-mm-dd' });
-		$('.datepicker').datepicker();
+		// $("div#calendar").datepicker({ altField: 'input#date', altFormat: 'yy-mm-dd' });
+		$('.datepicker').datepicker({format:"yyyy-mm-dd"});
 		
 	 $("#right_bar_ref_listItem").hide();
 	 $("#NewThreadErrorMsg").hide();

@@ -106,6 +106,8 @@ function getThreadsForCategory($kCatId,$kUserId)
 function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags,$kGroupId)
 {
 	$result = json_encode(false);
+	//$currDateTime = date('Y-m-d');
+	date_default_timezone_set('America/Indianapolis');
 	$currDateTime = date('Y-m-d H:i:s');
 	$createrId = $_SESSION['userid'];
 	$query;
