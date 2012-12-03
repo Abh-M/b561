@@ -431,16 +431,16 @@ $("document").ready(
 		$("#new-group-link").live('click',function(event){
 			$("#myGroupModalContainer").hide();
 			$("#myGroupModalContainer").show();
-			$("#myGroupModalContainer").css('position','relative');
+			// $("#myGroupModalContainer").css('position','relative');
 			$("#myGroupModalContainer").offset({ top: window.pageYOffset, left: 0 });
 			$("#myGroupModalContainer").height($("body").height());
-			$("#myGroupModalContainer").css('z-index',9999999999999999999999);
-			$("#myGroupModalContainer").css('opacity','1.0');
-			$("#myGroupModalContainer").css('background-color','black');
-			$("#myGroupModalContainer").css('margin-left','auto');
-			$("#myGroupModalContainer").css('margin-right','auto');
-			$("#myGroupModalContainer").css('display','block');
-			$("#myGroupModalContainer").css('text-align','center');
+			// $("#myGroupModalContainer").css('z-index',9999999999999999999999);
+			// $("#myGroupModalContainer").css('opacity','1.0');
+			// $("#myGroupModalContainer").css('background-color','black');
+			// $("#myGroupModalContainer").css('margin-left','auto');
+			// $("#myGroupModalContainer").css('margin-right','auto');
+			// $("#myGroupModalContainer").css('display','block');
+			// $("#myGroupModalContainer").css('text-align','center');
 			
 			$("body").css("overflow","hidden");
 			
