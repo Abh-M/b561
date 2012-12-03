@@ -48,7 +48,7 @@ session_start();
 	<div class="container-fluid">
 	  <div class="row-fluid">
 	    <div class="span6 well">
-			<form class="form-horizontal" method="POST" action="addUserValidation.php">
+			<form class="form-horizontal" method="POST" action="">
 			  <legend><i class="icon-user" style="vertical-align: middle"></i>&nbsp;Add Details</legend>
 			
 			  <div class="control-group">
