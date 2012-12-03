@@ -14,13 +14,19 @@
 	
 	<script src="js/threads.js"></script>
 	<script src="js/common.js"></script>
+	<script src="js/bootstrap-datepicker.js"></script>
 	
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/datepicker.css" rel="stylesheet">
 
 	<link href="css/threads.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
 
 
@@ -314,6 +320,30 @@
 						<input type="text" id="tag_filter" placeholder="tag">
 					</div>
 				</div>
+				
+				
+				<div class="control-group">
+					<label class="control-label">From</label>
+					<div class="controls">
+						<div class="input-append date " id="dp3" data-date="12/02/2012" data-date-format="mm/dd/yyyy">
+						  <input class="span2 datepicker" size="16" type="text" value="12/02/2012">
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="control-group">
+					<label class="control-label">To</label>
+					<div class="controls">
+						<div class="input-append date " id="dp3" data-date="12/02/2012" data-date-format="mm/dd/yyyy">
+						  <input class="span2 datepicker" size="16" type="text" value="12/02/2012">
+						</div>
+					</div>
+				</div>
+				
+			
+				
+			
 			</form>
 				
 		</div>
@@ -410,7 +440,8 @@
 		
 		
 
-
+			
+ 
 
 		</body>
 		</html>
