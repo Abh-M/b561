@@ -64,7 +64,7 @@
 					<div class="input-append">
 						<input class="span3" id="searchText" type="text" placeholder="Search Categories">
 						<a class="btn" href="#" id="catSearch"><i class="icon-search"></i></a>
-						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
+						<a  rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Category Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
 						<!-- <a href="#" id="blob" class="btn" rel="popover inner" data-placement="bottom" data-content="Works" data-original-title="Filters">Advance Search</a> -->
 						
 					</div>
