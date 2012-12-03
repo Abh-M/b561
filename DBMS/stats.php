@@ -47,11 +47,6 @@
 
 						</ul>
 					</li>
-					<li class="divider-vertical"></li>
-          <li><a href="/DBMS/stats.php">Statistics</a></li>
-					<li class="divider-vertical"></li>
-          <li><a href="/DBMS/categories.php">About</a></li>
-					<li class="divider-vertical"></li>          
 				</ul>
 
 			</div>
