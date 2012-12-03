@@ -264,6 +264,7 @@
 				<li id="group" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Group</a></li>
                 <li style="display: <?php echo $mode; ?>" id="blocked" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Blocked &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Students</a></li>
                 <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
+                <li id="Statistics"><a href="stats.php"><i class="icon-chevron-right"></i> Statistics</a></li>
 			</ul>
 		</div>
 		<div  class="span10" id="contentPane">
