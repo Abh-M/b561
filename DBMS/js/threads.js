@@ -916,7 +916,15 @@ $("document").ready(
 			{
 				var thread = list[i];
 				var cell = $("#ref").clone();
-				var createdDate = new Date(thread.datecreated);
+				
+				var t = thread.datecreated.split(/[- :]/);
+				//	alert(t);
+				// Apply each element to the Date function
+				var createdDate = new Date(t[0], t[1]-1, t[2], t[3], t[4], t[5]);
+
+				//alert(d);
+				
+				//var createdDate = new Date(thread.datecreated);
 				var formattedDate = createdDate.getMonth()+1+"/"+createdDate.getDate()+"/"+createdDate.getFullYear()+"    "+createdDate.toLocaleTimeString();
 				
 				$(cell).removeAttr('id');

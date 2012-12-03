@@ -368,7 +368,7 @@
 			</div>
 			<input type="text" placeholder="group name" id="newgroupTitle" maxlength="200">
 				
-			<div id="grpReqMembersLbl">Select group members</div>
+			<div id="grpReqMembersLbl">Select group members<br/><span id="grpNotice">Please add Prof and AI as group members or else group request will be rejected</span></div>
 			<div id="mbody">
 				<table id="modalTable" width="100%">
 					<!-- <th>Select group members</th> -->

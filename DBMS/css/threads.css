@@ -246,7 +246,7 @@ td.views_col, td.created_by_col, td.created_col, p
 	background-color: white;
 	padding: 10px;
 	opacity: 1;
-	top: 100px;
+	top: 50px;
 	width: 60%;
 	margin-left: auto;
 	margin-right: auto;
@@ -616,4 +616,10 @@ a.right_bar_nav_link
 	 display: none;
 	 
  	
+ }
+
+
+ #grpNotice
+ {
+	 font-weight: bold;
  }
