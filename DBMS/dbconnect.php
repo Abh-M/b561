@@ -10,5 +10,10 @@ $dbName = "b561f12_86";
 
 
 $dbConnection = mysql_connect ($dbHost, $dbUserName, $dbPass) or die ("Cannot connect to host $dbHost with user $dbUserName and the password provided."); 
+
+if($dbConnection)
+{
+	$_SESSION['dblink'] = $dbConnection;
+}
 mysql_select_db ($dbName) or die ("Database $dbName not found on host $dbHost");
 ?>
