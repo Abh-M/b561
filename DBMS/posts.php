@@ -99,7 +99,7 @@
 			<div class="row-fluid" id="row1"class="margin: 0px;">
 
 
-				<div class="span9" id="contentPane">
+				<div class="span11" id="contentPane">
 				<div id="search_result_info"><a href="" id="clearSearchResult">Clear Search Results</a></div>
 					<!--Body content-->
 					<table class="table outer_table">
@@ -190,7 +190,6 @@
 				</div>
 
 
-				<div class="span3" id="rightPane"></div>
 			</div>
 		</div>
 
