@@ -29,7 +29,7 @@ session_start();
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </a>
-		      <a class="brand" href="#">Course Discussion System</a>
+		      <a class="brand" href="index.php">Course Discussion System</a>
 		      <div class="nav-collapse">
 				<!-- <ul class="nav">
 				  <li class="active">

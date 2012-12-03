@@ -35,7 +35,7 @@ header('Location: categories.php');
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </a>
-		      <a class="brand" href="#">Course Discussion System</a>
+		      <a class="brand" href="index.php">Course Discussion System</a>
 		      <div class="nav-collapse">
 				<!-- <ul class="nav">
 				  <li class="active">
@@ -45,6 +45,9 @@ header('Location: categories.php');
 				  <li><a href="#">TEST</a></li>
 				</ul> -->
 		      </div>
+              <ul class="nav pull-right">
+				<li><a class="" href="addUser.php">Sign Up</a></li>
+			</ul>
 		    </div>
 		  </div>
 	</div>
