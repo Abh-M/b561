@@ -32,7 +32,7 @@
 				<a class="brand" href="index.php">Course Disscussion System</a>
 				<ul class="nav">
 					<li class="divider-vertical"></li>				
-					<li><a id="createNewPost" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="new post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
+					<li><a id="createNewPost" rel="tooltip" data-toggle="modal" href="#myModal" data-original-title="Create New Post" data-placement="bottom"><i class="icon-pencil icon-white"></i></a></li>
 					<li class="divider-vertical"></li>				
 				</ul>
 

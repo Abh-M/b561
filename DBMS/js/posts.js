@@ -100,6 +100,11 @@ $("document").ready(
 				console.log("thread is "+json);
 				$("#ThreadName").html(String(json.title));
 				$("#ThreadName").attr("threadId",String(json.threadid));
+				// Disabling the create post button if thread is closed
+				if(json.status=='closed') {
+					$("#createNewPost").attr('href',"#");
+					$("#createNewPost").css('cursor',"not-allowed");
+				}
 		 });
 		
 		
