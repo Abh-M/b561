@@ -1466,14 +1466,37 @@ $("document").ready(
 			var user = $("#user_filter").val();
 			var keyword = $("#keyword_filter").val();
 			
-			if(tag.length>0 || user.length>0 || keyword.length>0)
+			//get dates and format them
+			
+			var startString = $("#from_date").val();
+			var endSting = $("#to_date").val();
+				
+			var sdate =  new Date(startString);
+			var edate =  new Date(endSting);
+			
+			if((edate-sdate)<0)
+			{
+				//display alert
+				return false;
+			}
+			
+			//format isoDate
+			var f_s_date = sdate.getFullYear()+'-'+(sdate.getMonth()+1)+'-'+sdate.getDate();
+			var f_e_date = edate.getFullYear()+'-'+(edate.getMonth()+1)+'-'+edate.getDate();
+			console.log(f_s_date);
+			console.log(f_e_date);
+			
+			
+			if(tag.length>0 || user.length>0 || keyword.length>0 || (sdate && edate))
 			{
 				var params =  new Object();
 			 	params.requestType = 'advancedThreadSearch';
 				params.key = keyword;
 				params.catId = String(param_val);
 				params.user = user;
-				params.tag = tag
+				params.tag = tag;
+				params.from = f_s_date;
+				params.to = f_e_date;
 				
 				$.ajax({
 					type: "POST",
