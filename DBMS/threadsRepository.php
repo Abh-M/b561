@@ -468,26 +468,148 @@ function sortByAttributeAndOrder($col,$order,$kCatId,$kUserId)
 	function advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag,$from,$to)
 	{
 		
-		
 		// Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = 1)) AND categoryid = 1) AND (title LIKE '%testing%' OR owner IN (Select userid from User where username LIKE '%user%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%mam%')) );
 		
 		
 		$result = json_encode(false);
 		$query ;
 		if($kUserId==-1)
-			$query = "SELECT * from Thread WHERE categoryid = $kCatId AND (`datecreated` between '$from' and '$to' OR  title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
-		
-		
+		{
+			// $query = "SELECT * from Thread WHERE categoryid = $kCatId AND (`datecreated` between '$from' and '$to' OR  title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
+			
+			
+			$query = "SELECT * from Thread WHERE categoryid = $kCatId ";
+			
+			if($ktag!=NULL || $kUser!=NULL || $key!= NULL || ($from!= NULL && $to!= NULL) )
+			{
+				$query= $query." AND ( ";
+				
+				if($key!=NULL)
+				{
+					$query  = $query." title LIKE '%$key%' ";
+					
+					if($kUser!=NULL || $ktag!=NULL || ($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+				}
+				
+			
+				if($kUser!=NULL)
+				{
+					
+					$query  = $query." owner IN (Select userid from User where username LIKE '%$kUser%') ";
+					
+					if($ktag!=NULL || ($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+					
+				}
+				
+				
+				if($ktag!=NULL)
+				{
+					
+					$query = $query." threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) ";
+					
+					if(($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+					
+				}
+				
+							
+				if($from!=NULL && $to!=NULL)
+				{
+					
+					$query = $query." `datecreated` between '$from' and '$to' ";
+				}
+				$query= $query." ) ";
+				
+			}
+			
+			
+			
+			
+		}
 		else
-			$query = "Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId) AND (`datecreated` between '$from' and '$to' OR title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
+		{
+			
+			// $query = "Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId) AND (`datecreated` between '$from' and '$to' OR title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
+			
+			
+			$query = "Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId)";
+		
+		
+			if($ktag!=NULL || $kUser!=NULL || $key!= NULL || ($from!= NULL && $to!= NULL) )
+			{
+				$query= $query." AND ( ";
+				
+				if($key!=NULL)
+				{
+					$query  = $query." title LIKE '%$key%' ";
+					
+					if($kUser!=NULL || $ktag!=NULL || ($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+				}
+				
+			
+				if($kUser!=NULL)
+				{
+					
+					$query  = $query." owner IN (Select userid from User where username LIKE '%$kUser%') ";
+					
+					if($ktag!=NULL || ($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+					
+				}
+				
+				
+				if($ktag!=NULL)
+				{
+					
+					$query = $query." threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) ";
+					
+					if(($from!=NULL && $to!=NULL))
+					{
+						$query=$query." AND ";
+					}
+					
+					
+				}
+				
+							
+				if($from!=NULL && $to!=NULL)
+				{
+					
+					$query = $query." `datecreated` between '$from' and '$to' ";
+				}
+				$query= $query." ) ";
+				
+			}
 		
 		
 		
+			
+		}
+			
+		 //echo $query;
 		
 		
 		$queryResult = mysql_query($query);
 		$allThreads = array();
-		if($queryResult!=NULL)
+			if($queryResult!=NULL)
 		{
 			while($row = mysql_fetch_assoc($queryResult))
 			{
@@ -548,7 +670,7 @@ function sortByAttributeAndOrder($col,$order,$kCatId,$kUserId)
 				
 				}
 			
-	
+			
 				array_push($allThreads,$row);
 			}
 			$result = json_encode($allThreads);
@@ -650,14 +772,14 @@ switch($reqType)
 	// advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag)
 	
 	case 'advancedThreadSearch':
-	$key = (isset($_POST['key']))?$_POST['key']:'';
-	$kCatId = $_POST['catId'];
-	$kUser = (isset($_POST['user']))?$_POST['user']:'';
-	$ktag = (isset($_POST['tag']))?$_POST['tag']:'';
-	$kUserId = (isset($_POST['userId']))?$_POST['userId']:-1;
-	$from = (isset($_POST['from']))?$_POST['from']:'2000-1-1';
-	$to = (isset($_POST['to']))?$_POST['to']:'2050-1-1';
-	
+		$key = (isset($_POST['key']))?$_POST['key']:NULL;
+		$kCatId = $_POST['catId'];
+		$kUser = (isset($_POST['user']))?$_POST['user']:NULL;
+		$ktag = (isset($_POST['tag']))?$_POST['tag']:NULL;
+		$kUserId = (isset($_POST['userId']))?$_POST['userId']:-1;
+		$from = (isset($_POST['from']))?$_POST['from']:NULL;
+		$to = (isset($_POST['to']))?$_POST['to']:NULL;
+		
 	$result = advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag,$from,$to);
 	break;
 		

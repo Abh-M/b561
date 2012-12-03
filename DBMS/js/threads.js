@@ -1488,6 +1488,14 @@ $("document").ready(
 		});
 		
 		
+		
+		$("#threadFilters").live('click',function(){
+			
+			$("#from_date").val('');
+			$("#to_date").val('');
+			
+		})
+		
 		/*Advanced Search*/
 		$("#advancedThreadSearch").live('click',function(event){
 			event.preventDefault();
@@ -1500,35 +1508,72 @@ $("document").ready(
 			
 			//get dates and format them
 			
+
+			
 			var startString = $("#from_date").val();
 			var endSting = $("#to_date").val();
-				
-			var sdate =  new Date(startString);
-			var edate =  new Date(endSting);
 			
-			if((edate-sdate)<0)
+			var f_s_date='';
+			var f_e_date='';
+			
+			if(startString.length>0 && endSting.length>0)
 			{
-				//display alert
-				return false;
-			}
+				
+				var sdate =  new Date(startString);
+				var edate =  new Date(endSting);
 			
-			//format isoDate
-			var f_s_date = sdate.getFullYear()+'-'+(sdate.getMonth()+1)+'-'+sdate.getDate();
-			var f_e_date = edate.getFullYear()+'-'+(edate.getMonth()+1)+'-'+edate.getDate();
-			console.log(f_s_date);
-			console.log(f_e_date);
+				if((edate-sdate)<0)
+				{
+					//display alert
+					return false;
+				}
+				else
+				{
+					//format isoDate
+					f_s_date = sdate.getFullYear()+'-'+(sdate.getMonth()+1)+'-'+sdate.getDate();
+					f_e_date = edate.getFullYear()+'-'+(edate.getMonth()+1)+'-'+edate.getDate();
+					console.log(f_s_date);
+					console.log(f_e_date);
+					
+					
+				}
+			
+				
+				
+			}
+				
 			
 			
 			if(tag.length>0 || user.length>0 || keyword.length>0 || (sdate && edate))
 			{
 				var params =  new Object();
 			 	params.requestType = 'advancedThreadSearch';
-				params.key = keyword;
 				params.catId = String(param_val);
-				params.user = user;
-				params.tag = tag;
-				params.from = f_s_date;
-				params.to = f_e_date;
+				
+				
+				if(keyword.length>0)
+				{
+					params.key = keyword;
+				}	
+				
+				
+				
+				if(user.length>0)
+				{
+					params.user = user;
+					
+				}
+
+				if(tag.length>0)
+				{
+					params.tag = tag;
+				}
+
+				if(f_s_date.length>1 && f_e_date.length>1)
+				{
+					 params.from = f_s_date+' 00:00:00';
+					 params.to = f_e_date+' 23:59:59';
+				}
 				
 				$.ajax({
 					type: "POST",
