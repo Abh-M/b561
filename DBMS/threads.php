@@ -336,7 +336,7 @@
 					<label class="control-label">To</label>
 					<div class="controls">
 						<div class="input-append date " id="dp2" data-date="2012-12-02" data-date-format="yyyy-mm-dd">
-						  <input class="span2 datepicker" id="end_date" size="16" type="text" value="2012-12-02">
+						  <input class="span2 datepicker" id="to_date" size="16" type="text" value="2012-12-02">
 						</div>
 					</div>
 				</div>

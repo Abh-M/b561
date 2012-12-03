@@ -465,7 +465,7 @@ function sortByAttributeAndOrder($col,$order,$kCatId,$kUserId)
 
 
 
-	function advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag)
+	function advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag,$from,$to)
 	{
 		
 		
@@ -475,11 +475,11 @@ function sortByAttributeAndOrder($col,$order,$kCatId,$kUserId)
 		$result = json_encode(false);
 		$query ;
 		if($kUserId==-1)
-			$query = "SELECT * from Thread WHERE categoryid = $kCatId AND (title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
+			$query = "SELECT * from Thread WHERE categoryid = $kCatId AND (`datecreated` between '$from' and '$to' OR  title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
 		
 		
 		else
-			$query = "Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId) AND (title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
+			$query = "Select * from Thread WHERE ((groupid IS NULL OR groupid IN (SELECT group_id FROM user_group WHERE user_id = $kUserId)) AND categoryid = $kCatId) AND (`datecreated` between '$from' and '$to' OR title LIKE '%$key%' OR owner IN (Select userid from User where username LIKE '%$kUser%') OR threadid IN (Select threadid from tagtothread where `tagid` IN (SELECT Tag.`tagid` from Tag WHERE Tag.`keyword` LIKE '%$ktag%')) )";
 		
 		
 		
@@ -655,7 +655,10 @@ switch($reqType)
 	$kUser = (isset($_POST['user']))?$_POST['user']:'';
 	$ktag = (isset($_POST['tag']))?$_POST['tag']:'';
 	$kUserId = (isset($_POST['userId']))?$_POST['userId']:-1;
-	$result = advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag);
+	$from = (isset($_POST['from']))?$_POST['from']:'2000-1-1';
+	$to = (isset($_POST['to']))?$_POST['to']:'2050-1-1';
+	
+	$result = advancedThreadSearch($key,$kCatId,$kUserId,$kUser,$ktag,$from,$to);
 	break;
 		
 }
