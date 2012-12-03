@@ -75,7 +75,6 @@
 			}
 			xmlhttp.open("POST","profileRepository.php?q="+str,true);
 			xmlhttp.send();
- 
 		}
  
 		function ondel(id)
@@ -145,6 +144,40 @@
 			list(global_str);
 		}
 		
+		function onmake_AI(id)
+		{
+ 			//alert (id);
+			var userId = id;
+			console.log(userId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "makeAI", userId: userId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}
+		
+		function ondel_AI(id)
+		{
+ 			//alert (id);
+			var userId = id;
+			console.log(userId);
+			
+			$.ajax({
+				type: "POST",
+				url: "pro_del.php",
+				async: false,
+				data: {eventType: "delAI", userId: userId},
+			}).done(function(response){
+				});
+			
+			list(global_str);
+		}
+		
 		function onremblock(id)
 		{
  			//alert (id);
@@ -208,14 +241,9 @@
 		<div class="navbar-inner" style="padding: 0px 10px;">
 			<a class="brand" href="index.php">Course Discussion System</a>
 
-
-
 			<ul class="nav pull-right">
 				<li><a class="logoutLink" href="#">Logout</a></li>
 			</ul>
-
-
-
 
 		</div>
 			
@@ -238,7 +266,7 @@
                 <li id="password" onclick="list(this.id)"><a href="#"><i class="icon-chevron-right"></i> Change &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Password</a></li>
 			</ul>
 		</div>
-		<div  class="span10 well" id="contentPane">
+		<div  class="span10" id="contentPane">
             <?php 
 			
 			if(isset($a))

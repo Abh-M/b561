@@ -2,6 +2,7 @@ $("document").ready(
 	function()
 	{
 		$("#NewPostErrorMsg").hide();
+		$("#search_result_info").hide();
 		
 		//Get logged in userinfo
 		$.ajax({
@@ -539,11 +540,27 @@ $("document").ready(
 				data: {searchRequest : searchRequest, requestType : 'searchPosts'}
 			}).done(function(response){		
 				var list = jQuery.parseJSON(response);
+				$("#search_result_info").show();
 				$("#ref").siblings().detach();				
 				layoutRows(list);				
 			});
 			
 		}
+		
+		$("#search_result_info").live('click',function(event){
+			event.preventDefault();
+			$("#search_result_info").hide();
+			$("#postSearchText").val('');			
+			$.ajax({
+				type: "POST",
+				url: "postsRepository.php",
+				async: false,
+				data: { requestType: "getPostsForThread", threadId: String(threadId) },
+			}).done(function(response){
+				var list = jQuery.parseJSON(response);
+				layoutRows(list);			
+			});
+		});
 		
 		function layoutRows(list) {
 			jQuery.each(list, function() {

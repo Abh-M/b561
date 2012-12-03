@@ -100,7 +100,7 @@
 
 
 				<div class="span9" id="contentPane">
-				<div class="alert alert-info" id="search_result_info"><a href="" id="clearSearchResult">Clear Search Results</a></div>
+				<div id="search_result_info"><a href="" id="clearSearchResult">Clear Search Results</a></div>
 					<!--Body content-->
 					<table class="table outer_table">
 						<thead><caption><ul class="breadcrumb pull-left">
