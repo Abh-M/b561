@@ -540,8 +540,17 @@ $("document").ready(
 				
 				var params = new Object();
 				params.eventType = 'advanceSearchForAttributes';
-				params.key = keyword;
-				params.creator = userkey
+				if(keyword.length>0)
+				{
+					params.key = keyword;
+				}
+				
+				if(userkey.length>0)
+				{
+					params.creator = userkey
+				}
+
+
 				
 				//do search
 				$.ajax({

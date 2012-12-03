@@ -153,7 +153,33 @@ function advanceSearchForAttributes($key,$creator)
 	$allCat = array();
 	$jsonString = json_encode("failure");
 	$allCategoriesQuery;
-	$allCategoriesQuery = "Select * from `category` WHERE `creator` IN (SELECT userid FROM User WHERE username LIKE '%$creator%') UNION Select * from category where Category LIKE '%$key%'";
+	if($key==NUL && $creator==NULL)
+	{
+		return $jsonString;
+		
+		
+	}
+	else if($key!=NULL && $creator!=NULL)
+	{
+		
+		$allCategoriesQuery = "Select * from `category` WHERE (`creator` IN (SELECT userid FROM User WHERE username LIKE '%$creator%') AND Category LIKE '%$key%')";
+		
+		
+	}
+	else if($key!=NULL && $creator==NULL)
+	{
+		$allCategoriesQuery = "Select * from `category` WHERE  Category LIKE '%$key%'";
+		
+		
+	}
+	else if($key==NULL && $creator!=NULL)
+	{
+		$allCategoriesQuery = "Select * from `category` WHERE `creator` IN (SELECT userid FROM User WHERE username LIKE '%$creator%')";
+		
+		
+	}
+	
+	
 	$numOfThreads = 0;
 	$result = mysql_query($allCategoriesQuery);
 
@@ -236,8 +262,8 @@ switch($event)
 	
 	case 'advanceSearchForAttributes':
 	{
-			$key = (isset($_POST['key']))?$_POST['key']:'';
-			$creator = (isset($_POST['creator']))?$_POST['creator']:'';
+			$key = (isset($_POST['key']))?$_POST['key']:NULL;
+			$creator = (isset($_POST['creator']))?$_POST['creator']:NULL;
 			$result = advanceSearchForAttributes($key,$creator);
 	}
 	break;
