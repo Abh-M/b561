@@ -84,10 +84,7 @@
 					<strong>
 						<div class="alert alert-error" id="errorAlert" style="display: none">
 						</div>
-						<div class="alert" id="infoAlert" style="display: none;">
-						</div>
-						<div class="alert alert-info" id="successAlert" style="display: none;">
-						</div>
+						
 					</strong>
 				
 				</div>
