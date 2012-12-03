@@ -17,7 +17,7 @@ $("document").ready(function(){
 		var pass = $("#password").val();
 		var repass = $("#repassword").val();
 		
-		console.log("username :"+usename + email.length);
+		console.log("username :"+usename + username.length);
 		console.log("password :"+pass  + pass.length);
 		
 		
@@ -94,11 +94,11 @@ $("document").ready(function(){
 		}
 		
 		
-		if(!isPasswordValid || !isUsernameValid)
+		/*if(!isPasswordValid || !isUsernameValid)
 		{
 			event.preventDefault();
 			return false;
-		}
+		}*/
 
 		 
 		

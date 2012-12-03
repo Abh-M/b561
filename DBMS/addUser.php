@@ -7,7 +7,7 @@ session_start();
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Add User</title>
+    <title>Sign Up</title>
     <!-- Bootstrap -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -48,7 +48,7 @@ session_start();
 	<div class="container-fluid">
 	  <div class="row-fluid">
 	    <div class="span6 well">
-			<form class="form-horizontal" method="POST" action="loginvalidation.php">
+			<form class="form-horizontal" method="POST" action="addUserValidation.php">
 			  <legend><i class="icon-user" style="vertical-align: middle"></i>&nbsp;Add Details</legend>
 			
 			  <div class="control-group">
@@ -76,20 +76,7 @@ session_start();
 				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
 				  <strong>Warning!</strong> Please enter firstname
 				</div>
-                
-                <div class="control-group">
-			    <label class="control-label" for="email">email-id</label>
-			    <div class="controls">
-			      <input type="text" id="email" name="email" placeholder="email">
-			    </div>
-			  </div>
-			
-                <!-- </div> -->
-				<div class="alert alert-error" id="emailAlertView">
-				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
-				  <strong>Warning!</strong> Please enter email-id
-				</div>
-                
+                               
                 <div class="control-group">
 			    <label class="control-label" for="firstname">last name</label>
 			    <div class="controls">
@@ -103,8 +90,21 @@ session_start();
 				  <strong>Warning!</strong> Please enter lastname
 				</div>
                 
+                <div class="control-group">
+			    <label class="control-label" for="email">email-id</label>
+			    <div class="controls">
+			      <input type="text" id="email" name="email" placeholder="email-id">
+			    </div>
+			  </div>
+			
+                <!-- </div> -->
+				<div class="alert alert-error" id="emailAlertView">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Please enter email-id
+				</div>
+                
 			  <div class="control-group">
-    			<label class="control-label" for="password">Password</label>
+    			<label class="control-label" for="password">password</label>
 			    <div class="controls">
 			      <input type="password" id="password" name="password" placeholder="password">
 			    </div>
@@ -116,9 +116,9 @@ session_start();
 				</div>
                 
                 <div class="control-group">
-    			<label class="control-label" for="repassword">Re-type Password</label>
+    			<label class="control-label" for="repassword">re-type password</label>
 			    <div class="controls">
-			      <input type="repassword" id="repassword" name="repassword" placeholder="password">
+			      <input type="password" id="repassword" name="repassword" placeholder="password">
 			    </div>
 			  </div>
               
