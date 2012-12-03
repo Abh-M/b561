@@ -34,7 +34,7 @@ p
 
 #contentPane
 {
-	overflow : scroll;
+	overflow : hidden;
 	margin-left: 20px;
 	padding: 0;
 

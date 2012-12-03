@@ -13,6 +13,18 @@ header('Location: categories.php');
 <!DOCTYPE html>
 <html>
   <head>
+  
+  
+  <script type="text/javascript">
+
+	if(navigator.appName=="Microsoft Internet Explorer" || navigator.appName=="Opera" )
+	{
+		window.alert("This site doesn't support Internet Explorer, Opera, try in Mozilla  FireFox or Google Chrome");
+		document.location.href="wrong_page.html";
+	}
+
+</script>
+  
     <title>Login</title>
     <!-- Bootstrap -->
     <script src="http://code.jquery.com/jquery-latest.js"></script>
