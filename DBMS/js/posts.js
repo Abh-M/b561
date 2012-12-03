@@ -541,6 +541,10 @@ $("document").ready(
 			}).done(function(response){		
 				var list = jQuery.parseJSON(response);
 				$("#search_result_info").show();
+				$('#keyword_filter').val('');
+				$('#user_filter').val('');
+				$('#tag_filter').val('');
+				$("#postSearchText").val('');
 				$("#ref").siblings().detach();				
 				layoutRows(list);				
 			});
@@ -550,7 +554,7 @@ $("document").ready(
 		$("#search_result_info").live('click',function(event){
 			event.preventDefault();
 			$("#search_result_info").hide();
-			$("#postSearchText").val('');			
+			$("#postSearchText").val('');
 			$.ajax({
 				type: "POST",
 				url: "postsRepository.php",
@@ -558,6 +562,7 @@ $("document").ready(
 				data: { requestType: "getPostsForThread", threadId: String(threadId) },
 			}).done(function(response){
 				var list = jQuery.parseJSON(response);
+				$("#ref").siblings().detach();
 				layoutRows(list);			
 			});
 		});
