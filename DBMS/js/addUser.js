@@ -1,3 +1,16 @@
+
+
+	function validateEmail(str) 
+	{
+    	var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+	    if (filter.test(str)) {
+	        return true;
+	    }
+	    else {
+	        return false;
+	    }
+	}
+
 $("document").ready(function(){
 
 	 $("#usernameAlertView").hide();
@@ -6,6 +19,7 @@ $("document").ready(function(){
 	 $("#emailAlertView").hide();
 	 $("#passwordAlertView").hide();
 	 $("#repasswordAlertView").hide();
+	 $("#repasswordAlertView2").hide();
 
 
 	$("#addButton").click(function(event){
@@ -27,6 +41,7 @@ $("document").ready(function(){
 		var isEmailValid = false;
 		var isPasswordValid = false;
 		var isRePasswordValid = false;
+		var isRePasswordValid2 = false;
 		
 		
 		if(username.length<1)
@@ -70,6 +85,16 @@ $("document").ready(function(){
 			isEmailValid = true;
 		}
 		
+		if (validateEmail(email)) 
+		{
+	        $("#emailAlertView").hide();
+			isEmailValid = true;
+        }
+        else 
+		{
+            $("#emailAlertView").show();
+			isEmailValid = false;
+        }
 		
 		if(pass.length<1)
 		{
@@ -83,9 +108,22 @@ $("document").ready(function(){
 			
 		}
 		
+		if(repass!=pass )
+		{
+			$("#repasswordAlertView2").show();
+			
+		}  
+		else 
+		{
+			$("#repasswordAlertView2").hide();
+			isRePasswordValid2 = true;
+			
+		}
+		
 		if(repass.length<1)
 		{
 			$("#repasswordAlertView").show();
+			$("#repasswordAlertView2").hide();
 			
 		}  
 		else 
@@ -95,8 +133,8 @@ $("document").ready(function(){
 			
 		}
 		
-		
-		if(!isUsernameValid || !isFirstnameValid || !isLastnameValid || !isEmailValid || !isPasswordValid || !isRePasswordValid)
+				
+		if(!isUsernameValid || !isFirstnameValid || !isLastnameValid || !isEmailValid || !isPasswordValid || !isRePasswordValid || !isRePasswordValid2)
 		{
 			event.preventDefault();
 			return false;

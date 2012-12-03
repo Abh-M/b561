@@ -100,7 +100,7 @@ session_start();
                 <!-- </div> -->
 				<div class="alert alert-error" id="emailAlertView">
 				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
-				  <strong>Warning!</strong> Please enter email-id
+				  <strong>Warning!</strong> Please enter valid email-id
 				</div>
                 
 			  <div class="control-group">
@@ -125,6 +125,10 @@ session_start();
                 <div class="alert alert-error" id="repasswordAlertView">
 				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
 				  <strong>Warning!</strong> Please re-enter password
+				</div>
+                <div class="alert alert-error" id="repasswordAlertView2">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Passwords do not match
 				</div>
 			
 			  <div class="control-group">
