@@ -52,7 +52,7 @@ session_start();
 			  <legend><i class="icon-user" style="vertical-align: middle"></i>&nbsp;Add Details</legend>
 			
 			  <div class="control-group">
-			    <label class="control-label" for="username">username</label>
+			    <label class="control-label" for="username">Username</label>
 			    <div class="controls">
 			      <input type="text" id="username" name="username" placeholder="username">
 			    </div>
@@ -65,7 +65,7 @@ session_start();
 				</div>
 
 				<div class="control-group">
-			    <label class="control-label" for="firstname">first name</label>
+			    <label class="control-label" for="firstname">First Name</label>
 			    <div class="controls">
 			      <input type="text" id="firstname" name="firstname" placeholder="firstname">
 			    </div>
@@ -78,7 +78,7 @@ session_start();
 				</div>
                                
                 <div class="control-group">
-			    <label class="control-label" for="firstname">last name</label>
+			    <label class="control-label" for="firstname">Last Name</label>
 			    <div class="controls">
 			      <input type="text" id="lastname" name="lastname" placeholder="lastname">
 			    </div>
@@ -91,7 +91,7 @@ session_start();
 				</div>
                 
                 <div class="control-group">
-			    <label class="control-label" for="email">email-id</label>
+			    <label class="control-label" for="email">Email-id</label>
 			    <div class="controls">
 			      <input type="text" id="email" name="email" placeholder="email-id">
 			    </div>
@@ -104,7 +104,7 @@ session_start();
 				</div>
                 
 			  <div class="control-group">
-    			<label class="control-label" for="password">password</label>
+    			<label class="control-label" for="password">Password</label>
 			    <div class="controls">
 			      <input type="password" id="password" name="password" placeholder="password">
 			    </div>
@@ -116,7 +116,7 @@ session_start();
 				</div>
                 
                 <div class="control-group">
-    			<label class="control-label" for="repassword">re-type password</label>
+    			<label class="control-label" for="repassword">Re-type Password</label>
 			    <div class="controls">
 			      <input type="password" id="repassword" name="repassword" placeholder="password">
 			    </div>
