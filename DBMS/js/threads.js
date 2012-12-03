@@ -10,6 +10,7 @@ $("document").ready(
 	 $("#search_result_info").hide();
 
 		var allThreads;
+		var currUserType;
 		//Get logged in userinfo
 		$.ajax({
 			type: "POST",
@@ -39,18 +40,29 @@ $("document").ready(
 				
 				//depending on usertype show/hide create and delete thread button
 				var userType =parseInt(userInfo.userType);
+				currUserType = userType;
+				//for creating groups
+				
+				if(userType != 0)
+				{
+					 $("#ref").find('.status-link').removeAttr('href');
+				}
+				
+				
 				if(userType != 0 && userType!= 1)
 				{
+					//user is student
 					$(".deleteLink").hide();
 					$("#new-thread-link").show();
 				}
 				else
 				{
+					//if user admin/moderator/prof
 					$(".deleteLink").show();
 					$("#new-thread-link").show();
 				}
 				
-				//show notifications to admins only
+				//show notifications to admins/profs only
 				if(userType==0)
 				{
 					$("#new-notifications-button").show();
@@ -91,39 +103,51 @@ $("document").ready(
 		
 		
 		$('.status-link').live('mouseover mouseout', function(event) {
-			
-			var orignalText = $(this).html();
-			if (event.type == 'mouseover') 
+			if(currUserType==0)
 			{
-				$(this).css('font-weight','bold');
-				if(orignalText == 'open')
+				var orignalText = $(this).html();
+				if (event.type == 'mouseover') 
 				{
-						$(this).html('close thread');
-				}
-				else if(orignalText == 'closed')
+					$(this).css('font-weight','bold');
+					if(orignalText == 'open')
+					{
+							$(this).html('close thread');
+					}
+					else if(orignalText == 'closed')
+					{
+							$(this).html('open thread');					
+					}
+				
+				} 
+				else 
 				{
-						$(this).html('open thread');					
+					$(this).css('font-weight','normal');
+					if(orignalText == 'close thread')
+					{
+							$(this).html('open');
+					}
+					else if(orignalText == 'open thread')
+					{
+							$(this).html('closed');					
+					}
+
 				}
 				
-			} 
-			else 
+				
+			}
+			else
 			{
-				$(this).css('font-weight','normal');
-				if(orignalText == 'close thread')
-				{
-						$(this).html('open');
-				}
-				else if(orignalText == 'open thread')
-				{
-						$(this).html('closed');					
-				}
-
+				
 			}
 		});
 		
 		//set thread as open or closed
 		$('.status-link').live('click', function(event) {
 			event.preventDefault();
+
+			if(currUserType!=0)
+				return false;
+
 			var threadId = $(this).parentsUntil('.tableRow').parent().attr('threadid');
 			var catId = $("#CategoryName").attr('catId');
 			var postData = new Object();
