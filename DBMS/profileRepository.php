@@ -199,16 +199,19 @@ else if ($q == 'roster')
 			   {
 				   $role="Instructor";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			   else if($type == "1")
 			   {
 				   $role="Associate Instructor";
 				   $mode="visible";
+				   $mode2="visible";
 			   }
 			   else if($type == "2")
 			   {
 				   $role="Student";
 				   $mode="visible";
+				   $mode2="visible";
 			   }
 			}
 			else if($logged_user_type == 1)
@@ -217,16 +220,19 @@ else if ($q == 'roster')
 			   {
 				   $role="Instructor";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			   else if($type == "1")
 			   {
 				   $role="Associate Instructor";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			   else if($type == "2")
 			   {
 				   $role="Student";
 				   $mode="visible";
+				   $mode2="hidden";
 			   }
 			}
 			else if($logged_user_type == 2)
@@ -235,16 +241,19 @@ else if ($q == 'roster')
 			   {
 				   $role="Instructor";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			   else if($type == "1")
 			   {
 				   $role="Associate Instructor";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			   else if($type == "2")
 			   {
 				   $role="Student";
 				   $mode="hidden";
+				   $mode2="hidden";
 			   }
 			}
 		   else $role="Blocked";
@@ -255,10 +264,10 @@ else if ($q == 'roster')
 			 	 <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onuserdel(". $row['userid'] .")\" ><i title=\"Block User\" class=\" icon-remove\"></i></a></td> ";
 				 if($type == "2")
 				 {
-				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onmake_AI(". $row['userid'] .")\" ><i title=\"Promote to AI\" class=\" icon-arrow-up\"></i></a></td>";  }
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode2 ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"onmake_AI(". $row['userid'] .")\" ><i title=\"Promote to AI\" class=\" icon-arrow-up\"></i></a></td>";  }
 				if($type == "1")
 				 {
-				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel_AI(". $row['userid'] .")\" ><i title=\"Demote to Student\" class=\" icon-arrow-down\"></i></a></td>";  }
+				echo" <td class=\"skeletonCol catDelButton\" colspan=\"1\"><a style=\"visibility:". $mode2 ."; \" href=\"javascript:void(0)\" class=\"delLink\" onclick=\"ondel_AI(". $row['userid'] .")\" ><i title=\"Demote to Student\" class=\" icon-arrow-down\"></i></a></td>";  }
 		echo    " </tr>";
 	   }
 	   echo "</tbody>

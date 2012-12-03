@@ -267,7 +267,7 @@
                 <li id="Statistics"><a href="stats.php"><i class="icon-chevron-right"></i> Statistics</a></li>
 			</ul>
 		</div>
-		<div  class="span10" id="contentPane">
+		<div  class="span10 well" id="contentPane">
             <?php 
 			
 			if(isset($a))

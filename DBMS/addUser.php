@@ -12,7 +12,7 @@ session_start();
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="js/bootstrap.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script src="js/loginPage.js"></script>
+	<script src="js/addUser.js"></script>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet">
@@ -64,6 +64,45 @@ session_start();
 				  <strong>Warning!</strong> Please enter username
 				</div>
 
+				<div class="control-group">
+			    <label class="control-label" for="firstname">first name</label>
+			    <div class="controls">
+			      <input type="text" id="firstname" name="firstname" placeholder="firstname">
+			    </div>
+			  </div>
+			
+                <!-- </div> -->
+				<div class="alert alert-error" id="firstnameAlertView">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Please enter firstname
+				</div>
+                
+                <div class="control-group">
+			    <label class="control-label" for="email">email-id</label>
+			    <div class="controls">
+			      <input type="text" id="email" name="email" placeholder="email">
+			    </div>
+			  </div>
+			
+                <!-- </div> -->
+				<div class="alert alert-error" id="emailAlertView">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Please enter email-id
+				</div>
+                
+                <div class="control-group">
+			    <label class="control-label" for="firstname">last name</label>
+			    <div class="controls">
+			      <input type="text" id="lastname" name="lastname" placeholder="lastname">
+			    </div>
+			  </div>
+			
+                <!-- </div> -->
+				<div class="alert alert-error" id="lastnameAlertView">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Please enter lastname
+				</div>
+                
 			  <div class="control-group">
     			<label class="control-label" for="password">Password</label>
 			    <div class="controls">
@@ -75,14 +114,24 @@ session_start();
 				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
 				  <strong>Warning!</strong> Please enter password
 				</div>
+                
+                <div class="control-group">
+    			<label class="control-label" for="repassword">Re-type Password</label>
+			    <div class="controls">
+			      <input type="repassword" id="repassword" name="repassword" placeholder="password">
+			    </div>
+			  </div>
+              
+                <div class="alert alert-error" id="repasswordAlertView">
+				  <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
+				  <strong>Warning!</strong> Please re-enter password
+				</div>
 			
 			  <div class="control-group">
 			    <div class="controls">
-			      <label class="checkbox">
-			     <input type="checkbox"> Remember me
-			      </label>
-			      <button type="submit" class="btn" id="loginButton">Sign in</button>
-				  <button class="btn btn-link btn-mini" id="forgotPasswordButton">Forgot password?</button>
+			      
+			      <button type="submit" class="btn" id="addButton">Sign up</button>
+				  
 			    </div>
 			  </div>
 			</form>
