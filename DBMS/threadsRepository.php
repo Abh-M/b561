@@ -711,7 +711,7 @@ switch($reqType)
 	
 	case 'getThreadsForCategory':
 	$catId = $_POST['catId'];
-	$userId = (isset($_POST['userId']))?$_POST['userId']:-1;
+	$userId = $_SESSION['userid'];
 	$result = getThreadsForCategory($catId,$userId);
 	break;	
 	
