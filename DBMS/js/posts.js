@@ -174,6 +174,7 @@ $("document").ready(
 			reply = parentPost + $(this).parent().find("#replyPostContent").val();
 			//get the post id for the post to which you are replying
 			var parentPostId  = $(this).closest('.tableRow').attr('postId');
+			
 			$.ajax({
 				type: "POST",
 				url: "postsRepository.php",

@@ -105,6 +105,8 @@ function getThreadsForCategory($kCatId,$kUserId)
 
 function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags,$kGroupId)
 {
+	$kTitle = mysql_real_escape_string($kTitle);
+	$kDesc = mysql_real_escape_string($kDesc);
 	$result = json_encode(false);
 	//$currDateTime = date('Y-m-d');
 	date_default_timezone_set('America/Indianapolis');
@@ -146,7 +148,7 @@ function createNewThreadForCategory($kCatId,$kTitle,$kDesc,$kGroup,$kTags,$kGrou
 			$tagQueryResult = mysql_query($tagQuery);
 			if(!mysql_num_rows($tagQueryResult))
 			{
-				
+				$tag = mysql_real_escape_string($tag);
 				//tag is not present insert it
 				$insertTageQuery = "INSERT INTO Tag (keyword) VALUES ('$tag')";
 				$tagInsertResult = mysql_query($insertTageQuery);
@@ -273,6 +275,7 @@ function setThreadStatus($kThreadId, $kStatus)
 	if( strcmp($kStatus,'open')!=0 && strcmp($kStatus,'closed')!=0)
 		return json_encode($result);
 
+    $kStatus = mysql_real_escape_string($kStatus);
 	$query = "UPDATE Thread SET status = '$kStatus' WHERE threadid = $kThreadId";
 	$queryResult = mysql_query($query);
     if(mysql_affected_rows()==1)

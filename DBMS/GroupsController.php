@@ -52,6 +52,7 @@ function newGroupRequest($kName, $kRequester, $kMembers)
 	 foreach($members['memberslist'] as $mem)
 	 {
 		 $memberId =  $mem['userid'];
+		 $kName = mysql_real_escape_string($kName);
 		 $query = "INSERT INTO group_request (group_name,requester,member) VALUES ('$kName',$kRequester,$memberId)";
 		 $query_result = mysql_query($query);
 		 if(mysql_affected_rows()>0)
@@ -126,6 +127,8 @@ function getGroupResquests()
 
 function approveGroupRequest($grpName,$creatorId)
 {
+	
+	$grpName = mysql_real_escape_string($grpName);
 	$result = json_encode(false);
 	
 	//get requests
@@ -133,6 +136,7 @@ function approveGroupRequest($grpName,$creatorId)
 	$groupInfoQueryResult = mysql_query($groupInfoQuery);
 	
 	//create group
+
 	$createGroupQuery = "INSERT INTO groups(name,creator) VALUES ('$grpName',$creatorId)";
 	$createGroupQueryResult = mysql_query($createGroupQuery);
 	$groupId;
