@@ -712,7 +712,7 @@ switch($reqType)
 	case 'getThreadsForCategory':
 	$catId = $_POST['catId'];
 	$userId = (isset($_POST['userId']))?$_POST['userId']:-1;
-	$result = getThreadsForCategory($catId,$_SESSION['userid']);
+	$result = getThreadsForCategory($catId,$userId);
 	break;	
 	
 	case 'deleteThreadInCategory':

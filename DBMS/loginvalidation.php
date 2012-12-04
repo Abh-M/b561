@@ -24,9 +24,11 @@ $login = mysql_query("SELECT * FROM User WHERE (username = '" . mysql_real_escap
 	$row2 = mysql_fetch_array($login);
 	$logged_user=$row2['type'];
 //echo $logged_user;
-
+// 
 if ($logged_user != 3 and $logged_user != 4)
 {
+	
+	if(mysql_num_rows($login)==1){
 
 	// Set username session variable
 	$row = mysql_fetch_assoc($login);
@@ -79,6 +81,7 @@ if ($logged_user != 3 and $logged_user != 4)
 		
 	
 	header('Location: categories.php');
+}
 }
 
 else {
