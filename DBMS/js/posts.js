@@ -1,6 +1,8 @@
 $("document").ready(
 	function()
 	{
+		$('.datepicker').datepicker({format:"yyyy-mm-dd"});
+		
 		$("#NewPostErrorMsg").hide();
 		$("#search_result_info").hide();
 		
@@ -529,10 +531,47 @@ $("document").ready(
 		
 		
 		function performSearch() {
+			
+			
+			var startString = $("#from_date").val();
+			var endSting = $("#to_date").val();
+			
+			var f_s_date='';
+			var f_e_date='';
+			
+			if(startString.length>0 && endSting.length>0)
+			{
+				
+				var sdate =  new Date(startString);
+				var edate =  new Date(endSting);
+			
+				if((edate-sdate)<0)
+				{
+					//display alert
+					return false;
+				}
+				else
+				{
+					//format isoDate
+					f_s_date = sdate.getFullYear()+'-'+(sdate.getMonth()+1)+'-'+sdate.getDate();
+					f_e_date = edate.getFullYear()+'-'+(edate.getMonth()+1)+'-'+edate.getDate();
+					console.log(f_s_date);
+					console.log(f_e_date);
+					
+					
+				}
+			
+				
+				
+			}
+			
+			
 			var searchRequest =new Object();
 			searchRequest.text = $("#postSearchText").val();
 			searchRequest.threadId = String(threadId);
 			searchRequest.catId = String(catId);
+			searchRequest.fromDate = f_s_date+' 00:00:00';
+			searchRequest.toDate = f_e_date+' 23:59:59';		
 			if($("#keyword_filter").val()!="") {
 				searchRequest.text = $("#keyword_filter").val();
 			}

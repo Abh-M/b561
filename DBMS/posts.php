@@ -23,6 +23,13 @@
 	<link href="css/posts.css" rel="stylesheet">
 
 
+	<link href="css/datepicker.css" rel="stylesheet">
+	<script src="js/bootstrap-datepicker.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	
+			
+
 	</head>
 	<body>
 
@@ -249,6 +256,26 @@
 				      <input type="text" id="tag_filter" placeholder="tag">
 				    </div>
 				 </div>
+				
+				
+ 				<div class="control-group">
+ 					<label class="control-label">From</label>
+ 					<div class="controls">
+ 						<div class="input-append date " id="dp1" data-date=" " data-date-format="yyyy-mm-dd">
+ 						  <input class="span2 datepicker" id="from_date" size="16" type="text" value=" " >
+ 						</div>
+ 					</div>
+ 				</div>
+				
+				
+ 				<div class="control-group">
+ 					<label class="control-label">To</label>
+ 					<div class="controls">
+ 						<div class="input-append date " id="dp2" data-date=" " data-date-format="yyyy-mm-dd">
+ 						  <input class="span2 datepicker" id="to_date" size="16" type="text" value=" ">
+ 						</div>
+ 					</div>
+ 				</div>
 				
 				
 				
