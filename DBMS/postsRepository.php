@@ -173,7 +173,8 @@ function deletePostInThread($postId)
 		$query = "DELETE FROM Post WHERE postid = ".$postId." AND createdby = ".$_SESSION['userid'];
 	}
 	$queryResult = mysql_query($query);
-	if($queryResult>0) {
+	
+	if(mysql_affected_rows()>0) {
 		$result = json_encode(true);
 	}
 	return $result;
