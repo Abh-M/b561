@@ -9,7 +9,25 @@ include('dbconnect.php');
 // Retrieve username and password from database according to user's input
 $login = mysql_query("SELECT * FROM User WHERE (username = '" . mysql_real_escape_string($_POST['username']) . "') and (password = '" . mysql_real_escape_string($_POST['password']) . "')");
 
-if (mysql_num_rows($login) == 1) {
+	if (!$login) 
+	{
+    	echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+    	exit;
+	}
+
+	else if (mysql_num_rows($login) == 0) 
+	{
+    	echo "No Record of such User Found";
+    	exit;
+	}
+	
+	$row2 = mysql_fetch_array($login);
+	$logged_user=$row2['type'];
+//echo $logged_user;
+
+if ($logged_user != 3 and $logged_user != 4)
+{
+
 	// Set username session variable
 	$row = mysql_fetch_assoc($login);
 	$userid = $row["userid"];
@@ -62,6 +80,7 @@ if (mysql_num_rows($login) == 1) {
 	
 	header('Location: categories.php');
 }
+
 else {
 	// Jump to login page
 	 header('Location: index.php');
