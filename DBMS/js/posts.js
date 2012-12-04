@@ -592,10 +592,12 @@ $("document").ready(
 					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
 				}
 				$(cell).find('.post_content_div').attr("value",this.text);
-				if($("#loggedUser").attr('userid')!=this.createdby && $("#loggedUser").attr('userType')>1) {
+				if($("#loggedUser").attr('userid')!=this.createdby) {
 					$(cell).find('.editLink').hide();
-					$(cell).find('.deleteLink').hide();
-				}
+					if($("#loggedUser").attr('userType')>1) {
+						$(cell).find('.deleteLink').hide();
+					}
+				} 
 				if(this.text.indexOf('[Post]') > -1) {
 					this.text = convertPostToTable(this.text,1);
 				}
