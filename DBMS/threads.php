@@ -325,7 +325,7 @@
 				<div class="control-group">
 					<label class="control-label">From</label>
 					<div class="controls">
-						<div class="input-append date " id="dp1" data-date=" " data-date-format="yyyy-mm-dd">
+						<div class="date" id="dp1" data-date=" " data-date-format="yyyy-mm-dd">
 						  <input class="span2 datepicker" id="from_date" size="16" type="text" value=" " >
 						</div>
 					</div>
@@ -335,7 +335,7 @@
 				<div class="control-group">
 					<label class="control-label">To</label>
 					<div class="controls">
-						<div class="input-append date " id="dp2" data-date=" " data-date-format="yyyy-mm-dd">
+						<div class="date" id="dp2" data-date=" " data-date-format="yyyy-mm-dd">
 						  <input class="span2 datepicker" id="to_date" size="16" type="text" value=" ">
 						</div>
 					</div>
