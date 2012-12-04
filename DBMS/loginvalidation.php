@@ -20,8 +20,12 @@ if (!$result)
 
 else if (mysql_num_rows($result) == 0) 
 {
-	echo "No Record of such User Found";
-	exit;
+	//echo "No Record of such User Found";
+	if(isset($_COOKIE['valid']))
+		setcookie("valid", "", time()-3600);
+	//$str="Password updated successfully";
+	header( 'Location: index.php?a=Wrong Credentials' ) ;
+	//exit;
 }
 	
 $row2 = mysql_fetch_array($result);
@@ -88,7 +92,11 @@ if ($logged_user != 3 and $logged_user != 4)
 
 else {
 	// Jump to login page
-	header('Location: index.php');
+	if(isset($_COOKIE['valid']))
+		setcookie("valid", "", time()-3600);
+	//$str="Password updated successfully";
+	header( 'Location: index.php?a=You are blocked. Please contact the Instructor' ) ;
+	//header('Location: index.php');
 
 }
 

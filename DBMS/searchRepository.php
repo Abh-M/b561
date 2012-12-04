@@ -82,6 +82,8 @@ function searchPosts($searchRequest)
 		$query = $query." AND createdby IN (select userid from User where username like '%".$searchRequest['user']."%')";
 	if(!empty($searchRequest['text']))
 		$query = $query." AND text like ('%".$searchRequest['text']."%')";
+	if(!empty($searchRequest['fromDate']) && !empty($searchRequest['toDate']))
+		$query = $query." AND dateposted between '".$searchRequest['fromDate']."' and '".$searchRequest['toDate']."'";
 	if(!empty($searchRequest['tag']))
 		$query = $query." AND postid IN (select tp.postid from tagtopost tp,Tag t where tp.tagid = t.tagid and t.keyword like '%".$searchRequest['tag']."%')";
 	$queryResult = mysql_query($query);

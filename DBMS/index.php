@@ -8,7 +8,13 @@ if (isset($_SESSION['username'])) {
 header('Location: categories.php');
 
 }
-
+//session_start();
+	if(isset($_GET['a']) && (!(isset($_COOKIE['valid'])))) 
+	{ 
+		setcookie('valid');
+		$a = $_GET['a'];
+		
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -107,7 +113,22 @@ header('Location: categories.php');
 			    </div>
 			  </div>
 			</form>
+            <div class="span5" id="contentPane">
+        <?php 
+			
+			if(isset($a))
+			{
+				if(!(strcmp($a,"")==0))
+				{ 
+					echo $a;
+					$a=""; 
+				}
+			}
+			//else echo "Welcome! to your profile page";
+			?>
+        </div>
 		</div>
+        
 	    <div class="span6 well">
 	      <!--Body content-->
 		<p><img src="img/DiscussionForum.jpg"/><p>

@@ -583,13 +583,15 @@ $("document").ready(
 				url: "searchRepository.php",
 				async: false,
 				data: {searchRequest : searchRequest, requestType : 'searchPosts'}
-			}).done(function(response){		
+			}).done(function(response){
 				var list = jQuery.parseJSON(response);
 				$("#search_result_info").show();
 				$('#keyword_filter').val('');
 				$('#user_filter').val('');
 				$('#tag_filter').val('');
 				$("#postSearchText").val('');
+				$("#from_date").val('');
+				$("#to_date").val('');
 				$("#ref").siblings().detach();				
 				layoutRows(list);				
 			});
