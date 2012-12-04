@@ -79,7 +79,7 @@
 								</div>
 							</div>
 						</div>
-						<a rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Post Search Filters" data-placement="bottom" class="btn">Advance Search</a>
+						<a rel="tooltip" data-toggle="modal" href="#filtersModal" data-original-title="Post Search Filters" data-placement="bottom" class="btn">Advanced Search</a>
 						
 					</div>
 				</form>

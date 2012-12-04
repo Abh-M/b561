@@ -93,7 +93,7 @@
 							</div>
 						</div>
 					</div>
-					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" id="threadFilters" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advance Search</i></a>
+					<a  rel="tooltip" data-toggle="modal" href="#filtersModal" id="threadFilters" data-original-title="Thread Search Filters" data-placement="bottom" class="btn">Advanced Search</i></a>
 						
 				</div>
 			</form>
