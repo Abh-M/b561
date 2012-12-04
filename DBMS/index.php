@@ -120,7 +120,7 @@ header('Location: categories.php');
 			{
 				if(!(strcmp($a,"")==0))
 				{ 
-					echo $a;
+					echo "<div class=\"alert alert-error\">$a</div>";
 					$a=""; 
 				}
 			}
