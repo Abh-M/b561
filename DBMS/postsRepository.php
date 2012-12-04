@@ -66,7 +66,8 @@ function createReplyPost($replyText, $postId, $threadId) {
 	$result = json_encode(false);
 	$currDateTime = date('Y-m-d H:i:s');
 	$createdby = $_SESSION['userid'];
-	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$replyText."', '".$currDateTime."',
+	$text = mysql_real_escape_string($replyText);
+	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$text."', '".$currDateTime."',
 			0,".$postId.", ".$threadId.", ".$createdby." )";
 	$result = mysql_query($query);
 	if($result==true) {
@@ -80,7 +81,8 @@ function createNewPost($kthreadId,$kDesc,$kTags)
 	$result = json_encode(false);
 	$currDateTime = date('Y-m-d H:i:s');
 	$createdby = $_SESSION['userid'];
-	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$kDesc."', '".$currDateTime."',
+	$text = mysql_real_escape_string($kDesc);
+	$query  = "INSERT INTO Post (text,dateposted,votes,linkedpostid,threadid,createdby) VALUES ('".$text."', '".$currDateTime."',
 			0,null, ".$kthreadId.", ".$createdby." )";
 	$result = mysql_query($query);
 	//set make entries in tags for the new post
