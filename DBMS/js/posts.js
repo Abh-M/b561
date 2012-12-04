@@ -585,20 +585,22 @@ $("document").ready(
 					$.post('helpers.php',{requestType: 'getUserInfoFromUserId',userId: String(this.createdby)},
 					function(response){
 						var user = jQuery.parseJSON(response);
-						console.log(user);
 						$(cell).find('.posted_by_val').html(user.username);
 					});
 				} else {
 					$(cell).find('.posted_by_val').html($("#loggedUser").attr('username'));
 				}
 				$(cell).find('.post_content_div').attr("value",this.text);
+				if($("#loggedUser").attr('userid')!=this.createdby && $("#loggedUser").attr('userType')>1) {
+					$(cell).find('.editLink').hide();
+					$(cell).find('.deleteLink').hide();
+				}
 				if(this.text.indexOf('[Post]') > -1) {
 					this.text = convertPostToTable(this.text,1);
 				}
 				$(cell).find('.post_content_div').html(this.text);console.log(this.tags.length);
 				if(this.tags.length>0)
 				{
-					console.log("Hello");
 					for(var j=0 ; j<this.tags.length; j++)
 					{
 						var tag  =this.tags[j];
