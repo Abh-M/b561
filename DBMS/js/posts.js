@@ -257,9 +257,9 @@ $("document").ready(
 		//delete posts
 		$(".deleteLink").live('click',function(event){
 			event.preventDefault();
-			
 			//get the post id
 			var postId  = $(this).closest('.tableRow').attr('postId');
+
 			$.ajax({
 				type: "POST",
 				url: "postsRepository.php",
