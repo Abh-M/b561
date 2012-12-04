@@ -72,6 +72,8 @@ function getAllCategories()
 
 function createNewCategory($catName,$ownerId)
 {
+	
+	$catName = mysql_real_escape_string($catName);
 	$result = json_encode(false);
 	$query = "INSERT INTO category (Category, creator) VALUES ('".$catName."',".$ownerId.")";
 	$result = mysql_query($query);
